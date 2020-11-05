@@ -129,8 +129,8 @@ def log_in(request):
 
 
 def send_email(request):
-    addr_from = "ar12.abgaryan@gmail.com"                         # Отправитель
-    password  = "Artur8043"
+    addr_from = "vau@vauvision.com"                         # Отправитель
+    password  = "20052005Vauvision!"
     addr_to = request.GET.get('email', None)
     name = request.GET.get('name', None)
 
@@ -142,8 +142,8 @@ def send_email(request):
     body = name + ", вас будут оповещать о всех событиях через рассылку. Оставайтесь на связи!)"
     msg.attach(MIMEText(body, 'plain'))                     # Добавляем в сообщение текст
 
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
+    server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
+    # server.starttls()
     server.login(addr_from, password)
     server.send_message(msg)
     server.quit()
@@ -201,8 +201,8 @@ def index(request):
         user = User.objects.create_user(username=email, email=email, password=generated_pass)
         user.save()
 
-        addr_from = "ar12.abgaryan@gmail.com"  # Отправитель
-        password = "Artur8043"
+        addr_from = "vau@vauvision.com"  # Отправитель
+        password = "20052005Vauvision!"
         addr_to = email
 
         msg = MIMEMultipart()  # Создаем сообщение
@@ -214,8 +214,8 @@ def index(request):
             email, generated_pass)  # Текст сообщения
         msg.attach(MIMEText(body, 'plain'))  # Добавляем в сообщение текст
 
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
+        server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
+        # server.starttls()
         server.login(addr_from, password)
         server.send_message(msg)
         server.quit()
@@ -464,8 +464,8 @@ def submit_request(request):
                 y.upload(path_or_file=f"Music/static/documents/{offer_name}.pdf",
                          dst_path=f'{folder_path}/{offer_name}.pdf/')
 
-                addr_from = "ar12.abgaryan@gmail.com"  # Отправитель
-                password = "Artur8043"
+                addr_from = "vau@vauvision.com"  # Отправитель
+                password = "20052005Vauvision!"
                 addr_to = request.POST['EMAIL']
 
                 msg = MIMEMultipart()  # Создаем сообщение
@@ -487,7 +487,7 @@ def submit_request(request):
                 file.add_header('Content-Disposition', 'attachment', filename=offer_name)  # Добавляем заголовки
                 msg.attach(file)
 
-                server = smtplib.SMTP('smtp.gmail.com', 587)
+                server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
                 server.starttls()
                 server.login(addr_from, password)
                 server.send_message(msg)
