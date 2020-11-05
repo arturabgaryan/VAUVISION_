@@ -1,0 +1,63 @@
+{% extends '../../wrapper.html' %}
+
+{% block content %}
+    <section class="content section container">
+        <h1>Админ панель</h1>
+        <div class="columns">
+            <div class="column is-half">
+                <h2 style="text-decoration: underline" class="subtitle is-4">Заявки</h2>
+                {% for s_request in scan_requests %}
+                    <div style="margin-bottom: 3%" class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                {{ s_request.release_name }}<br>
+                                Дата релиза {{ s_request.release_date }}
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                          <span class="icon">
+                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                          </span>
+                            </a>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                Тип релиза: {{ s_request.release_type }}<br>
+                                VK автора: <a target="_blank" href="{{ s_request.contact }}">{{ s_request.contact }}</a><br>
+                                Требуется карточка ВК: <b>{{ s_request.vk_style }}</b><br>
+                                EMAIL автора: <a target="_blank"
+                                                 href="mailto:{{ s_request.email }}">{{ s_request.email }}</a><br>
+                                Мат: {{ s_request.filthy }}
+
+
+                                <br><br>
+                                <time datetime="2016-1-1">Создана: {{ s_request.create_time }}</time>
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a href="submit-request?id={{ s_request.id }}" class="card-footer-item">Заполнить паспортные
+                                данные</a>
+                            <a  class="card-footer-item" href="delete-request?id={{ s_request.id }}">Удалить заявку</a>
+
+                        </footer>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <div class="column">
+                <h2 style="text-decoration: underline" class="subtitle is-4">Сгенерировать код для регистрации</h2>
+                <form method="post" action="/form-admin/generate_code/" class="form">
+                    {% csrf_token %}
+                    <label for="" class="label">Email пользователя</label>
+                    <input name="email" required placeholder="email@host.com" type="email" class="input"><br><br>
+                    {% if result %}
+                        <span><b>{{ result }}</b></span><br><br>
+                    {% endif %}
+                    <button type="submit" class="button">Сгенерировать</button>
+                </form>
+
+            </div>
+        </div>
+
+
+    </section>
+{% endblock %}

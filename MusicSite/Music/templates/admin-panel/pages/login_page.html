@@ -1,0 +1,43 @@
+{% extends '../../wrapper.html' %}
+
+{% block content %}
+
+    <section class="content section container">
+        <a href="/">На главную</a>
+        <div class="columns">
+            <div style="padding: 3%" class="column is-half">
+                <h2 class="subtitle is-3">Вход</h2>
+                <form method="post" action="/form-admin/login/">
+                    {% csrf_token %}
+                    <label for="" class="label">Логин</label>
+                    <input type="text" required name="username" class="input"><br><br>
+                    <label for="" class="label">Пароль</label>
+                    <input type="password" required name="password" class="input"><br><br>
+                    {% if login_error %}
+                    <span style="color: red" class="error">{{ login_error }}</span><br><br>
+                    {% endif %}
+                    <button type="submit" class="button">Войти</button>
+                </form>
+            </div>
+            <div style="padding: 3%" class="column is-half">
+                <h2 class="subtitle is-3">Регистрация</h2>
+                <form method="post" action="/form-admin/signup/">
+                    {% csrf_token %}
+                    <label for="" class="label">Логин</label>
+                    <input name="username" required type="text" class="input"><br><br>
+                    <label for="" class="label">Почта</label>
+                    <input type="email" required name="email" class="input"><br><br>
+                    <label for="" class="label">Пароль</label>
+                    <input type="password" required name="password" class="input"><br><br>
+                    <label for=""  class="label">Код доступа</label>
+                    <input name="access-code" required type="text" class="input"><br><br>
+                    {% if signup_error %}
+                    <span style="color: red" class="error">{{ signup_error }}</span><br><br>
+                    {% endif %}
+                    <button type="submit" class="button">Регистрация</button>
+                </form>
+            </div>
+        </div>
+
+    </section>
+{% endblock %}

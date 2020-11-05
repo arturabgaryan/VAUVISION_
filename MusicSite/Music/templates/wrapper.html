@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="/static/js/main.js"></script>
+
+    <title>Vauvision form</title>
+</head>
+
+<body onload="window.angle = 0;">
+<div class="loading-screen">
+    <div class="loading-animation">
+            <span style="font-size: 28px" class="highlighting">
+                НЕ ЗАКРЫВАЙТЕ ЭТУ СТРАНИЦУ!<br>
+                ИДЁТ ЗАГРУЗКА МАТЕРИАЛА, ПОТОМ ВЫ УВИДИТЕ СТРАНИЦУ В ВК =) <br>ТОГДА МОЖНО ЗАКРЫВАТЬ</span><br><br>
+        Отлично, ваша заявка получена!<br>
+        Скоро мы с вами свяжемся =)<br>
+        Но, на всякий случай, не стесняйтесь поторопить нас в ЛС <br><a href="https://vk.com/vauvision">https://vk.com/vauvision</a><br>
+        ПОДПИСЫВАЙТЕСЬ НА НАШИ СОЦ. СЕТИ, ЧТОБЫ НЕ ПРОПУСКАТЬ НОВОСТИ И АКЦИИ<br><br>
+        ВК: <a href="https://vk.com/vauvisionlabel">https://vk.com/vauvisionlabel</a><br>
+        ИНСТ: <a href="https://www.instagram.com/vauvisionlabel/">https://www.instagram.com/vauvisionlabel/</a><br>
+        НАШИ ВИДЕО: <br>
+        <a href="https://www.youtube.com/channel/UC92Nv8m527ePerav-nVwUkw">https://www.youtube.com/channel/UC92Nv8m527ePerav-nVwUkw</a><br>
+        <div class="loading-bar"></div>
+    </div>
+</div>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            <img src="/static/images/background/logowhite.png" alt="">
+        </a>
+
+    </div>
+    {% if user.is_authenticated %}
+        <div id="navbarBasicExample" class="navbar-menu">
+
+
+            <div class="navbar-end">
+                <a style="color: white; background: none" class="navbar-item" href="/form-admin/login">Перейти в админ
+                    панель</a>
+                <div class="navbar-item">
+                    <span style="color: white" class="is-light">Пользователь: {{ user.username }} <span>
+                </div>
+                <div class="navbar-item">
+
+                    <div class="buttons">
+
+                        <a href="/form-admin/logout/" class="button is-light">
+                            Выйти
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</nav>
+
+<div id="app">
+    {% block content %}
+    {% endblock %}
+</div>
+
+
+<style>
+    nav.navbar {
+        background-color: black;
+        padding: 1%;
+    }
+
+    nav.navbar h1.title {
+        color: white;
+    }
+
+    span.required {
+        color: red;
+        padding-left: 1%;
+    }
+
+    div.control {
+        margin-bottom: 15px;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/element-ui/lib/umd/locale/en.js"></script>
+<script type="application/javascript">
+    ELEMENT.locale(ELEMENT.lang.en)
+</script>
+<script src="/static/js/myVue.js"></script>
+<script>
+    function start_preloader() {
+        document.querySelector('.loading-screen').style.display = 'flex'
+    }
+
+    function rotateImage(id, angle) {
+
+        let img = document.querySelector(`#${id}`);
+        window.angle += angle;
+        img.style.transform = `rotate(${window.angle}deg)`;
+        if ((window.angle >= 180) || (window.angle <= -180)) {
+            window.angle = 0;
+
+        }
+
+    }
+
+    $(function () {
+        $("#releaseDate").mask("9999-99-99");
+    });
+</script>
+</body>
+
+</html>

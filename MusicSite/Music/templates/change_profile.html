@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Изменить информацию</title>
+       <style>
+        body{
+        background-image: url("/static/fon_leybl.png");
+        }
+        .button {
+  border-radius: 15px;
+  background-color: white;
+  border: none;
+  color: black;
+  text-align: center;
+  font-size: 20px;
+  padding:12px;
+  width: 110px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+      .button1 {
+  border-radius: 15px;
+  background-color: white;
+  border: none;
+  color: black;
+  text-align: center;
+  font-size: 20px;
+  padding:12px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button1:hover{
+    transition: 0.3s;
+    background-color: #bdbdbd;
+    }
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+
+}
+.button:hover{
+    transition: 0.3s;
+    background-color: #bdbdbd;
+    }
+.input-container {
+    display: -ms-flexbox;
+    display: flex;
+    width: 60%;
+    margin-bottom: 15px;
+}
+
+.icon {
+    padding: 10px;
+    background: #3b3b3b;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}
+
+.input-field:focus {
+    border: 2px solid #3b3b3b;
+}
+    </style>
+</head>
+<body>
+<div style="padding:50px 100px;">
+     <div style="text-align:center;padding:150px 200px;background-color:black;">
+     <img class='logoimg' src="/static/vauvision_white (3).png" style="padding-bottom:120px;" >
+             <form action="/change" style="text-align:center">
+            <div style="padding-left:350px;padding-bottom:60px;">
+                <div class="input-container" >
+                <i class="fa fa-user icon"></i>
+                <input class="input-field" type="text" placeholder="Введите логин" name="usrnm">
+            </div>
+                <div class="input-container">
+                <i class="fa fa-key icon"></i>
+                <input class="input-field" type="password" placeholder="Введите старый пароль" name="psw_old">
+              </div>
+
+              <div class="input-container">
+                <i class="fa fa-key icon"></i>
+                <input class="input-field" type="password" placeholder="Введите новый пароль" name="psw">
+              </div>
+                 <div class="input-container" >
+                <i class="fa fa-key icon"></i>
+                <input class="input-field" type="password" placeholder="Повторите пароль" name="psw2">
+              </div>
+            </div>
+
+             <button class="button" ><span>Изменить</span></button>
+        </form>
+         </div>
+ </div>
+</body>
+</html>

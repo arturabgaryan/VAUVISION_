@@ -1,0 +1,657 @@
+<html>
+<head>
+    <meta name="viewport" content="width=1920, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<style>
+body {
+  margin:0;
+  font-family: 'Montserrat';
+  font-weight:400;
+  width:100%;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #0d0d0d;
+  position: fixed;
+  top: 0;
+  width:100%;
+}
+
+a {
+  color: white !important;
+}
+
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 30px 10px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+li .active {
+  float: left;
+  padding: 30px 40px;
+}
+.logoimg{
+width: 109px;
+height: 20px;
+}
+
+.text1{
+margin-left: 150px;
+font-size:13px;
+color:white;
+line-height: 2;
+margin-bottom:30px;
+}
+.btn6{
+    text-decoration:none;
+    background: black;
+    border-radius: 30px;
+    color: white;
+    padding:1px 10px;
+}
+.btn6:hover{
+    text-decoration:underline;
+        }
+.btn1{
+text-decoration:none;
+    background: white;
+    padding:10px;
+    border-radius: 30px;
+    color: black !important;
+}
+
+.btn2{
+    text-decoration:none;
+    background: black;
+    padding:10px;
+    border-radius: 30px;
+    color: white;
+}
+
+.btn4{
+    text-decoration:none;
+    background: black;
+    padding:10px;
+    border-radius: 30px;
+    border:2px solid white;
+    color: white;
+    font-size:12px;
+}
+
+.btn5{
+    text-decoration:none;
+    background: white;
+    padding:7px;
+    border:2px solid white;
+    border-radius: 30px;
+    color: black !important;
+    font-size:13px;
+}
+
+.btn4:hover {
+    transition: 0.3s;
+    background-color: white;
+    color:black !important;
+    }
+
+.btn5:hover {
+    transition: 0.3s;
+    background-color: #bdbdbd;
+    border:2px solid  #bdbdbd;
+    }
+
+.btn3{
+    text-decoration:none;
+    background: black;
+    margin-top:10px;
+    border-radius: 30px;
+    color: white;
+    padding:10px;
+    margin-left:-80px;
+}
+
+.btn3:hover {
+    transition: 0.3s;
+    background-color: #363636;
+    }
+
+
+.btn2:hover {
+    transition: 0.3s;
+    background-color: #363636;
+    color: black;
+    }
+
+.btn1:hover {
+    transition: 0.3s;
+    background-color: #bdbdbd;
+    }
+.text2{
+margin-left:50px;
+margin-top: 200px;
+float:right;
+}
+.t{
+font-size:40px;
+font-family: 'Montserrat';
+      font-weight: 700;
+}
+.white{
+background-color:white;
+height:326px;
+width:25%;
+padding-top:10px;
+padding-bottom:-50px;
+color:black;
+line-height: 2;
+text-align:center;
+}
+.white_header{
+background-color:white;
+height:50px;
+width:100%;
+text-align:center;
+color:black;
+margin-top:25px;
+margin-bottom:20px;
+}
+.black{
+background-color:#1c1c1c;
+height:326px;
+width:25%;
+padding-top:20px;
+padding-bottom:-50px;
+color:white;
+line-height: 2;
+text-align:center;
+}
+.black_header{
+background-color:#1c1c1c;
+height:50px;
+width:100%;
+text-align:center;
+color:white;
+margin-top:25px;
+margin-bottom:20px;
+}
+.black1{
+background-color:#1c1c1c;
+height:476px;
+width:21%;
+padding-top:20px;
+padding-bottom:-50px;
+color:white;
+line-height: 2;
+}
+.black_header1{
+background-color:#1c1c1c;
+height:50px;
+width:100%;
+color:white;
+margin-top:45px;
+margin-bottom:40px;
+}
+.black_text{
+background-color:#1c1c1c;
+height:306px;
+width:100%;
+color:white;
+margin-top:25px;
+font-size:13px;
+}
+
+.black_footer{
+background-color:#1c1c1c;
+height:70px;
+width:100%;
+color:white;
+}
+</style>
+<style>
+.group {
+  position: relative;
+  padding: 10px 0 0;
+  margin-top: 10px;
+  margin-left:450px;
+  width: 30%;
+}
+.group2 {
+  position: relative;
+  padding: 10px 0 0;
+  margin-top: 10px;
+  margin-left:-120px;
+  width: 30%;
+}
+
+.field{
+width: 70%;
+  border: 0;
+  border-bottom: 2px solid black;
+  outline: 0;
+  font-size: 1.1rem;
+  color: black;
+  padding: 4px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+.field:focus{
+
+padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #3b3b3b,#ed6707);
+  border-image-slice: 1;
+}
+
+.label {
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: black;
+}
+
+.field{
+  &:required,&:invalid { box-shadow:none; }
+}
+
+</style>
+</head>
+<body>
+
+<ul>
+  <li><a class="active" href="#firstdiv" ><img class='logoimg' src="/static/vauvision_white (3).png" ></a></li>
+    <li><a href="https://www.tiktok.com/@vauvision_main" style="float: right;"><img alt="TikTok" src="https://static.wixstatic.com/media/d3ee8f_53dfd24b6fc741c1bb871a75935b73e6~mv2.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01/d3ee8f_53dfd24b6fc741c1bb871a75935b73e6~mv2.webp" style="width: 20px; height: 20px; object-fit: cover;"></a></li>
+    <li><a href="https://www.youtube.com/c/vauvision" style="float: right;"><img alt="YouTube" src="https://static.wixstatic.com/media/203dcdc2ac8b48de89313f90d2a4cda1.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01/YouTube.webp" style="width: 20px; height: 20px; object-fit: cover;"></a></li>
+    <li><a href="https://www.instagram.com/vauvision/" style="float: right;"><img alt="Instagram" src="https://static.wixstatic.com/media/81af6121f84c41a5b4391d7d37fce12a.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01/Instagram.webp" style="width: 20px; height: 20px; object-fit: cover;"></a></li>
+    <li><a href="https://vk.com/vauvisionlabel" style="float: right;"><img alt="VK Share" src="https://static.wixstatic.com/media/7f7f31e5b76844cc9f8af5c826c0b407.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01/VK%20Share.webp" style="width: 20px; height: 20px; object-fit: cover;"></a></li>
+    <li><a href="/authorization" style="float: right;"><b>Войти</b></a></li>
+    <li><a href="#rezume" style="float: right;">Резюме</a></li>
+     <li><a href="#faq" style="float: right;">FAQ</a></li>
+    <li><a href="#cost" style="float: right;">Цены</a></li>
+    <li><a href="#forth" style="float: right;">Основатель</a></li>
+    <li><a href="#carouselExampleIndicators" style="float: right;">Отзывы</a></li>
+    <li><a href="#third" style="float: right;">Преимущества</a></li>
+    <li><a href="#second" style="float: right;">О лейбле</a></li>
+    <li><a href="#firstdiv" class="active1" style="float: right;">Главная</a></li>
+</ul>
+<div id='firstdiv' style="background-color:#0d0d0d;padding-bottom:60px;">
+  <h1 style="text-align:center; font-size:40px; color:white; padding-top:100px; padding-bottom:60px;font-weight: bolder;">ВЫЛОЖИ ТРЕК НА ВСЕ <br> ПЛОЩАДКИ И ПРОДАВАЙ СВОЮ <br>
+МУЗЫКУ ВО ВСЁМ МИРЕ</h1>
+  <div style="padding:0px 470px; background-color:#0d0d0d; display:flex;">
+     <div style="text-align:center;">
+       <h2 style="margin-bottom:10px; color:white;font-size:23px; font-weight: bold;">ПОСМОТРИ ЭТО ВИДЕО</h2>
+       <iframe width="350" height="220" src="https://www.youtube.com/embed/cT-1jK71dQo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+     </div>
+     <div class="text1">
+       <p style="margin-bottom:30px; font-weight: bold;font-size:18px;text-align:center;">2 000 АРТИСТОВ ВЫБРАЛИ НАС</p>
+       <p style="margin-bottom:40px;text-align:center;">Мы знаем редакторов подборок и получаем промо-поддержку.<br> Ты сохраняешь все права и можешь вывести любую сумму.<br> Ответим в течение 3 часов, работаем по договору</p>
+       <p style="text-align:center;">Продавай музыку на:<br>Apple Music, VK, BOOM, Tik Tok, Яндекс.Музыка, <br>Spotify, YouTube и 20+ платформах</p>
+        <a href="https://music.yandex.ru/label/1220958/albums?sort=rating" class="btn1" style="float:left;margin-left:110px;">Список наших релизов</a>
+     </div>
+
+  </div>
+
+</div>
+
+<div id="second" style="padding-left:600px;background-color:white;display:flex;padding-right:300px;">
+  <img src="/static/fon_leybl.png" style="width:350px; height: 650px; margin-top:100px;margin-bottom:50px;box-shadow: -15px 15px;">
+  <div class="text2">
+    <h1 class="t"><b>VAUVISION</b></h1>
+    <p style="margin-bottom:30px;">– музыкальный лейбл, основанный в июле 2018 года. Мы<br>занимаемся дистрибуцией музыки и <br>менеджментом артистов. </p>
+    <p style="margin-bottom:30px;">Более 2000 исполнителей выкладывают свою музыку <br> через VAUVISION, а количество треков в нашем <br> каталоге превысило 8 000 песен.<br> Это не просто так!</p>
+    <p style="margin-bottom:100px;">В каталоге VAUVISION есть треки артистов:<br>
+
+КРЕСТ, Три дня дождя, 21plohoi, White Punk, KURT92,<br> CLONNEX, zayatz, AQUAKILLA, lowlife, Энди Картрайт,<br>
+
+044 Rose, TILMIL, ICEBER9, 3EED, XEROGI и др.</p>
+    <a href="#groups" class="btn2" style="float:left;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Присоединиться бесплатно</a>
+  </div>
+
+</div>
+<div id='groups'>
+  <p style='text-align:center;font-size:25px;margin-bottom:40px;'><b>ПОДПИШИСЬ</b> НА НАШУ РАССЫЛКУ, ЧТОБЫ ПОЛУЧАТЬ БЕСПЛАТНЫЕ<br> МАТЕРИАЛЫ ПО ПРОДВИЖЕНИЮ И РАЗВИТИЮ КАРЬЕРЫ АРТИСТА</p>
+</div>
+
+<form action="/send_email">
+    <div style="display:flex;padding-bottom:100px;">
+  <div class='group' >
+     <input class="field" name="name" id='name' placeholder="Имя">
+  </div>
+<div class='group2'>
+  <input class="field" name="email" id='email' type="email" placeholder="Эл.почта">
+</div>
+      <button class="btn6">Отправить</button>
+</div>
+</form>
+
+<div id="third" style="background-color:#0d0d0d">
+  <h1 style="text-align:center;color:white;padding-top:70px">ПРЕИМУЩЕСТВА VAUVISION</h1>
+  <p style="text-align:center;color:white">Что ты получишь, работая с нами</p>
+  <div style="display:flex;padding-left:70px;padding-right:40px;margin-top:40px;margin-bottom:20px;">
+    <div class="white">
+     <div class="white_header"><h3 style="font-size:21px;font-weight:bold;">ВСЕ ПЛОЩАДКИ</h3></div>
+      <p>Твой трек появится на<br> всех существующих<br> площадках и будет<br> доступен во всё мире,<br> на всех платформах</p>
+    </div>
+    <div class="black" style="margin-left:20px;margin-right:20px;">
+      <div class="black_header"><h3 style="font-size:21px;font-weight:bold;">ПРОМО НА<br> ПЛОЩАДКАХ</h3></div>
+      <p>Мы показываем твой<br> релиз редакторам всех<br> площадок, чтобы<br> попасть на витрины и<br> плейлисты</p>
+    </div>
+    <div class="white">
+     <div class="white_header"><h3 style="font-size:21px;font-weight:bold;">БЫСТРЫЕ <br>СРОКИ</h3></div>
+      <p>Загрузим твой релиз<br> на площадки за 3 дня,<br> часто – быстрее</p>
+    </div>
+    <div class="black" style="margin-left:20px;margin-right:20px;">
+      <div class="black_header"><h3 style="font-size:21px;font-weight:bold;"><b>БЫСТРАЯ <br>ПОДДЕРЖКА</b></h3></div>
+      <p>Отвечаем в течение 3<br> часов, оперативно<br> отвечаем на вопросы<br> и вносим правки</p>
+    </div>
+
+  </div>
+  <div style="display:flex;padding-left:70px;padding-right:40px;margin-top:20px;padding-bottom:40px;">
+    <div class="black">
+     <div class="black_header"><h3 style="font-size:21px;font-weight:bold;">ПРАВА <br>СОХРАНЯЮТСЯ</h3></div>
+      <p>Ты остаёшься<br> правообладателем своего трека,<br> разрешая нам только<br> размещать его на<br> площадках</p>
+    </div>
+    <div class="white" style="margin-left:20px;margin-right:20px;">
+      <div class="white_header"><h3 style="font-size:21px;font-weight:bold;">ОТЧЁТЫ <br>СО СТАТИСТИКОЙ</h3></div>
+      <p>Каждый квартал ты<br> получаешь подробный<br> отчёт по прослушиваниям и<br> заработку со своих<br> релизов</p>
+    </div>
+    <div class="black">
+     <div class="black_header"><h3 style="font-size:21px;font-weight:bold;">ВЫВОД <br>ЛЮБОЙ СУММЫ</h3></div>
+      <p>Нет ограничений на<br> вывод средств, даже<br> если это 1 копейка</p>
+    </div>
+    <div class="white" style="margin-left:20px;margin-right:20px;">
+      <div class="white_header"><h3 style="font-size:21px;font-weight:bold;">ЮРИДИЧЕСКАЯ <br>НАДЁЖНОСТЬ</h3></div>
+      <p>Подписываем договор<br> на каждый релиз, не<br> пускаем пиратский<br> контент и гарантируем<br> исполнение обязательств</p>
+    </div>
+
+</div>
+  <div style="display:flex;margin-left:670px;">
+    <a href="#group" class="btn4" style="margin-top:30px;margin-right:40px;font-size:13px;">Что такое промо и почему это ценно?</a>
+    <a href="#group" class="btn5" style="margin-top:30px;padding-top:10px;">Пример в попадание промо</a>
+  </div>
+</div>
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="background-color:#0d0d0d;padding-top:500px;">
+  <div style="background-color:#0d0d0d;text-align:center;margin-top:-400px;margin-bottom:50px;">
+<h1 style="color:white;font-weight:bold;">ОТЗЫВЫ АРТИСТОВ</h1>
+</div>
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="3" ></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="8"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="9"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="10"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="11"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="12"></li>
+  </ol>
+  <div class="carousel-inner" style="color:white;">
+    <div class="carousel-item active" style="text-align:center;padding-top:30px;">
+      <p>Приятно работать с данным человеком, это тот самый случай, когда профессионализм и<br> человеческие качества находятся на высоком уровне. Все по делу, отчеты присылаются вовремя,<br> время ответа тоже долго ждать не придётся. Однозначно рекомендую работать с ним)</p>
+      <a href="https://vk.com/coldrizemus" style="padding-top:30px;text-decoration:underline;">Артём Кириенко</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;">
+      <p>Все на высшем уровне, выполняют работу быстро и качественно, отчеты всегда вовремя, +<br> отсылают треки на промо, что не может не радовать)<br>В целом все топ </p>
+      <a href="https://vk.com/lilclonnex" style="padding-top:30px;text-decoration:underline;">Северин Наконечний</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;">
+      <p>Давно сотрудничаем с данным лейблом. Дистрибуция проходит на высоком уровне. Отчёты<br> присылают вовремя, гонорар выплачивают без задержек. Также радует тёплое отношение к<br> артистам, быстрая обратка</p>
+      <a href="https://vk.com/svyat_selivanov" style="padding-top:30px;text-decoration:underline;">Святослав Селиванов</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;">
+      <p>VAUVISION отлично выполняют свою работу. Хотел работать с профи, чтобы не было ответов н<br>а мои вопросы "Не знаю" или "хз, почему так получилось". Все конкретно и четко. Если ты ищешь<br> через кого, чтобы было все грамотно, то к ним. Рекомендую. Пора забывать о том, что ты должен<br> все сам делать (сводить, выпускаться, минуса делать). Я свою проблему с дистрибуцией решил.</p>
+      <a href="https://vk.com/tema_teimi" style="padding-top:30px;text-decoration:underline;">Тёма Зиновенко</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;">
+      <p>Работа по дистрибьюции выполняется чётко и без косяков, загружал не один релиз, всё выходило<br> во время и без всяких заминок. На любые вопросы всегда давались корректные и адекватные<br> ответы. Очень радует, что существует возможность получить промо, что еще больше мотивирует<br> делать крутую музыку!<br>
+всё гуд</p>
+      <a href="https://vk.com/toniwolfone" style="padding-top:30px;text-decoration:underline;">Антон Фридов</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;">
+      <p>Работа VAUVISION стоит своих денег , выплата вовремя и всегда на связи , помогают всем чем<br> можно , отличная дистрибуция и лейбл , всем советую ) Владимир Ванин топ</p>
+      <a href="https://vk.com/vsnewofficial1" style="padding-top:30px;text-decoration:underline;">Вячеслав Весенёв</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;">
+      <p>Делали несколько релизов в прошлом и в этом году.Все очень оперативно,без лишних вопросов<br> и заморочек.<br>
+Очень благодарен за помощь,обязательно будем сотрудничать дальше!</p>
+      <a href="https://vk.com/qwonstanteem" style="padding-top:30px;text-decoration:underline;">Константин Самарин</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;">
+      <p>Я очень рада, что друзья мне посоветовали именно этот лейбл  все четко, все вовремя + важный<br> бонус в виде предложения в подборки  для меня, как для начинающего артиста, попадание в<br> подборки - дорога в жизнь  безмерно счастлива и благодарна за сотрудничество</p>
+      <a href="https://vk.com/daryanova23" style="padding-top:30px;text-decoration:underline;">Дарья Новикова</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;">
+      <p>Долго искала дистрибутора и к своему счастью нашла лейбл VAUVISION. всегда есть сомнения и<br> опасения в начале любого сотрудничества, но в процессе я поняла, что сделала верный выбор.<br> мне отвечали быстро и без сложностей на все вопросы перед оформлением договора. в релизе<br> возникла проблема - сразу откликнулись и решили ее! не думаю, что заливая самостоятельно, я<br> справилась бы с ней сама. и обожемой в итоге треки с релиза оказались в разных плейлистах<br> площадок!! а еще кину респект Владимиру за видео и полезную инфу</p>
+      <a href="https://vk.com/takemetourplanet" style="padding-top:30px;text-decoration:underline;">Ангелина Кузнецова</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;">
+      <p>Очень повезло, что VAUVISION стал первым моим дистрибьютором. Все вопросы и проблемы<br> решаются очень быстро) Сразу же после оформления договора, трек залетел на все площадки без<br> каких-либо трудностей) Планирую сотрудничать дальше ещё долгое время! Рекомендую!</p>
+      <a href="https://vk.com/parniukkostia" style="padding-top:30px;text-decoration:underline;">Константин Парнюк</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;">
+      <p>После долгих поисков и перебора вариантов, посоветовали обратиться к Владимиру в<br> VAUVISION. Это нечто)<br>
+Грамотная и терпеливая работа с новичками, уверен, меня с моими постоянными вопросами уже<br> бы начали игнорить xDD, но ребята с лейбла ответственно подходят к делу, всё объяснили и<br> показали. Всё было выпущено в срок и без нареканий, за что огромное спасибо! Будем работать<br> на постоянке.</p>
+      <a href="https://vk.com/centirise.blutseer" style="padding-top:30px;text-decoration:underline;">Михаил Вандер</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;">
+      <p>Самые качественные платные услуги по дистрибуции музыки которые я встречал. Цена-качество<br> как нигде соответствует. Иногда диву даёшься что все процессы лейбла по сути дело рук одного<br> человека(по крайней мере такое представление) который трепетно относится к клиентам.<br> Мгновенно можно получить обратную связь по любому вопросу даже если ты не клиент, это<br> удивляет. Ваувижн действительно ВАУ и с этим не поспоришь.</p>
+      <a href="https://vk.com/andreazzzflow" style="padding-top:30px;text-decoration:underline;">Андрей Осипов</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;">
+      <p>До сотрудничества с Vauvision возникали проблемы с дистрибуцией треков у других лейблов, в<br> частности по срокам и спорам. После обращения к Vauvision проблемный релиз оказался<br> быстрым и своевременный без каких либо проблем. Выражаю благодарность лейблу и рад<br> будущему сотрудничеству!</p>
+      <a href="https://vk.com/viktordoo" style="padding-top:30px;text-decoration:underline;">Виктор Быстров</a>
+    </div>
+
+
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<div id="forth">
+    <h1 style="font-weight:bold;text-align:center;margin-top:100px;margin-bottom:100px;">ИНФОРМАЦИЯ ОБ ОСНОВАТЕЛЕ ЛЕЙБЛА</h1>
+    <div style="display:flex; padding-left:500px;">
+         <img src="/static/IMG.png" style="width:400px; height: 600px; margin-bottom:50px;object-fit:cover;">
+        <div style="padding-left:50px;">
+            <h3 style="margin-left:0px;margin-top:100px;font-size:20px;">ВЛАДИМИР ВАНИН</h3>
+            <p style="margin-top:20px;">Опыт в индустрии:<br>
+Прошел стажировку на лейбле<br> Warner Music Russia
+Менеджер<br>артистов Наргиз, Олег Майами в<br> продюсерском центре Макса <br>Фадеева (MALFA)
+</p>
+        <p style="margin-top:40px;">Настоящее время:<br>
+Менеджер артистов КРЕСТ (95к <br>подписчиков, более 5 млн прослушиваний<br> на альбомах), zayatz
+Основатель и<br> руководитель лейбла VAUVISION (выложено<br> более 8 000 песен с 2 000 артистами)<br>
+Автор образовательных роликов для начинающих<br> артистов</p>
+        </div>
+    </div>
+</div>
+
+<div id='cost' style="background-color:#0d0d0d;padding-bottom:40px;">
+  <h1 style="text-align:center;color:white;padding-top:70px">СТОИМОСТЬ РАЗМЕЩЕНИЯ</h1>
+  <div style="display:flex;padding-left:210px;padding-right:40px;margin-top:40px;margin-bottom:70px;">
+
+    <div class="black1">
+     <div class="black_header1">
+         <h3 style="font-size:21px;font-weight:bold;padding-left:60px;">СИНГЛ</h3>
+     </div>
+        <div class="black_text">
+            <p style="font-size:20px;padding-left:60px;">1 300 руб.</p>
+            <p style="padding-left:60px;">Трек официально<br> появляется на всех<br> цифровых площадках.<br> Без последующих доплат.</p>
+        </div>
+        <div class="black_footer" style="padding-left:55px;">
+            <a href="/form" class="btn5"  style="padding: 10px 15px;">Оформить</a>
+        </div>
+    </div>
+
+
+    <div class="black1" style="margin-left:20px;margin-right:20px;">
+      <div class="black_header1">
+          <h3 style="font-size:21px;font-weight:bold;margin-left:60px;">АЛЬБОМ</h3>
+      </div>
+        <div class="black_text">
+             <p style="font-size:20px;margin-left:60px;">1 800 руб.</p>
+        <p style="margin-left:60px;">Релиз официально<br> появляется на всех<br> цифровых площадках. <br>Любое количество треков.<br>Без последующих доплат.</p>
+        </div>
+        <div class = 'black_footer' style="padding-left:55px;">
+            <a href="/form" class="btn5"  style="padding: 10px 15px;">Оформить</a>
+        </div>
+    </div>
+
+
+    <div class="black1" style="margin-right:20px;">
+     <div class="black_header1">
+         <h3 style="font-size:21px;font-weight:bold;margin-left:60px;">КЛИП</h3>
+     </div>
+        <div class="black_text">
+            <p style="font-size:20px;margin-left:60px;">1 300 руб.</p>
+            <p style="margin-left:60px;">Клип официально<br> размещается в твоих <br>карточках артиста на площадках: ВК,<br> Яндекс.Музыка, Apple<br> Music, iTunes..</p>
+        </div>
+        <div class="black_footer" style="padding-left:55px;">
+            <a href="/form" class="btn5"  style="padding: 10px 15px;">Оформить</a>
+        </div>
+    </div>
+
+
+    <div class="black1">
+     <div class="black_header1">
+         <h3 style="font-size:21px;font-weight:bold;margin-left:60px;">СИНГЛ +<br> ОФОРМЛЕНИЕ<br> КАРТОЧКИ</h3>
+     </div>
+        <div class="black_text">
+            <p style="font-size:20px;margin-left:60px;">1 790 руб.</p>
+            <p style="margin-left:60px;">Помимо размещения<br> трека, ты<br> получаешь оформленную<br> карточку артиста в ВК + мы<br> лично присылаем тебе все<br> ссылки на трек.</p>
+        </div>
+        <div class="black_footer" style="padding-left:55px;">
+            <a href="/form" class="btn5"  style="padding: 10px 15px;">Оформить</a>
+        </div>
+    </div>
+
+  </div>
+
+
+  <div style="display:flex;padding-left:210px;margin-right:40px;margin-top:20px;padding-bottom:40px;margin-bottom:40px;">
+
+      <div class="black1">
+     <div class="black_header1">
+         <h3 style="font-size:21px;font-weight:bold;margin-left:60px;">АЛЬБОМ +<br> ОФОРМЛЕНИЕ<br> КАРТОЧКИ</h3>
+     </div>
+        <div class="black_text">
+            <p style="font-size:20px;margin-left:60px;">2 290 руб.</p>
+            <p style="margin-left:60px;">Помимо размещения<br> релиза, ты<br> получаешь оформленную<br> карточку артиста в ВК +<br> мы лично присылаем тебе все<br> ссылки на релиз.</p>
+        </div>
+        <div class="black_footer" style="padding-left:55px;">
+            <a href="/form" class="btn5"  style="padding: 10px 15px;">Оформить</a>
+        </div>
+    </div>
+
+
+    <div class="black1" style="margin-left:20px;margin-right:20px;">
+      <div class="black_header1">
+          <h3 style="font-size:21px;font-weight:bold;margin-left:60px;">СИНГЛ + АЛЬБОМ</h3>
+      </div>
+        <div class="black_text">
+             <p style="font-size:20px;margin-left:60px;">2 890 руб.</p>
+        <p style="margin-left:60px;">Если ты хочешь выпустить<br> сингл с будущего релиза, а<br> после уже сам релиз, то с <br>этим пакетом это будет дешевле.</p>
+        </div>
+        <div class = 'black_footer' style="padding-left:55px;">
+            <a href="/form" class="btn5"  style="padding: 10px 15px;">Оформить</a>
+        </div>
+    </div>
+
+
+    <div class="black1" style="margin-right:20px;">
+     <div class="black_header1">
+         <h3 style="font-size:21px;font-weight:bold;margin-left:60px;">3 СИНГЛА</h3>
+     </div>
+        <div class="black_text">
+            <p style="font-size:20px;margin-left:60px;">3 290 руб.</p>
+            <p style="margin-left:60px;">Ты можешь оплатить<br> загрузку нескольких<br> синглов заранее, даже<br> если материал не готов. Мы <br>забронируем за тобой<br> место и зальём твои<br> треки по мере готовности,<br> а ты сэкономишь.</p>
+        </div>
+        <div class="black_footer" style="padding-left:55px;">
+            <a href="/form" class="btn5"  style="padding: 10px 15px;">Оформить</a>
+        </div>
+    </div>
+
+
+    <div class="black1">
+     <div class="black_header1">
+         <h3 style="font-size:21px;font-weight:bold;margin-left:60px;">5 / 10 СИНГЛОВ</h3>
+     </div>
+        <div class="black_text">
+            <p style="font-size:20px;margin-left:60px;">4 990 / 9 990 руб.</p>
+            <p style="margin-left:60px;">Если взять сразу 5 и более<br> синглов, то каждый<br> сингл будет стоить 990 руб</p>
+        </div>
+        <div class="black_footer" style="padding-left:55px;">
+            <a href="/form" class="btn5"  style="padding: 10px 15px;">Оформить</a>
+        </div>
+    </div>
+
+</div>
+
+    <div id='faq' style="background-color:white;text-align:center;padding-bottom:70px;">
+        <h1 style="color:black;padding-top:70px;font-weight:bold;padding-bottom:110px;">ВОПРОСЫ И ОТВЕТЫ</h1>
+        <h6 style="font-weight:bold;padding-bottom:30px;">КОГДА МОИ ТРЕКИ ПОЯВЯТСЯ НА ПЛОЩАДКАХ?</h6>
+        <p style="padding-bottom:70px;">Ты сам выбираешь дату выхода треков. Прислать все материалы рекомендуется<br> за 3 рабочих дня до желаемой даты выхода, либо раньше.</p>
+        <h6 style="font-weight:bold;padding-bottom:30px;">Я ХОЧУ ЗАЛИТЬ ОДИН ТРЕК ЧЕРЕЗ ВАС. МНЕ ПРИДЁТСЯ<br> РАЗМЕЩАТЬ ЧЕРЕЗ ВАС ВЕСЬ БУДУЩИЙ МАТЕРИАЛ ТОЖЕ?</h6>
+        <p style="padding-bottom:70px;">Нет, мы подписываем отдельный договор на каждый трек. Если в будущем<br> ты захочешь выложить трек через другую компанию/лейбл, ты можешь без проблем это сделать.</p>
+        <h6 style="font-weight:bold;padding-bottom:30px;">ПО ДОГОВОРУ Я ПЕРЕДАЮ ВАМ ПОЛНЫЕ ПРАВА НА СВОЮ МУЗЫКУ?</h6>
+        <p style="padding-bottom:70px;">Нет! Мы подписываем простой лицензионный договор, по которому ты разрешаешь нам<br> размещать трек/альбом на площадках – и ничего больше! Можешь свободно исполнять песни<br> на концертах, снимать клипы/видео, печатать диски, использовать в сериалах и т.д..</p>
+        <h6 style="font-weight:bold;padding-bottom:30px;">ВЫ БЕРЁТЕ ПРОЦЕНТ С ЗАРАБОТКА ПЕСЕН?</h6>
+        <p style="padding-bottom:100px;">Да, мы делим полученный доход в соотношении 80/20% в пользу артиста, т.е. лейбл оставляется<br> себе 20% от суммы.</p>
+        <p style="padding-bottom:30px;">Остались вопросы? Задай их лично основателю лейбла</p>
+        <a href="https://vk.com/vauvision" class="btn3"  style="margin-left:20px;padding: 13px 18px;font-size:13px;">Задать вопрос</a>
+    </div>
+
+    <div id="rezume" style="text-align:center;color:white;margin-bottom:150px;">
+        <p style="text-align:center;padding-top:90px;padding-bottom:10px;font-size:13px;">Итого, чтобы продавать музыку на:<br>Apple Music, VK, BOOM, Tik Tok, Яндекс.Музыка, Spotify, YouTube и 20+ платформах, <br>тебе нужно:</p>
+        <h1 style="text-align:center;font-weight:bold;">1. ЗАПОЛНИТЬ ФОРМУ</h1>
+        <h1 style="text-align:center;font-weight:bold;">2. ОПЛАТИТЬ</h1>
+        <h1 style="text-align:center;font-weight:bold;">3. ПОДПИСАТЬ ДОГОВОР</h1>
+        <h1 style="text-align:center;font-weight:bold;padding-bottom:90px;">4. ЖДАТЬ ДАТУ ВЫХОДА</h1>
+        <a href="/form" class="btn5"  style="padding: 10px 15px;font-size:13px;">Заполнить форму</a>
+    </div>
+    <div style="text-align:center;margin-bottom:50px;">
+        <a href='https://b853f597-531f-4c29-8321-038012fb627b.filesusr.com/ugd/a9774b_04aa258af93e4512bf350769c8d95225.pdf' style="font-size:20px;text-decoration:underline;">Политика кофеденциальности</a>
+    </div>
+    <div style="background-color:#171717;margin-bottom:-40px;height:60px;">
+        <p style="text-align:center;padding-top:20px;color:white;">©2020 VAUVISION</p>
+    </div>
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+</script>
+</body>
+</html>

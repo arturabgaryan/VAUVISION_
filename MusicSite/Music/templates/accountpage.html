@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta name="viewport" content="width=1920, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    {% load static %}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <title>Личный кабинет</title>
+    <style>
+body {
+  margin:0;
+  font-family: 'Montserrat';
+  font-weight:400;
+  background-color: #0d0d0d;
+  background-image: url("/static/fon_leybl.png");
+  color:white;
+  width:100%;
+  height:1224;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #0d0d0d;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+
+a {
+  color: white !important;
+}
+
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 30px 10px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+li .active {
+  float: left;
+  padding: 30px 40px;
+}
+.logoimg{
+width: 109px;
+height: 20px;
+}
+
+.text1{
+margin-left: 170px;
+font-size:13px;
+color:white;
+text-align:right;
+line-height: 2;
+margin-bottom:30px;
+}
+
+.btn1{
+text-decoration:none;
+    background: white;
+    padding:5px;
+    border-radius: 30px;
+    color: black !important;
+}
+
+.btn2{
+    text-decoration:none;
+    background: black;
+    padding:10px;
+    border-radius: 30px;
+    color: white;
+}
+
+.btn4{
+    text-decoration:none;
+    background: black;
+    padding:10px;
+    border-radius: 30px;
+    border:2px solid white;
+    color: white;
+    font-size:12px;
+}
+
+.btn5{
+    text-decoration:none;
+    background: white;
+    padding:7px;
+    border:2px solid white;
+    border-radius: 30px;
+    color: black !important;
+    font-size:13px;
+}
+
+.btn4:hover {
+    transition: 0.3s;
+    background-color: white;
+    color:black !important;
+    }
+
+.btn5:hover {
+    transition: 0.3s;
+    background-color: #bdbdbd;
+    border:2px solid  #bdbdbd;
+    }
+
+.btn3{
+    text-decoration:none;
+    background: black;
+    margin-top:10px;
+    border-radius: 30px;
+    color: white;
+    padding:10px;
+    margin-left:-80px;
+}
+
+.btn3:hover {
+    transition: 0.3s;
+    background-color: #363636;
+    }
+
+
+.btn2:hover {
+    transition: 0.3s;
+    background-color: #363636;
+    color: black;
+    }
+
+.btn1:hover {
+    transition: 0.3s;
+    background-color: #bdbdbd;
+    }
+.text2{
+margin-left:50px;
+margin-top: 200px;
+float:right;
+}
+.t{
+font-size:40px;
+font-family: 'Montserrat';
+      font-weight: 700;
+}
+.white{
+background-color:white;
+height:326px;
+width:367px;
+padding-top:10px;
+padding-bottom:-50px;
+color:black;
+line-height: 2;
+text-align:center;
+}
+.white_header{
+background-color:white;
+height:50px;
+width:367px;
+text-align:center;
+color:black;
+margin-top:25px;
+margin-bottom:20px;
+}
+.black{
+background-color:#1c1c1c;
+height:326px;
+width:367px;
+padding-top:20px;
+padding-bottom:-50px;
+color:white;
+line-height: 2;
+text-align:center;
+}
+.black_header{
+background-color:#1c1c1c;
+height:50px;
+width:367px;
+text-align:center;
+color:white;
+margin-top:25px;
+margin-bottom:20px;
+}
+.black1{
+background-color:#1c1c1c;
+height:476px;
+width:347px;
+padding-top:20px;
+padding-bottom:-50px;
+color:white;
+line-height: 2;
+}
+.black_header1{
+background-color:#1c1c1c;
+height:50px;
+width:347px;
+color:white;
+margin-top:45px;
+margin-bottom:40px;
+}
+.black_text{
+background-color:#1c1c1c;
+height:306px;
+width:347px;
+color:white;
+margin-top:25px;
+font-size:13px;
+}
+
+.black_footer{
+background-color:#1c1c1c;
+height:70px;
+width:347px;
+color:white;
+}
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.upload{
+   padding-left:8px;
+   padding-right:8px;
+}
+.download{
+   padding-left:8px;
+   padding-right:8px;
+}
+.upload:hover{
+transition: 0.3s;
+text-decoration:underline;
+}
+.filename{
+ background-color:#171717;
+ border:2px solid;
+ border-radius:2px;
+ padding:10px;
+ overflow:auto;
+ font-size:20px;
+}
+</style>
+</head>
+<body>
+<ul style="margin-bottom:25px">
+  <li><a class="active" href="#firstdiv" ><img class='logoimg' src="/static/vauvision_white (3).png" ></a></li>
+    <li><a href="https://www.tiktok.com/@vauvision_main" style="float: right;"><img alt="TikTok" src="https://static.wixstatic.com/media/d3ee8f_53dfd24b6fc741c1bb871a75935b73e6~mv2.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01/d3ee8f_53dfd24b6fc741c1bb871a75935b73e6~mv2.webp" style="width: 20px; height: 20px; object-fit: cover;"></a></li>
+    <li><a href="#https://www.youtube.com/c/vauvision" style="float: right;"><img alt="YouTube" src="https://static.wixstatic.com/media/203dcdc2ac8b48de89313f90d2a4cda1.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01/YouTube.webp" style="width: 20px; height: 20px; object-fit: cover;"></a></li>
+    <li><a href="https://www.instagram.com/vauvision/" style="float: right;"><img alt="Instagram" src="https://static.wixstatic.com/media/81af6121f84c41a5b4391d7d37fce12a.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01/Instagram.webp" style="width: 20px; height: 20px; object-fit: cover;"></a></li>
+    <li><a href="https://vk.com/vauvisionlabel" style="float: right;"><img alt="VK Share" src="https://static.wixstatic.com/media/7f7f31e5b76844cc9f8af5c826c0b407.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01/VK%20Share.webp" style="width: 20px; height: 20px; object-fit: cover;"></a></li>
+    <li><a href="/account" style="float: right;"><b>Личный кабинет</b></a></li>
+    <li><a href="/main#rezume" style="float: right;">Резюме</a></li>
+     <li><a href="/main#faq" style="float: right;">FAQ</a></li>
+    <li><a href="/main#cost" style="float: right;">Цены</a></li>
+    <li><a href="/main#forth" style="float: right;">Основатель</a></li>
+    <li><a href="/main#carouselExampleIndicators" style="float: right;">Отзывы</a></li>
+    <li><a href="/main#third" style="float: right;">Преимущества</a></li>
+    <li><a href="/main#second" style="float: right;">О лейбле</a></li>
+    <li><a href="/main#firstdiv" class="active1" style="float: right;">Главная</a></li>
+</ul>
+<div style="padding:140px 30px;">
+    <div style=" background-color: #0d0d0d; width:1780px; padding:25px 0px;">
+    <h1 style="margin-top:30px;text-align:center;font-weight:bold;">Личный кабинет</h1>
+<h2 style="text-align:center;"> Сдесь ты можешь найти всю необходимую информацию<br> о своих треках</h2>
+<div style="margin-top:80px; display:flex;">
+    <div style="display:block;">
+        <img  style="margin-left:200px;" src="/static/img2.png">
+        <form style="padding-top:30px;">
+             <a href="/change_profile_info" style="font-size:25px;padding-left:100px;">Изменить информацию профиля</a>
+        </form>
+    </div>
+    <div style="padding-left:160px;">
+        <p id="file-name" class="filename">Файл не выбран</p>
+       <div style="height:300px;overflow:auto;width:1000px; background-color:#171717; border:2px solid;border-radius:2px; padding:20px;">
+           {% if task|length == 0 %}
+               <p>Треков пока пока нет...</p>
+           {% else %}
+           {% for track in task %}
+           <div>
+               <form method="post" enctype="multipart/form-data" action="/upload?id={{track.full_name}}">
+                   {% csrf_token %}
+                   <p style="font-size:20px;display:flex;">Трек - "{{ track.name }}" : Заказчик - {{track.artist_name}} : Музыка - {{track.melody_author}} : Текст - {{track.text_author}} |  <label for="doc" class="upload"> Выбрать файл </label><input type="file" id="doc" name="{{track.full_name}}"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/{{track.full_name}}_offer.pdf" download>Скачать</a></p>
+<!--                   <a href="/upload?id={{track.full_name}}">Загрузить</a>-->
+                       <button type="submit" class="btn1">Загрузить договор</button>
+               </form>
+           </div>
+           {% endfor %}
+           {% endif %}
+       </div>
+    </div>
+</div>
+
+<h2 style="padding-top:50px; text-align:center;">Все договоры ты сможешь скачать по ссылке, после того как<br> загрузишь его в подписанном PDF варианте</h2>
+</div>
+
+</div>
+<footer style="background-color:#171717;margin-bottom:-40px;height:60px;margin-top:-40px;">
+        <p style="text-align:center;padding-top:20px;color:white;">©2020 VAUVISION</p>
+    </footer>
+
+<script>
+$("#doc").change(function(){
+  $("#file-name").text(this.files[0].name);
+});
+</script>
+</body>
+</html>

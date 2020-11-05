@@ -1,0 +1,85 @@
+{% extends '../../wrapper.html' %}
+
+{% block content %}
+    <section class="content section container">
+        <h1>Админ панель</h1>
+        <div class="columns">
+            <div class="column" style="height: 90vh; overflow-y: scroll;">
+                <h2 style="text-decoration: underline" class="subtitle is-4">Сканы</h2>
+                {% for scan in scans %}
+                    {% load static %}
+                    <span onclick="rotateImage('scanToRotate_{{ scan.id }}', -90)">Повернуть влево</span>
+                    <span onclick="rotateImage('scanToRotate_{{ scan.id }}', 90)" style="margin-left: 3%">Повернуть вправо</span>
+                    <br>
+                    <img id="scanToRotate_{{ scan.id }}" src="../../../static/images/scans/{{scan.photo_url}}" alt=""><br>
+                {% endfor %}
+
+            </div>
+            <div style="height: 90vh; overflow-y: scroll;" class="column is-half">
+                <h2 style="text-decoration: underline" class="subtitle is-4">Паспортные данные</h2>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <label class="label" for="">Имя релиза: <b>{{ request.release_name }}</b></label>
+                    <label class="label" for="">VK автора: <b><a target="_blank"
+                                                                 href="{{ request.contact }}">{{ request.contact }}</a></b></label>
+                    <label for="" class="label">Названия треков</label>
+                    {% for track in tracks %}
+
+                        <input id="new_track_name_{{ track.id }}" type="text" value="{{ track.name }}" class="input"><br>
+                        <span @click="changeTrack({{ track.id }})" style="cursor: pointer;">Изменить</span><br><br>
+
+                    {% endfor %}
+                    <br>
+                    <label for="" class="label">Псевдоним</label>
+                    <input name="NAME" placeholder="Например: PHARAOH" required type="text" class="input"><br><br>
+                    <label for="" class="label">ФИО</label>
+                    <input type="text" placeholder="Например: Иванов Иван Иванович" required name="FULLNAME"
+                           class="input"><br><br>
+                    <label for="" class="label">Инициалы</label>
+                    <input type="text" placeholder="Например: Иванов И.И." required name="INITIALS"
+                           class="input"><br><br>
+                    <label for="" class="label">Почта</label>
+                    <input type="email" required placeholder="example@host.com" name="EMAIL" value="{{ request.email }}"
+                           class="input"><br><br>
+                    <label for="" class="label">Гражданство, родительный падеж</label>
+                    <input name="COUNTRY" placeholder="Например: Российской Федерации" value="Российской Федерации"
+                           required type="text"
+                           class="input"><br><br>
+                    <label for="" class="label">Дата рождаения</label>
+                    <input type="text" required name="BIRTH_DATE" placeholder="Например: 13.05.2004"
+                           class="input"><br><br>
+                    <label for="" class="label">Место рождения</label>
+                    <input name="BIRTH_PLACE"
+                           placeholder="Адрес Ивановская область, Ивановский район, д. Андреево, д. 10" required
+                           type="text" class="input"><br><br>
+                    <div class="columns">
+                        <div class="column">
+                            <label for="" class="label">Серия паспорта</label>
+                            <input type="number" required name="PASSPORT_SERIE" placeholder="Например: 4444"
+                                   class="input">
+                        </div>
+                        <div class="column">
+                            <label for="" class="label">Номер паспорта</label>
+                            <input type="number" required name="PASSPORT_NUMBER" placeholder="Например: 666666"
+                                   class="input">
+                        </div>
+                    </div>
+                    <label for="" class="label">Кем выдан</label>
+                    <input name="GIVEN_BY" placeholder="Напрмер: УМФЦ Российской Федерации" required type="text"
+                           class="input"><br><br>
+                    <label for="" class="label">Когда выдан</label>
+                    <input type="text" required name="GIVEN_DATE" placeholder="Например: 13.05.2004"
+                           class="input"><br><br>
+                    <label for="" class="label">Регистрация</label>
+                    <input name="REGISTRATION"
+                           placeholder="Например: Адрес Ивановская область, Ивановский район, д. Андреево, д. 10"
+                           required type="text" class="input"><br><br>
+                    <button type="submit" class="button">Создать документ</button>
+                </form>
+            </div>
+
+        </div>
+
+
+    </section>
+{% endblock %}
