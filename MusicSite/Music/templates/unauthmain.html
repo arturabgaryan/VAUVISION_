@@ -1,12 +1,14 @@
 <html>
 <head>
-    <meta name="viewport" content="width=1920, initial-scale=1">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <style>
+@media screen and (min-device-width: 1280px){
 body {
   margin:0;
   font-family: 'Montserrat';
@@ -68,11 +70,13 @@ margin-bottom:30px;
     text-decoration:underline;
         }
 .btn1{
-text-decoration:none;
+    text-decoration:none;
     background: white;
     padding:10px;
     border-radius: 30px;
     color: black !important;
+    float:left;
+    margin-left:110px;
 }
 
 .btn2{
@@ -91,6 +95,9 @@ text-decoration:none;
     border:2px solid white;
     color: white;
     font-size:12px;
+    margin-top:30px;
+    margin-right:40px;
+    font-size:13px;
 }
 
 .btn5{
@@ -101,6 +108,8 @@ text-decoration:none;
     border-radius: 30px;
     color: black !important;
     font-size:13px;
+    margin-top:30px;
+    padding-top:10px;
 }
 
 .btn4:hover {
@@ -131,16 +140,7 @@ text-decoration:none;
     }
 
 
-.btn2:hover {
-    transition: 0.3s;
-    background-color: #363636;
-    color: black;
-    }
 
-.btn1:hover {
-    transition: 0.3s;
-    background-color: #bdbdbd;
-    }
 .text2{
 margin-left:50px;
 margin-top: 200px;
@@ -160,6 +160,8 @@ padding-bottom:-50px;
 color:black;
 line-height: 2;
 text-align:center;
+margin-left:10px;
+margin-right:10px;
 }
 .white_header{
 background-color:white;
@@ -179,6 +181,8 @@ padding-bottom:-50px;
 color:white;
 line-height: 2;
 text-align:center;
+margin-left:10px;
+margin-right:10px;
 }
 .black_header{
 background-color:#1c1c1c;
@@ -221,8 +225,7 @@ height:70px;
 width:100%;
 color:white;
 }
-</style>
-<style>
+
 .group {
   position: relative;
   padding: 10px 0 0;
@@ -270,13 +273,561 @@ padding-bottom: 6px;
   &:required,&:invalid { box-shadow:none; }
 }
 
+.phoneMenu{
+display:none;
+}
+.footer{
+background-color:#171717;
+margin-bottom:-40px;
+height:60px;
+}
+
+.videodiv{
+    padding:0px 470px;
+    background-color:#0d0d0d;
+    display:flex;
+}
+
+.seconddiv{
+padding-left:600px;
+background-color:white;
+display:flex;
+padding-right:300px;
+}
+.leyblIMG{
+width:350px;
+height: 650px;
+margin-top:100px;
+margin-bottom:50px;
+box-shadow: -15px 15px;
+}
+.text2_ending{
+margin-bottom:100px;
+}
+.mail_form{
+display:flex;
+padding-bottom:100px;
+}
+.firstrow{
+display:flex;
+padding-left:70px;
+padding-right:40px;
+margin-top:40px;
+margin-bottom:20px;
+}
+.secondrow{
+display:flex;
+padding-left:70px;
+padding-right:40px;
+margin-top:20px;
+padding-bottom:40px;
+}
+.buttons_promo{
+display:flex;
+margin-left:670px;
+}
+.btn4_mobile{
+display:none;
+}
+.btn5_mobile{
+display:none;
+}
+.mobileCarousel{
+display:none;
+}
+.leyblIMG2{
+width:400px;
+height: 600px;
+margin-bottom:50px;
+object-fit:cover;
+}
+.thirddiv{
+display:flex;
+padding-left:500px;
+}
+.costs1{
+display:flex;
+padding-left:210px;
+padding-right:40px;
+margin-top:40px;
+margin-bottom:70px;
+}
+.costs2{
+display:flex;
+padding-left:210px;
+margin-right:40px;
+margin-top:20px;
+padding-bottom:40px;
+margin-bottom:40px;
+}
+.black2{
+background-color:#1c1c1c;
+height:476px;
+width:21%;
+padding-top:20px;
+padding-bottom:-50px;
+color:white;
+line-height: 2;
+margin-left:20px;
+margin-right:20px;
+}
+.FAQ{
+background-color:white;
+text-align:center;
+padding-bottom:70px;
+}
+.phoneLinks{
+display:none;
+}
+}
+
+@media screen and (max-device-width: 1280px){
+body {
+  font-family: 'Montserrat';
+  font-weight:400;
+  width:100%;
+}
+
+.desktopMenu{
+display:none;
+}
+.logoimg{
+width: 109px;
+height: 20px;
+}
+.active2{
+padding:30px;
+}
+#menuToggle
+{
+  display: block;
+  position: relative;
+  top: 50px;
+  left: 50px;
+
+  z-index: 1;
+
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle a
+{
+  text-decoration: none;
+  color: #232323;
+
+  transition: color 0.3s ease;
+}
+
+#menuToggle a:hover
+{
+  color: tomato;
+}
+
+
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -10px;
+  left: -5px;
+
+  cursor: pointer;
+
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+
+  -webkit-touch-callout: none;
+}
+
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+
+  background: #cdcdcd;
+  border-radius: 3px;
+
+  z-index: 1;
+
+  transform-origin: 4px 0px;
+
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+#menu
+{
+  position: absolute;
+  width: 100%;
+  margin: -100px 0 0 -50px;
+  text-align:center;
+
+  padding: 50px;
+  padding-top: 125px;
+
+  background: #ededed;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+}
+.phoneMenu{
+margin-top:-27px;
+}
+.videodiv{
+background-color:#0d0d0d;
+}
+.text1{
+color:white;
+margin-top:40px;
+}
+.btn1{
+    text-decoration:none;
+    background: white;
+    padding:10px;
+    border-radius: 30px;
+    color: black !important;
+    margin-left:80px;
+}
+seconddiv{
+background-color:white;
+margin-bottom:50px;
+}
+.leyblIMG{
+object-fit: cover;
+width:100%;
+height: 300px;
+padding:15px;
+}
+.leyblIMG2{
+object-fit: cover;
+width:100%;
+height: 300px;
+padding:15px;
+}
+.text2{
+padding:15px;
+margin-bottom:100px;
+}
+.text2_endig {
+margin-bottom:10px;
+}
+
+.btn2{
+    text-decoration:none;
+    background: black;
+    padding:10px;
+    border-radius: 30px;
+    color: white;
+    margin-left:40px;
+}
+.btn2:hover {
+    transition: 0.3s;
+    background-color: #363636;
+    color: black;
+    }
+
+.btn1:hover {
+    transition: 0.3s;
+    background-color: #bdbdbd;
+    }
+.group {
+  position: relative;
+  padding: 10px 0 0;
+  margin-top: 10px;
+   padding-left:25px;
+  width: 100%;
+}
+.group2 {
+  position: relative;
+  padding: 10px 0 0;
+  padding-left:25px;
+  margin-top: 10px;
+  padding-bottom:20px;
+  width: 100%;
+}
+
+.field{
+width: 90%;
+  border: 2px solid black;
+  outline: 0;
+  font-size: 1.1rem;
+  color: black;
+  padding: 4px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+.field:focus{
+
+padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #3b3b3b,#ed6707);
+  border-image-slice: 1;
+}
+
+.label {
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: black;
+}
+
+.field{
+  &:required,&:invalid { box-shadow:none; }
+}
+
+.btn6{
+    text-decoration:none;
+    background: black;
+    border-radius: 30px;
+    color: white;
+    padding:8px 70px;
+    margin-left:65px;
+}
+.btn6:hover{
+    text-decoration:underline;
+        }
+
+.white{
+background-color:white;
+height:326px;
+width:100%;
+padding-top:10px;
+padding-bottom:-50px;
+color:black;
+line-height: 2;
+text-align:center;
+margin-left:10px;
+margin-right:10px;
+}
+.white_header{
+background-color:white;
+height:50px;
+width:100%;
+text-align:center;
+color:black;
+margin-top:25px;
+margin-bottom:20px;
+}
+.black{
+background-color:#1c1c1c;
+height:326px;
+width:100%;
+padding-top:20px;
+padding-bottom:-50px;
+color:white;
+line-height: 2;
+text-align:center;
+margin-left:10px;
+margin-right:10px;
+}
+.black_header{
+background-color:#1c1c1c;
+height:50px;
+width:100%;
+text-align:center;
+color:white;
+margin-top:25px;
+margin-bottom:20px;
+}
+
+.btn4{
+    text-decoration:none;
+    background: black;
+    padding:10px;
+    border-radius: 30px;
+    border:2px solid white;
+    color: white;
+    font-size:12px;
+    margin-top:30px;
+    margin-right:40px;
+
+}
+
+.btn5{
+    text-decoration:none;
+    background: white;
+    padding:7px;
+    border:2px solid white;
+    border-radius: 30px;
+    color: black !important;
+    font-size:13px;
+    margin-top:60px;
+    padding-top:10px;
+}
+
+.btn4:hover {
+    transition: 0.3s;
+    background-color: white;
+    color:black !important;
+    }
+
+.btn5:hover {
+    transition: 0.3s;
+    background-color: #bdbdbd;
+    border:2px solid  #bdbdbd;
+    }
+.buttons_promo{
+display:none;
+}
+.btn4_mobile{
+text-decoration:none;
+    background: black;
+    padding:10px;
+    border-radius: 30px;
+    border:2px solid white;
+    color: white;
+    font-size:12px;
+    text-align:center;
+    display:block;
+    margin-top:30px;
+    marin-bottom:60px;
+}
+.btn4_mobile:hover {
+    transition: 0.3s;
+    background-color: white;
+    color:black !important;
+    }
+
+.btn5_mobile:hover {
+    transition: 0.3s;
+    background-color: #bdbdbd;
+    border:2px solid  #bdbdbd;
+    }
+ .btn5_mobile{
+    text-decoration:none;
+    background: white;
+    padding:7px;
+    border:2px solid white;
+    border-radius: 30px;
+    color: black !important;
+    font-size:13px;
+    text-align:center;
+    margin-top:10px;
+    display:block;
+
+}
+.desktopCarousel{
+display:none;
+}
+a {
+  color: white !important;
+}
+
+.black1{
+background-color:#1c1c1c;
+height:476px;
+width:100%;
+padding-top:20px;
+padding-bottom:-50px;
+color:white;
+line-height: 2;
+}
+.black_header1{
+background-color:#1c1c1c;
+height:50px;
+width:100%;
+color:white;
+margin-top:45px;
+margin-bottom:40px;
+}
+.black_text{
+background-color:#1c1c1c;
+height:306px;
+width:100%;
+color:white;
+margin-top:25px;
+font-size:13px;
+}
+
+.black_footer{
+background-color:#1c1c1c;
+height:70px;
+width:100%;
+color:white;
+padding-bottom:20px;
+}
+.black2{
+background-color:#1c1c1c;
+height:476px;
+width:100%;
+padding-top:20px;
+padding-bottom:-50px;
+color:white;
+line-height: 2;
+}
+.FAQ{
+background-color:white;
+text-align:center;
+padding-bottom:70px;
+margin-top:40px;
+}
+.footer{
+background-color:#171717;
+margin-bottom:-40px;
+height:80px;
+}
+.phoneLinks{
+padding-top:10px;
+}
+}
 </style>
     <link rel="icon" sizes="192x192" href="https://static.wixstatic.com/media/a9774b_d7271cbb4d624d26b2ecdad58b7cf6da%7Emv2.png/v1/fill/w_32%2Ch_32%2Clg_1%2Cusm_0.66_1.00_0.01/a9774b_d7271cbb4d624d26b2ecdad58b7cf6da%7Emv2.png">
     <title>ДИСТРИБУЦИЯ Vauvision</title>
 </head>
 <body>
 
-<ul>
+<ul class="desktopMenu">
   <li><a class="active" href="#firstdiv" ><img class='logoimg' src="/static/vauvision_white (3).png" ></a></li>
     <li><a href="https://www.tiktok.com/@vauvision_main" style="float: right;"><img alt="TikTok" src="https://static.wixstatic.com/media/d3ee8f_53dfd24b6fc741c1bb871a75935b73e6~mv2.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01/d3ee8f_53dfd24b6fc741c1bb871a75935b73e6~mv2.webp" style="width: 20px; height: 20px; object-fit: cover;"></a></li>
     <li><a href="https://www.youtube.com/c/vauvision" style="float: right;"><img alt="YouTube" src="https://static.wixstatic.com/media/203dcdc2ac8b48de89313f90d2a4cda1.png/v1/fill/w_20,h_20,al_c,q_85,usm_0.66_1.00_0.01/YouTube.webp" style="width: 20px; height: 20px; object-fit: cover;"></a></li>
@@ -292,31 +843,57 @@ padding-bottom: 6px;
     <li><a href="#second" style="float: right;">О лейбле</a></li>
     <li><a href="#firstdiv" class="active1" style="float: right;">Главная</a></li>
 </ul>
+
+
+
+<div class="phoneMenu">
+    <nav role="navigation">
+  <div id="menuToggle">
+    <input type="checkbox" />
+    <span></span>
+    <span></span>
+    <span></span>
+
+    <ul id="menu">
+      <a href="#rezume" style="color:black!important"><li>Резюме</li></a>
+      <a href="#faq" style="color:black!important"><li>FAQ</li></a>
+      <a href="#cost" style="color:black!important"><li>Цены</li></a>
+      <a href="#forth" style="color:black!important"><li>Основатель</li></a>
+      <a href="#carouselExampleIndicators" style="color:black!important"><li>Отзывы</li></a>
+      <a href="#third" style="color:black!important"><li>Преимущества</li></a>
+      <a href="#second" style="color:black!important"><li>О лейбле</li></a>
+        <a href="#links" style="color:black!important"><li>Соцсети</li></a>
+      <a href="/authorization" style="color:black!important"><li><b>Войти</b></li></a>
+    </ul>
+  </div>
+        <a class="active2" href="#firstdiv" style="float:right" ><img class='logoimg' src="/static/vauvision_white (3).png" ></a>
+</nav>
+</div>
+
 <div id='firstdiv' style="background-color:#0d0d0d;padding-bottom:60px;">
   <h1 style="text-align:center; font-size:40px; color:white; padding-top:100px; padding-bottom:60px;font-weight: bolder;">ВЫЛОЖИ ТРЕК НА ВСЕ <br> ПЛОЩАДКИ И ПРОДАВАЙ СВОЮ <br>
 МУЗЫКУ ВО ВСЁМ МИРЕ</h1>
-  <div style="padding:0px 470px; background-color:#0d0d0d; display:flex;">
+  <div class="videodiv">
      <div style="text-align:center;">
        <h2 style="margin-bottom:10px; color:white;font-size:23px; font-weight: bold;">ПОСМОТРИ ЭТО ВИДЕО</h2>
        <iframe width="350" height="220" src="https://www.youtube.com/embed/cT-1jK71dQo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
      </div>
      <div class="text1">
        <p style="margin-bottom:30px; font-weight: bold;font-size:18px;text-align:center;">2 000 АРТИСТОВ ВЫБРАЛИ НАС</p>
-       <p style="margin-bottom:40px;text-align:right;">Бесплатно продвигаем твои треки в редакторские плейлисты.<br>Ты сохраняешь права и можешь вывести заработанную сумму<br> Ответим в течение 3 часов, работаем по договору</p>
-        <a href="https://music.yandex.ru/label/1220958/albums?sort=rating" class="btn1" style="float:left;margin-left:110px;">Список наших релизов</a>
+       <p style="margin-bottom:40px;text-align:center;">Бесплатно продвигаем твои треки в редакторские плейлисты.<br>Ты сохраняешь права и можешь вывести заработанную сумму<br> Ответим в течение 3 часов, работаем по договору</p>
+        <a href="https://music.yandex.ru/label/1220958/albums?sort=rating" class="btn1">Список наших релизов</a>
      </div>
-
   </div>
-
 </div>
 
-<div id="second" style="padding-left:600px;background-color:white;display:flex;padding-right:300px;">
-  <img src="/static/fon_leybl.png" style="width:350px; height: 650px; margin-top:100px;margin-bottom:50px;box-shadow: -15px 15px;">
+
+<div id="second" class="seconddiv">
+  <img src="/static/fon_leybl.png" class="leyblIMG">
   <div class="text2">
     <h1 class="t"><b>VAUVISION</b></h1>
     <p style="margin-bottom:30px;">– музыкальный лейбл, основанный в июле 2018 года. Мы<br>занимаемся дистрибуцией музыки и <br>менеджментом артистов. </p>
     <p style="margin-bottom:30px;">Более 2000 исполнителей выкладывают свою музыку <br> через VAUVISION, а количество треков в нашем <br> каталоге превысило 8 000 песен.<br> Это не просто так!</p>
-    <p style="margin-bottom:100px;">В каталоге VAUVISION есть треки артистов:<br>
+    <p class="text2_ending" >В каталоге VAUVISION есть треки артистов:<br>
 
 КРЕСТ, Три дня дождя, 21plohoi, White Punk, KURT92,<br> CLONNEX, zayatz, AQUAKILLA, lowlife, Энди Картрайт,<br>
 
@@ -324,13 +901,14 @@ padding-bottom: 6px;
     <a href="#groups" class="btn2" style="float:left;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Присоединиться бесплатно</a>
   </div>
 
+
 </div>
 <div id='groups'>
   <p style='text-align:center;font-size:25px;margin-bottom:40px;'><b>ПОДПИШИСЬ</b> НА НАШУ РАССЫЛКУ, ЧТОБЫ ПОЛУЧАТЬ БЕСПЛАТНЫЕ<br> МАТЕРИАЛЫ ПО ПРОДВИЖЕНИЮ И РАЗВИТИЮ КАРЬЕРЫ АРТИСТА</p>
 </div>
 
 <form action="/send_email">
-    <div style="display:flex;padding-bottom:100px;">
+    <div class="mail_form">
   <div class='group' >
      <input class="field" name="name" id='name' placeholder="Имя">
   </div>
@@ -341,15 +919,15 @@ padding-bottom: 6px;
 </div>
 </form>
 
-<div id="third" style="background-color:#0d0d0d">
+<div id="third" style="background-color:#0d0d0d" class="third">
   <h1 style="text-align:center;color:white;padding-top:70px">ПРЕИМУЩЕСТВА VAUVISION</h1>
   <p style="text-align:center;color:white">Что ты получишь, работая с нами</p>
-  <div style="display:flex;padding-left:70px;padding-right:40px;margin-top:40px;margin-bottom:20px;">
+  <div class="firstrow" >
     <div class="white">
      <div class="white_header"><h3 style="font-size:21px;font-weight:bold;">ВСЕ ПЛОЩАДКИ</h3></div>
       <p>Твой трек появится на<br> всех существующих<br> площадках и будет<br> доступен во всё мире,<br> на всех платформах</p>
     </div>
-    <div class="black" style="margin-left:20px;margin-right:20px;">
+    <div class="black">
       <div class="black_header"><h3 style="font-size:21px;font-weight:bold;">ПРОМО НА<br> ПЛОЩАДКАХ</h3></div>
       <p>Мы показываем твой<br> релиз редакторам всех<br> площадок, чтобы<br> попасть на витрины и<br> плейлисты</p>
     </div>
@@ -357,18 +935,18 @@ padding-bottom: 6px;
      <div class="white_header"><h3 style="font-size:21px;font-weight:bold;">БЫСТРЫЕ СРОКИ</h3></div>
       <p>Загрузим твой релиз<br> на площадки за 3 дня,<br> часто – быстрее</p>
     </div>
-    <div class="black" style="margin-left:20px;margin-right:20px;">
+    <div class="black">
       <div class="black_header"><h3 style="font-size:21px;font-weight:bold;"><b>БЫСТРАЯ <br>ПОДДЕРЖКА</b></h3></div>
       <p>Отвечаем в течение 3<br> часов, оперативно<br> отвечаем на вопросы<br> и вносим правки</p>
     </div>
 
   </div>
-  <div style="display:flex;padding-left:70px;padding-right:40px;margin-top:20px;padding-bottom:40px;">
+  <div class="secondrow">
     <div class="black">
      <div class="black_header"><h3 style="font-size:21px;font-weight:bold;">ПРАВА <br>СОХРАНЯЮТСЯ</h3></div>
       <p>Ты остаёшься<br> правообладателем своего трека,<br> разрешая нам только<br> размещать его на<br> площадках</p>
     </div>
-    <div class="white" style="margin-left:20px;margin-right:20px;">
+    <div class="white" >
       <div class="white_header"><h3 style="font-size:21px;font-weight:bold;">ОТЧЁТЫ <br>СО СТАТИСТИКОЙ</h3></div>
       <p>Каждый квартал ты<br> получаешь подробный<br> отчёт по прослушиваниям и<br> заработку со своих<br> релизов</p>
     </div>
@@ -376,19 +954,24 @@ padding-bottom: 6px;
      <div class="black_header"><h3 style="font-size:21px;font-weight:bold;">ВЫВОД <br>ЛЮБОЙ СУММЫ</h3></div>
       <p>Нет ограничений на<br> вывод средств, даже<br> если это 1 копейка</p>
     </div>
-    <div class="white" style="margin-left:20px;margin-right:20px;">
+    <div class="white">
       <div class="white_header"><h3 style="font-size:21px;font-weight:bold;">ЮРИДИЧЕСКАЯ <br>НАДЁЖНОСТЬ</h3></div>
       <p>Подписываем договор<br> на каждый релиз, не<br> пускаем пиратский<br> контент и гарантируем<br> исполнение обязательств</p>
     </div>
 
 </div>
-  <div style="display:flex;margin-left:670px;">
-    <a href="#group" class="btn4" style="margin-top:30px;margin-right:40px;font-size:13px;">Что такое промо и почему это ценно?</a>
-    <a href="#group" class="btn5" style="margin-top:30px;padding-top:10px;">Пример в попадание промо</a>
+  <div class="buttons_promo">
+    <a href="#group" class="btn4">Что такое промо и почему это ценно?</a>
+    <a href="#group" class="btn5">Пример в попадание промо</a>
   </div>
+
+    <a href="#group" class="btn4_mobile">Что такое промо и почему это ценно?</a>
+    <a href="#group" class="btn5_mobile">Пример в попадание промо</a>
+
 </div>
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="background-color:#0d0d0d;padding-top:500px;">
+<div class="desktopCarousel">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="background-color:#0d0d0d;padding-top:500px;">
   <div style="background-color:#0d0d0d;text-align:center;margin-top:-400px;margin-bottom:50px;">
 <h1 style="color:white;font-weight:bold;">ОТЗЫВЫ АРТИСТОВ</h1>
 </div>
@@ -475,11 +1058,93 @@ padding-bottom: 6px;
     <span class="sr-only">Next</span>
   </a>
 </div>
+</div>
+<div class="mobileCarousel">
+    <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel" style="background-color:#0d0d0d;padding-top:500px;">
+  <div style="background-color:#0d0d0d;text-align:center;margin-top:-400px;margin-bottom:20px;">
+<h1 style="color:white;font-weight:bold;">ОТЗЫВЫ АРТИСТОВ</h1>
+</div>
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="3" ></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="8"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="9"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="10"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="11"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="12"></li>
+  </ol>
+  <div class="carousel-inner" style="color:white;">
+    <div class="carousel-item active" style="text-align:center;padding-top:30px;padding-bottom:40px;">
+      <p>Приятно работать с данным человеком, это тот самый случай, когда профессионализм и<br> человеческие качества находятся на высоком уровне. Все по делу, отчеты присылаются вовремя,<br> время ответа тоже долго ждать не придётся. Однозначно рекомендую работать с ним)</p>
+      <a href="https://vk.com/coldrizemus" style="padding-top:30px;text-decoration:underline;">Артём Кириенко</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;padding-bottom:40px;">
+      <p>Все на высшем уровне, выполняют работу быстро и качественно, отчеты всегда вовремя, +<br> отсылают треки на промо, что не может не радовать)<br>В целом все топ </p>
+      <a href="https://vk.com/lilclonnex" style="padding-top:30px;text-decoration:underline;">Северин Наконечний</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;padding-bottom:40px;">
+      <p>Давно сотрудничаем с данным лейблом. Дистрибуция проходит на высоком уровне. Отчёты<br> присылают вовремя, гонорар выплачивают без задержек. Также радует тёплое отношение к<br> артистам, быстрая обратка</p>
+      <a href="https://vk.com/svyat_selivanov" style="padding-top:30px;text-decoration:underline;">Святослав Селиванов</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;padding-bottom:40px;">
+      <p>VAUVISION отлично выполняют свою работу. Хотел работать с профи, чтобы не было ответов н<br>а мои вопросы "Не знаю" или "хз, почему так получилось". Все конкретно и четко. Если ты ищешь<br> через кого, чтобы было все грамотно, то к ним. Рекомендую. Пора забывать о том, что ты должен<br> все сам делать (сводить, выпускаться, минуса делать). Я свою проблему с дистрибуцией решил.</p>
+      <a href="https://vk.com/tema_teimi" style="padding-top:30px;text-decoration:underline;">Тёма Зиновенко</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;padding-bottom:40px;">
+      <p>Работа по дистрибьюции выполняется чётко и без косяков, загружал не один релиз, всё выходило<br> во время и без всяких заминок. На любые вопросы всегда давались корректные и адекватные<br> ответы. Очень радует, что существует возможность получить промо, что еще больше мотивирует<br> делать крутую музыку!<br>
+всё гуд</p>
+      <a href="https://vk.com/toniwolfone" style="padding-top:30px;text-decoration:underline;">Антон Фридов</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;padding-bottom:40px;">
+      <p>Работа VAUVISION стоит своих денег , выплата вовремя и всегда на связи , помогают всем чем<br> можно , отличная дистрибуция и лейбл , всем советую ) Владимир Ванин топ</p>
+      <a href="https://vk.com/vsnewofficial1" style="padding-top:30px;text-decoration:underline;">Вячеслав Весенёв</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;padding-bottom:40px;">
+      <p>Делали несколько релизов в прошлом и в этом году.Все очень оперативно,без лишних вопросов<br> и заморочек.<br>
+Очень благодарен за помощь,обязательно будем сотрудничать дальше!</p>
+      <a href="https://vk.com/qwonstanteem" style="padding-top:30px;text-decoration:underline;">Константин Самарин</a>
+    </div>
+    <div class="carousel-item" style="padding-bottom:40px;text-align:center;padding-top:30px;">
+      <p>Я очень рада, что друзья мне посоветовали именно этот лейбл  все четко, все вовремя + важный<br> бонус в виде предложения в подборки  для меня, как для начинающего артиста, попадание в<br> подборки - дорога в жизнь  безмерно счастлива и благодарна за сотрудничество</p>
+      <a href="https://vk.com/daryanova23" style="padding-top:30px;text-decoration:underline;">Дарья Новикова</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;padding-bottom:40px;">
+      <p>Долго искала дистрибутора и к своему счастью нашла лейбл VAUVISION. всегда есть сомнения и<br> опасения в начале любого сотрудничества, но в процессе я поняла, что сделала верный выбор.<br> мне отвечали быстро и без сложностей на все вопросы перед оформлением договора. в релизе<br> возникла проблема - сразу откликнулись и решили ее! не думаю, что заливая самостоятельно, я<br> справилась бы с ней сама. и обожемой в итоге треки с релиза оказались в разных плейлистах<br> площадок!! а еще кину респект Владимиру за видео и полезную инфу</p>
+      <a href="https://vk.com/takemetourplanet" style="padding-top:30px;text-decoration:underline;padding-bottom:40px;">Ангелина Кузнецова</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;padding-bottom:40px;">
+      <p>Очень повезло, что VAUVISION стал первым моим дистрибьютором. Все вопросы и проблемы<br> решаются очень быстро) Сразу же после оформления договора, трек залетел на все площадки без<br> каких-либо трудностей) Планирую сотрудничать дальше ещё долгое время! Рекомендую!</p>
+      <a href="https://vk.com/parniukkostia" style="padding-top:30px;text-decoration:underline;padding-bottom:40px;">Константин Парнюк</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;padding-bottom:40px;">
+      <p>После долгих поисков и перебора вариантов, посоветовали обратиться к Владимиру в<br> VAUVISION. Это нечто)<br>
+Грамотная и терпеливая работа с новичками, уверен, меня с моими постоянными вопросами уже<br> бы начали игнорить xDD, но ребята с лейбла ответственно подходят к делу, всё объяснили и<br> показали. Всё было выпущено в срок и без нареканий, за что огромное спасибо! Будем работать<br> на постоянке.</p>
+      <a href="https://vk.com/centirise.blutseer" style="padding-top:30px;text-decoration:underline;">Михаил Вандер</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;padding-bottom:40px;">
+      <p>Самые качественные платные услуги по дистрибуции музыки которые я встречал. Цена-качество<br> как нигде соответствует. Иногда диву даёшься что все процессы лейбла по сути дело рук одного<br> человека(по крайней мере такое представление) который трепетно относится к клиентам.<br> Мгновенно можно получить обратную связь по любому вопросу даже если ты не клиент, это<br> удивляет. Ваувижн действительно ВАУ и с этим не поспоришь.</p>
+      <a href="https://vk.com/andreazzzflow" style="padding-top:30px;text-decoration:underline;">Андрей Осипов</a>
+    </div>
+    <div class="carousel-item" style="text-align:center;padding-top:30px;padding-bottom:40px;">
+      <p>До сотрудничества с Vauvision возникали проблемы с дистрибуцией треков у других лейблов, в<br> частности по срокам и спорам. После обращения к Vauvision проблемный релиз оказался<br> быстрым и своевременный без каких либо проблем. Выражаю благодарность лейблу и рад<br> будущему сотрудничеству!</p>
+      <a href="https://vk.com/viktordoo" style="padding-bottom:100px;padding-top:30px;text-decoration:underline;">Виктор Быстров</a>
+    </div>
+
+
+  </div>
+</div>
+</div>
 
 <div id="forth">
     <h1 style="font-weight:bold;text-align:center;margin-top:100px;margin-bottom:100px;">ИНФОРМАЦИЯ ОБ ОСНОВАТЕЛЕ ЛЕЙБЛА</h1>
-    <div style="display:flex; padding-left:500px;">
-         <img src="/static/IMG.png" style="width:400px; height: 600px; margin-bottom:50px;object-fit:cover;">
+    <div class="thirddiv">
+         <img src="/static/IMG.png" class="leyblIMG2">
         <div style="padding-left:50px;">
             <h3 style="margin-left:0px;margin-top:100px;font-size:20px;">ВЛАДИМИР ВАНИН</h3>
             <p style="margin-top:20px;">Опыт в индустрии:<br>
@@ -496,7 +1161,7 @@ padding-bottom: 6px;
 
 <div id='cost' style="background-color:#0d0d0d;padding-bottom:40px;">
   <h1 style="text-align:center;color:white;padding-top:70px">СТОИМОСТЬ РАЗМЕЩЕНИЯ</h1>
-  <div style="display:flex;padding-left:210px;padding-right:40px;margin-top:40px;margin-bottom:70px;">
+  <div class="costs1">
 
     <div class="black1">
      <div class="black_header1">
@@ -512,7 +1177,7 @@ padding-bottom: 6px;
     </div>
 
 
-    <div class="black1" style="margin-left:20px;margin-right:20px;">
+    <div class="black2">
       <div class="black_header1">
           <h3 style="font-size:21px;font-weight:bold;margin-left:60px;">АЛЬБОМ</h3>
       </div>
@@ -556,7 +1221,7 @@ padding-bottom: 6px;
   </div>
 
 
-  <div style="display:flex;padding-left:210px;margin-right:40px;margin-top:20px;padding-bottom:40px;margin-bottom:40px;">
+  <div class="costs2">
 
       <div class="black1">
      <div class="black_header1">
@@ -572,7 +1237,7 @@ padding-bottom: 6px;
     </div>
 
 
-    <div class="black1" style="margin-left:20px;margin-right:20px;">
+    <div class="black2">
       <div class="black_header1">
           <h3 style="font-size:21px;font-weight:bold;margin-left:60px;">СИНГЛ + АЛЬБОМ</h3>
       </div>
@@ -615,7 +1280,7 @@ padding-bottom: 6px;
 
 </div>
 
-    <div id='faq' style="background-color:white;text-align:center;padding-bottom:70px;">
+    <div id='faq' class="FAQ">
         <h1 style="color:black;padding-top:70px;font-weight:bold;padding-bottom:110px;">ВОПРОСЫ И ОТВЕТЫ</h1>
         <h6 style="font-weight:bold;padding-bottom:30px;">КОГДА МОИ ТРЕКИ ПОЯВЯТСЯ НА ПЛОЩАДКАХ?</h6>
         <p style="padding-bottom:70px;">Ты сам выбираешь дату выхода треков. Прислать все материалы рекомендуется<br> за 3 рабочих дня до желаемой даты выхода, либо раньше.</p>
@@ -640,10 +1305,20 @@ padding-bottom: 6px;
     <div style="text-align:center;margin-bottom:50px;">
         <a href='https://b853f597-531f-4c29-8321-038012fb627b.filesusr.com/ugd/a9774b_04aa258af93e4512bf350769c8d95225.pdf' style="font-size:20px;text-decoration:underline;">Политика кофеденциальности</a>
     </div>
-    <div style="background-color:#171717;margin-bottom:-40px;height:60px;">
+    <div id="links" class="mobileLinks">
+
+    </div>
+    <div class="footer">
+        <div class="phoneLinks">
+            <a href="https://www.tiktok.com/@vauvision_main" style="padding-left:120px;"><img alt="TikTok" src="/static/icons/tiktok-white.png" style="width: 25px; height: 25px; object-fit: cover;"></a>
+            <a href="https://www.youtube.com/c/vauvision" style="padding-left:10px;"><img alt="Youtube" src="/static/icons/ytb2.png" style="width: 25px; height: 26px; object-fit: cover;"></a>
+            <a href="https://www.instagram.com/vauvision/" style="padding-left:10px;"><img alt="Instagram" src="/static/icons/instagram.png" style="width: 25px; height: 25px; object-fit: cover;"></a>
+            <a href="https://vk.com/vauvisionlabel" style="padding-left:10px;"><img alt="VK" src="/static/icons/vk3.png" style="width: 25px; height: 26px; object-fit: cover;"></a>
+        </div>
         <p style="text-align:center;padding-top:20px;color:white;">©2020 VAUVISION</p>
     </div>
 <script>
+
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -654,5 +1329,15 @@ padding-bottom: 6px;
     });
 });
 </script>
+    <script>
+function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+    </script>
 </body>
 </html>
