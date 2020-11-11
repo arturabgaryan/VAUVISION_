@@ -425,7 +425,7 @@ def submit_request(request):
                 return render(request, 'admin-panel/pages/submit.html',
                               {'request': current_request, 'scans': scans, 'tracks': tracks})
             else:
-                APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+                APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
                 y = yadisk.YaDisk(token=APP_TOKEN)
                 doc = DocxTemplate("Music/static/documents/template.docx")
                 request_id = request.GET['id']
