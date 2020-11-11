@@ -35,9 +35,12 @@ def enter(request):
 
 
 def upload(request):
-    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id',None)
+    print(name)
+    name = name[:-2]
+    print(name)
     folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name}"
     files = request.FILES[name]
     try:
@@ -158,7 +161,7 @@ def form(request):
 
 
 def index(request):
-    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     releaseType = request.POST['releaseType']
