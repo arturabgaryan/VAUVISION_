@@ -45,11 +45,11 @@ def upload(request):
     files = request.FILES[name]
     try:
         y.upload(path_or_file=io.BytesIO(request.FILES[name].read()),
-                 dst_path=f'{folder_path}/dogovor.pdf')
+                 dst_path=f'{folder_path}/Signed-{name}.pdf')
 
     except:
         pass
-    y.download(f"{folder_path}/dogovor.pdf", f"Music/static/documents/{name}_offer.pdf")
+    y.download(f"{folder_path}/Signed-{name}.pdf", f"Music/static/documents/Signed-{name}_offer.pdf")
     return redirect('/account')
 
 
@@ -487,7 +487,7 @@ def submit_request(request):
                     file.set_payload(fp.read())  # Добавляем содержимое общего типа (полезную нагрузку)
                     fp.close()
                 encoders.encode_base64(file)  # Содержимое должно кодироваться как Base64
-                file.add_header('Content-Disposition', 'attachment', filename=offer_name)  # Добавляем заголовки
+                file.add_header('Content-Disposition', 'attachment', filename=offer_name+'.pdf')  # Добавляем заголовки
                 msg.attach(file)
 
                 server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
