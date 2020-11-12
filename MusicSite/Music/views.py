@@ -84,9 +84,9 @@ def generate_pass():
 
 def change(request):
     name = request.GET.get('usrnm', None)
-    passw = request.GET.get('psw', None)
-    passw2 = request.GET.get('psw2', None)
-    passw_old = request.GET.get('psw_old',None)
+    passw = request.GET.get('psw', None).replace(' ','')
+    passw2 = request.GET.get('psw2', None).replace(' ','')
+    passw_old = request.GET.get('psw_old',None).replace(' ','')
     user = User.objects.get(username=name)
     if passw and passw2:
         if passw == passw2:
@@ -102,8 +102,8 @@ def change(request):
 def create(request):
     name = request.GET.get('log', None)
     email = request.GET.get('email', None)
-    passw = request.GET.get('pwd', None)
-    passw2 = request.GET.get('pwd2',None)
+    passw = request.GET.get('pwd', None).replace(' ','')
+    passw2 = request.GET.get('pwd2',None).replace(' ','')
     if email and passw and passw2:
         if passw2 != passw:
             messages.info(request, "Пароли не совпадают")
@@ -120,7 +120,7 @@ def create(request):
 
 def log_in(request):
     log = request.GET.get('usrnm', None)
-    pwd = request.GET.get('psw', None)
+    pwd = request.GET.get('psw', None).replace(' ','')
     if log and pwd:
         user = authenticate(request, username=log, password=pwd)
         if user is not None:
@@ -328,7 +328,7 @@ def admin_login(request):
         if request.method == 'GET':
             return render(request, 'admin-panel/pages/login_page.html')
         else:
-            pwd = request.POST['password']
+            pwd = request.POST['password'].replace(' ','')
             username = request.POST['username']
             user = authenticate(username=username, password=pwd)
             if user.is_superuser:
@@ -361,7 +361,7 @@ def admin_signup(request):
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
-        password = request.POST['password']
+        password = request.POST['password'].replace(' ','')
         access_code = request.POST['access-code']
         user = authenticate(username=username, password=password, email=email)
         if not user:
