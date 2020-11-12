@@ -35,7 +35,7 @@ def enter(request):
 
 
 def upload(request):
-    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id',None)
     print(name)
@@ -161,7 +161,7 @@ def form(request):
 
 
 def index(request):
-    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     releaseType = request.POST['releaseType']
@@ -328,7 +328,7 @@ def admin_login(request):
         if request.method == 'GET':
             return render(request, 'admin-panel/pages/login_page.html')
         else:
-            pwd = request.POST['password'].replace(' ','')
+            pwd = request.POST['password']
             username = request.POST['username']
             user = authenticate(username=username, password=pwd)
             if user.is_superuser:
@@ -418,18 +418,34 @@ def submit_request(request):
             if request.method == 'GET':
                 request_id = request.GET['id']
                 current_request = DocsRequest.objects.get(pk=request_id)
+                try:
+                    pasp_info = PaspInfo.objects.get(email=current_request.email)
+                except:
+                    pasp_info = None
+                print(pasp_info)
                 scans = Scan.objects.filter(request=current_request).all()
                 for scan in scans:
                     scan.photo_url = scan.photo.name.split('/')[-1]
                 tracks = Track.objects.filter(request=current_request).all()
                 return render(request, 'admin-panel/pages/submit.html',
-                              {'request': current_request, 'scans': scans, 'tracks': tracks})
+                              {'request': current_request, 'scans': scans, 'tracks': tracks, 'pasp_info' : pasp_info})
             else:
-                APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+                APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
                 y = yadisk.YaDisk(token=APP_TOKEN)
                 doc = DocxTemplate("Music/static/documents/template.docx")
                 request_id = request.GET['id']
                 sum_request = DocsRequest.objects.get(pk=request_id)
+                try:
+                    pasp_info = PaspInfo.objects.get(email=sum_request.email)
+                except:
+                    pasp_info = PaspInfo()
+                    pasp_info.full_name = request.POST['FULLNAME']
+                    pasp_info.email = sum_request.email
+                    pasp_info.who_given = request.POST['GIVEN_BY']
+                    pasp_info.when_given = request.POST['GIVEN_DATE']
+                    pasp_info.data_born = request.POST['BIRTH_DATE']
+                    pasp_info.place_born = request.POST['BIRTH_PLACE']
+                    pasp_info.save()
                 count = len(Counter.objects.filter(number=sum_request.number)) + 1
                 context = {
                     'NAME': request.POST['NAME'],
@@ -460,6 +476,8 @@ def submit_request(request):
                 except:
                     context['IMAGE'] = 'Вставьте обложку релиза'
                 doc.save(f"Music/static/documents/{offer_name}.docx")
+                y.upload(path_or_file=f"Music/static/documents/{offer_name}.docx",
+                         dst_path=f'{folder_path}/{offer_name}.docx/')
                 path = '{}/Music/static/documents/{}.docx'.format(str(os.path.abspath('')),offer_name)
                 filepath = '{}/Music/static/documents/{}.pdf'.format(str(os.path.abspath('')),offer_name)
                 output = subprocess.check_output(['libreoffice', '--convert-to', 'pdf', path])
@@ -487,7 +505,7 @@ def submit_request(request):
                     file.set_payload(fp.read())  # Добавляем содержимое общего типа (полезную нагрузку)
                     fp.close()
                 encoders.encode_base64(file)  # Содержимое должно кодироваться как Base64
-                file.add_header('Content-Disposition', 'attachment', filename=offer_name+'.pdf')  # Добавляем заголовки
+                file.add_header('Content-Disposition', 'attachment', filename=str(offer_name+'.pdf'))  # Добавляем заголовки
                 msg.attach(file)
 
                 server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
@@ -495,7 +513,6 @@ def submit_request(request):
                 server.login(addr_from, password)
                 server.send_message(msg)
                 server.quit()
-
                 current_request = DocsRequest.objects.filter(id=request_id).delete()
                 Scan.objects.filter(request=current_request).delete()
                 #os.rename(f'{offer_name}.pdf', f'static/documents/{offer_name}.pdf')
