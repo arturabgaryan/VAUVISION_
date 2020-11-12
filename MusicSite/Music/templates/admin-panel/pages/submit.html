@@ -33,8 +33,13 @@
                     <label for="" class="label">Псевдоним</label>
                     <input name="NAME" placeholder="Например: PHARAOH" required type="text" class="input"><br><br>
                     <label for="" class="label">ФИО</label>
+                    {% if pasp_info == None %}
                     <input type="text" placeholder="Например: Иванов Иван Иванович" required name="FULLNAME"
                            class="input"><br><br>
+                    {% else %}
+                    <input type="text" placeholder="Например: Иванов Иван Иванович" value="{{pasp_info.full_name}}" required name="FULLNAME"
+                           class="input"><br><br>
+                    {% endif %}
                     <label for="" class="label">Инициалы</label>
                     <input type="text" placeholder="Например: Иванов И.И." required name="INITIALS"
                            class="input"><br><br>
@@ -46,12 +51,23 @@
                            required type="text"
                            class="input"><br><br>
                     <label for="" class="label">Дата рождаения</label>
+                    {% if pasp_info == None %}
                     <input type="text" required name="BIRTH_DATE" placeholder="Например: 13.05.2004"
                            class="input"><br><br>
+                    {% else %}
+                    <input type="text" required name="BIRTH_DATE" placeholder="Например: 13.05.2004" value="{{pasp_info.data_born}}"
+                           class="input"><br><br>
+                    {% endif %}
                     <label for="" class="label">Место рождения</label>
+                    {% if pasp_info == None %}
                     <input name="BIRTH_PLACE"
                            placeholder="Адрес Ивановская область, Ивановский район, д. Андреево, д. 10" required
                            type="text" class="input"><br><br>
+                    {% else %}
+                    <input name="BIRTH_PLACE"
+                           placeholder="Адрес Ивановская область, Ивановский район, д. Андреево, д. 10" required
+                           type="text" value="{{pasp_info.place_born}}" class="input"><br><br>
+                    {% endif %}
                     <div class="columns">
                         <div class="column">
                             <label for="" class="label">Серия паспорта</label>
@@ -65,11 +81,21 @@
                         </div>
                     </div>
                     <label for="" class="label">Кем выдан</label>
+                    {% if pasp_info == None %}
                     <input name="GIVEN_BY" placeholder="Напрмер: УМФЦ Российской Федерации" required type="text"
                            class="input"><br><br>
+                    {% else %}
+                    <input name="GIVEN_BY" placeholder="Напрмер: УМФЦ Российской Федерации" value="{{pasp_info.who_given}}" required type="text"
+                           class="input"><br><br>
+                    {% endif %}
                     <label for="" class="label">Когда выдан</label>
+                    {% if pasp_info == None %}
                     <input type="text" required name="GIVEN_DATE" placeholder="Например: 13.05.2004"
                            class="input"><br><br>
+                    {% else %}
+                    <input type="text" required name="GIVEN_DATE" placeholder="Например: 13.05.2004" value="{{pasp_info.when_given}}"
+                           class="input"><br><br>
+                    {% endif %}
                     <label for="" class="label">Регистрация</label>
                     <input name="REGISTRATION"
                            placeholder="Например: Адрес Ивановская область, Ивановский район, д. Андреево, д. 10"
