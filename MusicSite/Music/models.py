@@ -32,7 +32,7 @@ class Track(models.Model):
     melody_author = models.CharField(max_length=250)
     text_author = models.CharField(max_length=250)
     singer = models.CharField(max_length=250)
-    request = models.ForeignKey(DocsRequest, on_delete=models.CASCADE)
+    request = models.ForeignKey(DocsRequest, on_delete=models.SET_NULL, null=True)
     artist = models.CharField(max_length=250,default=None)
     artist_name = models.CharField(max_length=250,default=None)
 
