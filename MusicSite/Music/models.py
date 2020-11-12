@@ -43,9 +43,13 @@ class Scan(models.Model):
     request = models.ForeignKey(DocsRequest, on_delete=models.CASCADE)
 
 
-class FileToUpload(models.Model):
-    name = models.CharField(max_length=250,default=None)
-    file = models.FileField(upload_to='Music/static/documents')
+class PaspInfo(models.Model):
+    full_name = models.CharField(max_length=500,default=None)
+    who_given = models.CharField(max_length=500,default=None)
+    when_given = models.CharField(max_length=500,default=None)
+    data_born = models.CharField(max_length=500,default=None)
+    place_born = models.CharField(max_length=500,default=None)
+    email = models.CharField(max_length=500,default=None)
 
 
 
