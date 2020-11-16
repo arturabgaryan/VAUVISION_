@@ -3,13 +3,15 @@
 <head>
     <link rel="icon" sizes="192x192" href="https://static.wixstatic.com/media/a9774b_d7271cbb4d624d26b2ecdad58b7cf6da%7Emv2.png/v1/fill/w_32%2Ch_32%2Clg_1%2Cusm_0.66_1.00_0.01/a9774b_d7271cbb4d624d26b2ecdad58b7cf6da%7Emv2.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <meta charset="utf-8">
     <title>Вход</title>
     <style>
     @media screen and (min-device-width: 1280px){
         body{
-        min-width:1800px;
+        min-width:1100px;
+        font-family: 'Montserrat';
         background-image: url("/static/fon_leybl.png");
         }
         .button {
@@ -75,14 +77,14 @@
 .input-container {
     display: -ms-flexbox;
     display: flex;
-    width: 40%;
+    width: 50%;
     margin-bottom: 15px;
 }
 
 .input-container2{
 display: -ms-flexbox;
     display: flex;
-    width: 40%;
+    width: 50%;
     margin-bottom: 15px;
 padding-left:10px;
 }
@@ -113,9 +115,11 @@ background-color:black;
 }
 .regForm{
 display:flex;
-padding-left:200px;
+margin:auto;
 }
 .logoimg{
+margin-left:auto;
+margin:auto;
 padding-bottom:100px;
 }
 }
@@ -234,7 +238,11 @@ padding:50px 0px;
  <div class="pcDiv1">
      <div class="pcDiv2">
      <img class='logoimg' src="/static/vauvision_white (3).png" >
-             <form action="/log_in" style="text-align:center">
+             <form action="/log_in" style="text-align:center" method="post">
+                 {% csrf_token %}
+                 {% if error %}
+                 <p style="color:red;font-size: 20px;">{{error}}</p>
+                 {% endif %}
             <div class="regForm">
                 <div class="input-container" >
                 <i class="fa fa-user icon"></i>
