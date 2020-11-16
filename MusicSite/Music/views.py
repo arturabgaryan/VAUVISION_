@@ -24,18 +24,24 @@ from .models import Counter
 from django.http import JsonResponse
 from django.conf import settings
 import subprocess
+import time
 
 
 class PathExistsError:
     pass
 
 
+
+
 def enter(request):
     return render(request, 'unauthmain.html')
 
 
+def back(request):
+    return redirect('/account')
+
 def upload(request):
-    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id',None)
     print(name)
@@ -43,12 +49,9 @@ def upload(request):
     print(name)
     folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name}"
     files = request.FILES[name]
-    try:
-        y.upload(path_or_file=io.BytesIO(request.FILES[name].read()),
-                 dst_path=f'{folder_path}/Signed-{name}.pdf')
 
-    except:
-        pass
+    y.upload(path_or_file=io.BytesIO(request.FILES[name].read()),dst_path=f'{folder_path}/Signed-{name}.pdf')
+
     y.download(f"{folder_path}/Signed-{name}.pdf", f"Music/static/documents/Signed-{name}_offer.pdf")
     return redirect('/account')
 
@@ -83,10 +86,10 @@ def generate_pass():
 
 
 def change(request):
-    name = request.GET.get('usrnm', None)
-    passw = request.GET.get('psw', None).replace(' ','')
-    passw2 = request.GET.get('psw2', None).replace(' ','')
-    passw_old = request.GET.get('psw_old',None).replace(' ','')
+    name = request.POST.get('usrnm', None)
+    passw = request.POST.get('psw', None).replace(' ','')
+    passw2 = request.POST.get('psw2', None).replace(' ','')
+    passw_old = request.POST.get('psw_old',None).replace(' ','')
     user = User.objects.get(username=name)
     if passw and passw2:
         if passw == passw2:
@@ -95,8 +98,12 @@ def change(request):
                 user.set_password(passw)
                 user.save()
                 return redirect('/account')
+            else:
+                return render(request, 'change_profile.html',{'error':'Данные введены не верно'})
+        else:
+            return render(request, 'change_profile.html',{'error':'Пароли не совпадают'})
     else:
-        redirect('/change_profile_info_page')
+        return render(request,'change_profile.html',{'error':'Заполните все поля'})
 
 
 def create(request):
@@ -119,19 +126,29 @@ def create(request):
 
 
 def log_in(request):
-    log = request.GET.get('usrnm', None)
-    pwd = request.GET.get('psw', None).replace(' ','')
+    log = request.POST.get('usrnm', None)
+    pwd = request.POST.get('psw', None).replace(' ','')
     if log and pwd:
         user = authenticate(request, username=log, password=pwd)
         if user is not None:
             login(request, user)
             return redirect('/main')
         else:
-            print('Пароль не верный')
-            return redirect('/authorization')
+            return render(request, 'authorization.html',{'error':'Пароль не верный'})
 
 
 def send_email(request):
+    time_list = time.localtime()
+    hours = time_list[3]
+    print(hours)
+    if 5 <= int(hours) <= 12:
+        daytime = 'Доброго утра, '
+    elif 12 <= int(hours) <= 18:
+        daytime = 'Доброго дня, '
+    elif 18 <= int(hours) <= 22:
+        daytime = 'Доброго вечера, '
+    else:
+        daytime = 'Доброй ночи, '
     addr_from = "vau@vauvision.com"                         # Отправитель
     password  = "20052005Vauvision!"
     addr_to = request.GET.get('email', None)
@@ -142,7 +159,7 @@ def send_email(request):
     msg['To'] = addr_to                                # Получатель
     msg['Subject'] = "Вы включены в рассылку VAUVISION"                               # Тема сообщения
 
-    body = name + ", вас будут оповещать о всех событиях через рассылку. Оставайтесь на связи!)"
+    body = daytime + name + ", вас будут оповещать о всех событиях через рассылку. Оставайтесь на связи!)"
     msg.attach(MIMEText(body, 'plain'))                     # Добавляем в сообщение текст
 
     server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
@@ -161,7 +178,7 @@ def form(request):
 
 
 def index(request):
-    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     releaseType = request.POST['releaseType']
@@ -430,9 +447,9 @@ def submit_request(request):
                 return render(request, 'admin-panel/pages/submit.html',
                               {'request': current_request, 'scans': scans, 'tracks': tracks, 'pasp_info' : pasp_info})
             else:
-                APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+                APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
                 y = yadisk.YaDisk(token=APP_TOKEN)
-                doc = DocxTemplate("Music/static/documents/template.docx")
+                doc = DocxTemplate("Music/static/documents/template1.docx")
                 request_id = request.GET['id']
                 sum_request = DocsRequest.objects.get(pk=request_id)
                 try:
@@ -466,7 +483,8 @@ def submit_request(request):
                     'IMAGE': InlineImage(doc, image_descriptor=f'{sum_request.cover}', width=Mm(100)),
                     "DAY": datetime.now().day,
                     'YEAR': datetime.now().year,
-                    'TRACKS': Track.objects.filter(request=sum_request).all()
+                    'TRACKS': Track.objects.filter(request=sum_request).all(),
+                    'track_num': [i for i in range(len(list(Track.objects.filter(request=sum_request).all())))]
                 }
                 name = sum_request.release_name
                 folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name.replace(' ', '__')}"
