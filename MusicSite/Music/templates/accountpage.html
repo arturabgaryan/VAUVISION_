@@ -19,9 +19,8 @@ body {
   background-color: #0d0d0d;
   background-image: url("/static/fon_leybl.png");
   color:white;
-  width:100%;
   height:1224;
-  min-width:1800px;
+  min-width:1280px;
 }
 
 ul {
@@ -33,7 +32,7 @@ ul {
   position: fixed;
   top: 0;
   width: 100%;
-  min-width:1800px;
+  min-width:1280px;
 }
 
 
@@ -208,12 +207,18 @@ text-decoration:underline;
 display:none;
 }
 .pcDiv{
-padding:140px 30px;
+ min-width:1200px;
+padding-top:120px;
+width:95%;
+margin:auto;
+
 }
 .pcDiv2{
+ min-width:1200px;
 background-color: #0d0d0d;
-width:1780px;
-padding:25px 0px;
+width:95vw;
+padding:25px 0px!important
+margin-bottom:50px;
 }
 .pcHeader{
 margin-top:30px;
@@ -223,21 +228,23 @@ font-weight:bold;
 .pcDiv3{
 margin-top:80px;
 display:flex;
+width:70vw;
 }
 .img1{
 margin-left:200px;
 }
 .changeProf{
-font-size:25px;
-padding-left:100px;
+font-size:23px;
+padding-left:6vw;
 }
 .pcDiv4{
-padding-left:160px;
+padding-left:6%;
+width: 50vw;
 }
 .mainDiv{
+max-width:100%;
 height:300px;
 overflow:auto;
-width:1000px;
 background-color:#171717;
 border:2px solid;
 border-radius:2px;
@@ -245,6 +252,10 @@ padding:20px;
 }
 .phoneForm{
 display:none;
+}
+.changeForm{
+padding-top:30px;
+min-width:536px;
 }
 }
 
@@ -529,9 +540,9 @@ display:none;
     <h1 class="pcHeader">Личный кабинет</h1>
 <h2 style="text-align:center;"> Сдесь ты можешь найти всю необходимую информацию<br> о своих треках</h2>
 <div class="pcDiv3">
-    <div style="display:block;">
+    <div style="display:block;width:506px;margin-left:auto;">
         <img class="img1" src="/static/img2.png">
-        <form style="padding-top:30px;">
+        <form class="changeForm">
              <a href="/change_profile_info" class="changeProf">Изменить информацию профиля</a>
         </form>
     </div>
@@ -543,18 +554,18 @@ display:none;
            {% else %}
            {% for track in task %}
            <div class="pcForm">
-               <form method="post" enctype="multipart/form-data" action="/upload?id={{track.full_name}}_1">
+               <form id="form" method="post" enctype="multipart/form-data" action="/upload?id={{track.full_name}}_1">
                    {% csrf_token %}
-                   <p style="font-size:20px;display:flex;">Трек - "{{ track.name }}" : Заказчик - {{track.artist_name}} : Музыка - {{track.melody_author}} : Текст - {{track.text_author}} |  <label for="doc" class="upload"> Выбрать файл </label><input type="file" id="doc" name="{{track.full_name}}"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/{{track.full_name}}_offer.pdf" download>Скачать</a></p>
-                       <button type="submit" class="btn1">Загрузить договор</button>
+                   <p style="font-size:18px;display:flex;">Трек - "{{ track.name }}" : Заказчик - {{track.artist_name}} |  <label for="doc" class="upload"> Выбрать файл </label><input type="file" id="doc" name="{{track.full_name}}"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/{{track.full_name}}_offer.pdf" download>Скачать</a> |</p>
+<!--                       <button type="submit" class="btn1" value="Upload" onclick="thisFileUpload();>Загрузить договор</button>-->
                </form>
-               <p class="pcLine">_______________________________________________________________________________________________________________________</p>
+               <p class="pcLine">____________________________________________________________________________________________________</p>
            </div>
            <div class="phoneForm">
-               <form method="post" enctype="multipart/form-data" action="/upload?id={{track.full_name}}_2">
+               <form id="form2" method="post" enctype="multipart/form-data" action="/upload?id={{track.full_name}}_2">
                    {% csrf_token %}
-                   <p style="font-size:16px">Трек - "{{ track.name }}" <br> Заказчик - {{track.artist_name}} <br> Музыка - {{track.melody_author}} <br> Текст - {{track.text_author}}  <label for="doc1" class="upload"> Выбрать файл </label><input type="file" id="doc1" name="{{track.full_name}}"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/{{track.full_name}}_offer.pdf" download>Скачать</a></p>
-                       <button type="submit" class="btn1">Загрузить договор</button>
+                   <p style="font-size:16px">Трек - "{{ track.name }}" <br> Заказчик - {{track.artist_name}} <label for="doc1" class="upload"> Выбрать файл </label><input type="file" id="doc1" name="{{track.full_name}}"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/{{track.full_name}}_offer.pdf" download>Скачать</a></p>
+<!--                       <button type="submit" class="btn1">Загрузить договор</button>-->
                </form>
                <p>_________________________________</p>
            </div>
@@ -568,7 +579,7 @@ display:none;
 </div>
 
 </div>
-<footer style="background-color:#171717;margin-bottom:-40px;height:60px;margin-top:-40px;">
+<footer style="background-color:#171717;margin-bottom:-40px;height:60px;margin-top:40px;">
         <p style="text-align:center;padding-top:20px;color:white;">©2020 VAUVISION</p>
     </footer>
 
@@ -580,6 +591,16 @@ $("#doc").change(function(){
 <script>
 $("#doc1").change(function(){
   $("#file-name").text(this.files[0].name);
+});
+</script>
+<script>
+    $("#doc").change(function () {
+$("#form").submit();
+});
+</script>
+<script>
+    $("#doc1").onchange(function () {
+$("#form2").submit();
 });
 </script>
 </body>
