@@ -37,6 +37,7 @@ urlpatterns = [
     path('account',account),
     path('change_profile_info',change_profile_info_page),
     path('change',change),
+    path('back',back),
     path('log_in',log_in),
     path('send_email',send_email),
     path('index',index),
