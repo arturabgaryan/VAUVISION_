@@ -41,7 +41,7 @@ def back(request):
     return redirect('/account')
 
 def upload(request):
-    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id',None)
     print(name)
@@ -138,17 +138,18 @@ def log_in(request):
 
 
 def send_email(request):
+    time.ctime()
     time_list = time.localtime()
     hours = time_list[3]
-    print(hours)
-    if 5 <= int(hours) <= 12:
-        daytime = 'Доброго утра, '
-    elif 12 <= int(hours) <= 18:
-        daytime = 'Доброго дня, '
-    elif 18 <= int(hours) <= 22:
-        daytime = 'Доброго вечера, '
-    else:
-        daytime = 'Доброй ночи, '
+    # print(hours)
+    # if 5 <= int(hours) <= 12:
+    #     daytime = 'Доброго утра, '
+    # elif 12 <= int(hours) <= 18:
+    #     daytime = 'Доброго дня, '
+    # elif 18 <= int(hours) <= 22:
+    #     daytime = 'Доброго вечера, '
+    # else:
+    #     daytime = 'Доброй ночи, '
     addr_from = "vau@vauvision.com"                         # Отправитель
     password  = "20052005Vauvision!"
     addr_to = request.GET.get('email', None)
@@ -159,7 +160,7 @@ def send_email(request):
     msg['To'] = addr_to                                # Получатель
     msg['Subject'] = "Вы включены в рассылку VAUVISION"                               # Тема сообщения
 
-    body = daytime + name + ", вас будут оповещать о всех событиях через рассылку. Оставайтесь на связи!)"
+    body = 'Добрый день, ' + name + ", вас будут оповещать о всех событиях через рассылку. Оставайтесь на связи!)"
     msg.attach(MIMEText(body, 'plain'))                     # Добавляем в сообщение текст
 
     server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
@@ -178,7 +179,7 @@ def form(request):
 
 
 def index(request):
-    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     releaseType = request.POST['releaseType']
@@ -230,7 +231,7 @@ def index(request):
         msg['To'] = addr_to  # Получатель
         msg['Subject'] = "Аккаунт VAUVISION успешно создан!"  # Тема сообщения
 
-        body = artist_name + ", информация о зарегестрированном треке будет в вашем личном кабинете \n Логин: {} \n Пароль: {}".format(
+        body = 'Добрый день!' + "Вы отправили заявку на дистрибуцию на лейбле VAUVISION.\n Теперь у вас на сайте есть личный кабинет, где вы можете видеть свои загруженные релизы, договоры, получить отчёты о прослушиваниях и прочую информацию. Функционал кабинета постепенно будет пополняться. \n Логин: {} \n Пароль: {} \n Пожалуйста, сохраните логин и пароль от личного кабинета.Скоро на почту придет письмо с договором и дальнейшие инструкции.\n По всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel".format(
             email, generated_pass)  # Текст сообщения
         msg.attach(MIMEText(body, 'plain'))  # Добавляем в сообщение текст
 
@@ -447,7 +448,7 @@ def submit_request(request):
                 return render(request, 'admin-panel/pages/submit.html',
                               {'request': current_request, 'scans': scans, 'tracks': tracks, 'pasp_info' : pasp_info})
             else:
-                APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+                APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
                 y = yadisk.YaDisk(token=APP_TOKEN)
                 doc = DocxTemplate("Music/static/documents/template1.docx")
                 request_id = request.GET['id']
@@ -512,7 +513,7 @@ def submit_request(request):
                 msg['To'] = addr_to  # Получатель
                 msg['Subject'] = "Аккаунт VAUVISION успешно создан!"  # Тема сообщения
 
-                body = "{}, договор о недавно зарегестрированном треке прикреплен ниже".format(
+                body = "Добрый день, {}. \nЭто договор для дистрибуции. Если все данные верны, то файл нужно:\n1) Скачать\n2) Распечатать все листы\n3) Подписать две последние страницы (в табличках) синей ручкой\n4) Сфотографировать все листы\n5) Сделать из них один PDF файл\n6) Загрузить получившийся файл в личном кабинете на сайте vauvision.com \nПо всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel".format(
                     request.POST['FULLNAME'])  # Текст сообщения
                 msg.attach(MIMEText(body, 'plain'))  # Добавляем в сообщение текст
 
