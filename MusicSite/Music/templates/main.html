@@ -13,19 +13,18 @@ body {
   font-family: 'Montserrat';
   font-weight:400;
   width:100%;
-  min-width:1280px;
+  min-width:1200px;
 
 }
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: hidden;
   background-color: #0d0d0d;
   position: fixed;
   top: 0;
   width:100%;
-  min-width:1280px;
+  min-width:1200px;
 }
 
 a {
@@ -55,33 +54,40 @@ height: 20px;
 }
 
 .text1{
-padding-left: 4vw;
-font-size:14px;
+padding-left: 2vw;
+font-size:15px;
 color:white;
 line-height: 2;
 margin-top:30px;
 margin-bottom:30px;
-min-width:506px;
+width:586px;
+text-align:right;
 }
 .btn6{
     text-decoration:none;
     background: black;
     border-radius: 30px;
     color: white;
-    padding:0px 10px;
+    padding:7px 10px;
+    margin:auto;
+    margin-left:60px;
 }
 .btn6:hover{
-    text-decoration:underline;
+    text-decoration:underline!important;
         }
 .btn1{
     text-decoration:none;
     background: white;
-    padding:10px;
+    padding:6px 10px;
     border-radius: 30px;
     color: black !important;
-    float:left;
+    float:right;
 }
-
+.btn1:hover{
+text-decoration:none;
+transition: 0.5s;
+background-color: #bdbdbd;
+}
 .btn2{
     text-decoration:none;
     background: black;
@@ -116,13 +122,13 @@ min-width:506px;
 }
 
 .btn4:hover {
-    transition: 0.3s;
+    transition: 0.5s;
     background-color: white;
     color:black !important;
     }
 
 .btn5:hover {
-    transition: 0.3s;
+    transition: 0.5s;
     background-color: #bdbdbd;
     border:2px solid  #bdbdbd;
     }
@@ -138,7 +144,7 @@ min-width:506px;
 }
 
 .btn3:hover {
-    transition: 0.3s;
+    transition: 0.5s;
     background-color: #363636;
     }
 
@@ -157,15 +163,16 @@ font-family: 'Montserrat';
 }
 .white{
 background-color:white;
-height:326px;
+height:376px;
 width:25%;
-padding-top:10px;
+padding-top:40px;
 padding-bottom:-50px;
 color:black;
 line-height: 2;
 text-align:center;
 margin-left:10px;
 margin-right:10px;
+font-size:18px;
 }
 .white_header{
 background-color:white;
@@ -178,15 +185,16 @@ margin-bottom:20px;
 }
 .black{
 background-color:#1c1c1c;
-height:326px;
+height:376px;
 width:25%;
-padding-top:20px;
+padding-top:40px;
 padding-bottom:-50px;
 color:white;
 line-height: 2;
 text-align:center;
 margin-left:10px;
 margin-right:10px;
+font-size:18px;
 }
 .black_header{
 background-color:#1c1c1c;
@@ -223,38 +231,32 @@ color:white;
 }
 
 .group {
-  position: relative;
   padding: 10px 0 0;
   margin-top: 10px;
-  margin-left:25%;
-  width: 20%;
+<!--  margin-left:25%;-->
+  width: 100%;
 }
 .group2 {
-  position: relative;
   padding: 10px 0 0;
   margin-top: 10px;
-  margin-left:2%;
-  width: 20%;
+  margin-left:10%;
 }
 
 .field{
-width: 100%;
+width: 120%;
   border: 0;
   border-bottom: 2px solid black;
   outline: 0;
   font-size: 1.1rem;
   color: black;
   padding: 4px 0;
-  background: transparent;
-  transition: border-color 0.2s;
+background-color: rgb(255, 255, 255);
+  transition: border-color 0.3s;
 }
 .field:focus{
-
-padding-bottom: 6px;
-  font-weight: 700;
-  border-width: 3px;
   border-image: linear-gradient(to right, #3b3b3b,#ed6707);
   border-image-slice: 1;
+  background-color: rgb(255, 255, 255);
 }
 
 .label {
@@ -288,7 +290,7 @@ margin:auto;
 
 .seconddiv{
 margin:auto;
-width:924px;
+width:1004px;
 background-color:white;
 display:flex;
 }
@@ -298,6 +300,7 @@ height: 800px;
 margin-top:100px;
 margin-bottom:50px;
 box-shadow: -15px 15px;
+object-fit: cover;
 }
 .text2_ending{
 margin-bottom:100px;
@@ -305,12 +308,14 @@ margin-bottom:100px;
 .mail_form{
 display:flex;
 padding-bottom:100px;
+margin:auto;
+width:784px;
 }
 .firstrow{
 display:flex;
 padding-left:55px;
 padding-right:55px;
-margin-top:40px;
+margin-top:50px;
 margin-bottom:20px;
 }
 .secondrow{
@@ -322,7 +327,8 @@ padding-bottom:40px;
 }
 .buttons_promo{
 display:flex;
-margin-left:35vw;
+margin:auto;
+width:550px;
 }
 .btn4_mobile{
 display:none;
@@ -334,15 +340,15 @@ display:none;
 display:none;
 }
 .leyblIMG2{
-width:500px;
-height: 700px;
+width:400px;
+height: 550px;
 margin-bottom:50px;
 object-fit:cover;
 }
 .thirddiv{
 display:flex;
 margin:auto;
-width:973px;
+width:953px;
 }
 .costs1{
 width:100%;
@@ -362,12 +368,12 @@ padding-bottom:40px;
 margin-bottom:40px;
 }
 .cost{
-padding:0% 10%
+padding:0% 10%;
 }
 .black2{
 background-color:#1c1c1c;
 height:476px;
-width:30%;
+width:100%;
 padding-top:20px;
 padding-bottom:-50px;
 color:white;
@@ -378,7 +384,7 @@ margin-right:20px;
 .black1{
 background-color:#1c1c1c;
 height:476px;
-width:30%;
+width:100%;
 padding-top:20px;
 padding-bottom:-50px;
 color:white;
@@ -395,6 +401,42 @@ display:none;
 .video{
 width:400px;
 }
+
+.dropbtn {
+margin-top:20px;
+  background-color: #0d0d0d;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn { background-color: #111;}
 }
 
 
@@ -589,7 +631,7 @@ margin-bottom:10px;
     padding:10px;
     border-radius: 30px;
     color: white;
-    margin-left:40px;
+    margin-left:10%;
 }
 .btn2:hover {
     transition: 0.3s;
@@ -654,7 +696,7 @@ padding-bottom: 6px;
     border-radius: 30px;
     color: white;
     padding:8px 70px;
-    margin:auto;
+    margin-left:20%;
 }
 .btn6:hover{
     text-decoration:underline;
@@ -753,13 +795,13 @@ text-decoration:none;
     marin-bottom:60px;
 }
 .btn4_mobile:hover {
-    transition: 0.3s;
+    transition: 0.5s;
     background-color: white;
     color:black !important;
     }
 
 .btn5_mobile:hover {
-    transition: 0.3s;
+    transition: 0.5s;
     background-color: #bdbdbd;
     border:2px solid  #bdbdbd;
     }
@@ -847,7 +889,7 @@ width:100%;
 }
 </style>
     <link rel="icon" sizes="192x192" href="https://static.wixstatic.com/media/a9774b_d7271cbb4d624d26b2ecdad58b7cf6da%7Emv2.png/v1/fill/w_32%2Ch_32%2Clg_1%2Cusm_0.66_1.00_0.01/a9774b_d7271cbb4d624d26b2ecdad58b7cf6da%7Emv2.png">
-    <title>ДИСТРИБУЦИЯ Vauvision</title>
+    <title>Дистрибуция | VAUVISION музыкальный лейбл</title>
 </head>
 <div>
 
@@ -858,10 +900,18 @@ width:100%;
     <li><a href="https://www.instagram.com/vauvision/" style="float: right;"><img alt="Instagram" src="/static/icons/instagram.png" style="width: 20px; height: 20px; object-fit: cover;"></a></li>
     <li><a href="https://vk.com/vauvisionlabel" style="float: right;"><img alt="VK Share" src="/static/icons/vk3.png" style="width: 30px; height: 30px; object-fit: cover;margin-top:-4px;"></a></li>
     <li><a href="/account" style="float: right;"><b>Личный кабинет</b></a></li>
-    <li><a href="#rezume" style="float: right;">Резюме</a></li>
-     <li><a href="#faq" style="float: right;">FAQ</a></li>
+    <div class="dropdown" style="float:right;">
+  <button class="dropbtn"  >Ещё</button>
+  <div class="dropdown-content">
+    <a href="#faq" style="color:black!important;">FAQ</a>
+    <a href="#rezume" style="color:black!important;">Резюме</a>
+    <a href="#forth" style="color:black!important;">Основатель</a>
+  </div>
+</div>
+<!--    <li><a href="#rezume" style="float: right;">Резюме</a></li>-->
+<!--     <li><a href="#faq" style="float: right;">FAQ</a></li>-->
     <li><a href="#cost" style="float: right;">Цены</a></li>
-    <li><a href="#forth" style="float: right;">Основатель</a></li>
+<!--    <li><a href="#forth" style="float: right;">Основатель</a></li>-->
     <li><a href="#carouselExampleIndicators" style="float: right;">Отзывы</a></li>
     <li><a href="#third" style="float: right;">Преимущества</a></li>
     <li><a href="#second" style="float: right;">О лейбле</a></li>
@@ -894,16 +944,16 @@ width:100%;
 </nav>
 </div>
 
-<div id='firstdiv' style="background-color:#0d0d0d;padding-bottom:60px;">
-  <h1 style="text-align:center; font-size:40px; color:white; padding-top:100px; padding-bottom:60px;font-weight: bolder;">ВЫЛОЖИ ТРЕК НА ВСЕ <br> ПЛОЩАДКИ И ПРОДАВАЙ СВОЮ <br>
+<div id='firstdiv' style="background-color:#0d0d0d;padding-bottom:60px;" class="parent_videodiv">
+      <h1 style="text-align:center; font-size:40px; color:white; padding-top:100px; padding-bottom:60px;font-weight: bolder;">ВЫЛОЖИ ТРЕК НА ВСЕ <br> ПЛОЩАДКИ И ПРОДАВАЙ СВОЮ <br>
 МУЗЫКУ ВО ВСЁМ МИРЕ</h1>
   <div class="videodiv">
      <div style="text-align:center;">
        <h2 style="margin-bottom:10px; color:white;font-size:23px; font-weight: bold;">ПОСМОТРИ ЭТО ВИДЕО</h2>
-       <iframe width="450" height="320" src="https://www.youtube.com/embed/cT-1jK71dQo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+       <iframe class="video" height="270" src="https://www.youtube.com/embed/cT-1jK71dQo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
      </div>
      <div class="text1">
-       <p style="margin-bottom:30px; font-weight: bold;font-size:18px;">2 000 АРТИСТОВ ВЫБРАЛИ НАС</p>
+       <p style="margin-bottom:30px; font-weight: bold;font-size:17px;">2 000 АРТИСТОВ ВЫКЛАДЫВАЮТ ТРЕКИ ЧЕРЕЗ НАС</p>
        <p style="margin-bottom:40px;">Бесплатно продвигаем твои треки в редакторские плейлисты.<br>Ты сохраняешь права и можешь вывести заработанную сумму<br> Ответим в течение 3 часов, работаем по договору</p>
         <a href="https://music.yandex.ru/label/1220958/albums?sort=rating" class="btn1">Список наших релизов</a>
      </div>
@@ -925,13 +975,12 @@ width:100%;
     <a href="#groups" class="btn2" style="float:left;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Присоединиться бесплатно</a>
   </div>
 
-
 </div>
-<div id='groups'>
-  <p style='text-align:center;font-size:25px;margin-bottom:40px;'><b>ПОДПИШИСЬ</b> НА НАШУ РАССЫЛКУ, ЧТОБЫ ПОЛУЧАТЬ БЕСПЛАТНЫЕ<br> МАТЕРИАЛЫ ПО ПРОДВИЖЕНИЮ И РАЗВИТИЮ КАРЬЕРЫ АРТИСТА</p>
+<div id='groups' style="padding-top:80px;margin-top:-60px;">
+  <p style='text-align:center;font-size:22px;margin-bottom:40px;'><b>ПОДПИШИСЬ</b> НА НАШУ РАССЫЛКУ, ЧТОБЫ ПОЛУЧАТЬ БЕСПЛАТНЫЕ<br> МАТЕРИАЛЫ ПО ПРОДВИЖЕНИЮ И РАЗВИТИЮ КАРЬЕРЫ АРТИСТА</p>
 </div>
 
-<form action="/send_email">
+<form action="/send_email" id="form_group">
     <div class="mail_form">
   <div class='group' >
      <input class="field" name="name" id='name' placeholder="Имя">
@@ -939,7 +988,7 @@ width:100%;
 <div class='group2'>
   <input class="field" name="email" id='email' type="email" placeholder="Эл.почта">
 </div>
-      <button class="btn6">Отправить</button>
+      <a onclick="this.closest('form').submit();return false;" class="btn6">Отправить</a>
 </div>
 </form>
 
@@ -1172,12 +1221,12 @@ width:100%;
         <div style="padding-left:50px;">
             <h3 style="margin-left:0px;margin-top:100px;font-size:20px;">ВЛАДИМИР ВАНИН</h3>
             <p style="margin-top:20px;">Опыт в индустрии:<br>
-Прошел стажировку на лейбле<br> Warner Music Russia
-Менеджер<br>артистов Наргиз, Олег Майами в<br> продюсерском центре Макса <br>Фадеева (MALFA)
+Прошел стажировку на лейбле Warner Music Russia<br>
+Менеджер артистов Наргиз, Олег Майами в<br> продюсерском центре Макса Фадеева (MALFA)
 </p>
         <p style="margin-top:40px;">Настоящее время:<br>
-Менеджер артистов КРЕСТ (95к <br>подписчиков, более 5 млн прослушиваний<br> на альбомах), zayatz
-Основатель и<br> руководитель лейбла VAUVISION (выложено<br> более 8 000 песен с 2 000 артистами)<br>
+Менеджер артистов КРЕСТ (95к подписчиков, более 5 млн <br> прослушиваний на альбомах), zayatz<br>
+Основатель и руководитель лейбла VAUVISION (выложено<br> более 8 000 песен с 2 000 артистами)<br>
 Автор образовательных роликов для начинающих<br> артистов</p>
         </div>
     </div>
@@ -1189,11 +1238,11 @@ width:100%;
 
     <div class="black1">
      <div class="black_header1">
-         <h3 style="font-size:21px;font-weight:bold;padding:0% 13%;">СИНГЛ</h3>
+         <h3 style="font-size:21px;padding:0% 13%;">СИНГЛ</h3>
      </div>
         <div class="black_text">
             <p style="font-size:20px;padding:0% 13%;">1 300 руб.</p>
-            <p style="padding:0px 60px;">Трек официально<br> появляется на всех<br> цифровых площадках.<br> Без последующих доплат.</p>
+            <p style="padding:0% 13%;">Трек официально<br> появляется на всех<br> цифровых площадках.<br> Без последующих доплат.</p>
         </div>
         <div class="black_footer" style="padding-left:55px;">
             <a href="/form" class="btn5"  style="padding: 10px 15px;">Оформить</a>
@@ -1203,7 +1252,7 @@ width:100%;
 
     <div class="black2">
       <div class="black_header1">
-          <h3 style="font-size:21px;font-weight:bold;padding:0% 13%;">АЛЬБОМ</h3>
+          <h3 style="font-size:21px;padding:0% 13%;">АЛЬБОМ</h3>
       </div>
         <div class="black_text">
              <p style="font-size:20px;padding:0% 13%;">1 800 руб.</p>
@@ -1217,7 +1266,7 @@ width:100%;
 
     <div class="black1" style="margin-right:20px;">
      <div class="black_header1">
-         <h3 style="font-size:21px;font-weight:bold;padding:0% 13%;">КЛИП</h3>
+         <h3 style="font-size:21px;padding:0% 13%;">КЛИП</h3>
      </div>
         <div class="black_text">
             <p style="font-size:20px;padding:0% 13%;">1 300 руб.</p>
@@ -1231,7 +1280,7 @@ width:100%;
 
     <div class="black1">
      <div class="black_header1">
-         <h3 style="font-size:21px;font-weight:bold;padding:0% 13%;">СИНГЛ +<br> ОФОРМЛЕНИЕ<br> КАРТОЧКИ</h3>
+         <h3 style="font-size:21px;padding:0% 13%;">СИНГЛ +<br> ОФОРМЛЕНИЕ<br> КАРТОЧКИ</h3>
      </div>
         <div class="black_text">
             <p style="font-size:20px;padding:0% 13%;">1 790 руб.</p>
@@ -1249,7 +1298,7 @@ width:100%;
 
       <div class="black1">
      <div class="black_header1">
-         <h3 style="font-size:21px;font-weight:bold;padding:0% 13%;">АЛЬБОМ +<br> ОФОРМЛЕНИЕ<br> КАРТОЧКИ</h3>
+         <h3 style="font-size:21px;padding:0% 13%;">АЛЬБОМ +<br> ОФОРМЛЕНИЕ<br> КАРТОЧКИ</h3>
      </div>
         <div class="black_text">
             <p style="font-size:20px;padding:0% 13%;">2 290 руб.</p>
@@ -1263,7 +1312,7 @@ width:100%;
 
     <div class="black2">
       <div class="black_header1">
-          <h3 style="font-size:21px;font-weight:bold;padding:0% 13%;">СИНГЛ + АЛЬБОМ</h3>
+          <h3 style="font-size:21px;padding:0% 13%;">СИНГЛ + АЛЬБОМ</h3>
       </div>
         <div class="black_text">
              <p style="font-size:20px;padding:0% 13%;">2 890 руб.</p>
@@ -1277,7 +1326,7 @@ width:100%;
 
     <div class="black1" style="margin-right:20px;">
      <div class="black_header1">
-         <h3 style="font-size:21px;font-weight:bold;padding:0% 13%;">3 СИНГЛА</h3>
+         <h3 style="font-size:21px;padding:0% 13%;">3 СИНГЛА</h3>
      </div>
         <div class="black_text">
             <p style="font-size:20px;padding:0% 13%;">3 290 руб.</p>
@@ -1291,7 +1340,7 @@ width:100%;
 
     <div class="black1">
      <div class="black_header1">
-         <h3 style="font-size:21px;font-weight:bold;padding:0% 13%;">5 / 10 СИНГЛОВ</h3>
+         <h3 style="font-size:21px;padding:0% 13%;">5 / 10 СИНГЛОВ</h3>
      </div>
         <div class="black_text">
             <p style="font-size:20px;padding:0% 13%;">4 990 / 9 990 руб.</p>
