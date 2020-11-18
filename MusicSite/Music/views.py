@@ -41,18 +41,17 @@ def back(request):
     return redirect('/account')
 
 def upload(request):
-    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id',None)
-    print(name)
     name = name[:-2]
-    print(name)
-    folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name}"
-    files = request.FILES[name]
+    full_name = name.split('=')[0]
+    folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{full_name}"
+    files = request.FILES.get(name+"_name")
 
-    y.upload(path_or_file=io.BytesIO(request.FILES[name].read()),dst_path=f'{folder_path}/Signed-{name}.pdf')
+    y.upload(path_or_file=io.BytesIO(request.FILES.get(name+"_name").read()),dst_path=f'{folder_path}/Signed-{full_name}.pdf')
 
-    y.download(f"{folder_path}/Signed-{name}.pdf", f"Music/static/documents/Signed-{name}_offer.pdf")
+    y.download(f"{folder_path}/Signed-{full_name}.pdf", f"Music/static/documents/Signed-{full_name}_offer.pdf")
     return redirect('/account')
 
 
@@ -69,8 +68,16 @@ def main(request):
 
 
 def account(request):
+    path = '{}/Music/static/documents/Signed-)(_offer.pdf'.format(str(os.path.abspath('')))
     tracks = Track.objects.filter(artist=request.user.username)
-    return render(request,'accountpage.html',{'task':tracks,'name':request.user.username})
+    signed_tracks = []
+    for track in tracks:
+        if os.path.isfile(path.replace(')(',track.full_name)):
+            signed_tracks.append(track.full_name)
+            print("Yes:",track.full_name)
+        else:
+            print('No')
+    return render(request,'accountpage.html',{'task':tracks,'name':request.user.username,'signed_tracks':signed_tracks})
 
 
 def change_profile_info_page(request):
@@ -179,7 +186,7 @@ def form(request):
 
 
 def index(request):
-    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     releaseType = request.POST['releaseType']
@@ -448,7 +455,7 @@ def submit_request(request):
                 return render(request, 'admin-panel/pages/submit.html',
                               {'request': current_request, 'scans': scans, 'tracks': tracks, 'pasp_info' : pasp_info})
             else:
-                APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+                APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
                 y = yadisk.YaDisk(token=APP_TOKEN)
                 doc = DocxTemplate("Music/static/documents/template1.docx")
                 request_id = request.GET['id']
@@ -500,6 +507,7 @@ def submit_request(request):
                 path = '{}/Music/static/documents/{}.docx'.format(str(os.path.abspath('')),offer_name)
                 filepath = '{}/Music/static/documents/{}.pdf'.format(str(os.path.abspath('')),offer_name)
                 output = subprocess.check_output(['libreoffice', '--convert-to', 'pdf', path])
+                time.sleep(5)
                 os.rename('{}/{}.pdf'.format(str(os.path.abspath('')),offer_name), '{}/Music/static/documents/{}.pdf'.format(str(os.path.abspath('')),offer_name))
                 y.upload(path_or_file=f"Music/static/documents/{offer_name}.pdf",
                          dst_path=f'{folder_path}/{offer_name}.pdf/')
