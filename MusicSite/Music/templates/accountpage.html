@@ -593,10 +593,13 @@ display:none;
            {% else %}
            {% for track in task %}
            <div class="pcForm">
-               <form id="form_{{track.full_name}}_id" method="post" enctype="multipart/form-data" action="/upload?id={{track.full_name}}_1">
+               <form id="form_{{track.full_name}}_id" method="post" enctype="multipart/form-data" action="/upload?id={{track.full_name}}={{track.name}}_1">
                    {% csrf_token %}
-                   <p style="font-size:18px;display:flex;">Трек - "{{ track.name }}" : Заказчик - {{track.artist_name}} |  <label for="{{track.full_name}}_id" class="upload"> Выбрать файл </label><input onclick="countRabbits()"  type="file" id="{{track.full_name}}_id" name="{{track.full_name}}_name"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/Signed-{{track.full_name}}_offer.pdf" download>Скачать</a> |</p>
-<!--                       <button type="submit" class="btn1" value="Upload" onclick="thisFileUpload();>Загрузить договор</button>-->
+                   {% if track.full_name in signed_tracks %}
+                   <p style="font-size:18px;display:flex;">Трек - "{{ track.name }}" : Заказчик - {{track.artist_name}} |  <label for="{{track.full_name}}_id" class="upload"> Выбрать файл </label><input onclick="countRabbits()"  type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/Signed-{{track.full_name}}_offer.pdf" download>Скачать</a> |</p>
+                   {% else %}
+                   <p style="font-size:18px;display:flex;">Трек - "{{ track.name }}" : Заказчик - {{track.artist_name}} |  <label for="{{track.full_name}}_id" class="upload"> Выбрать файл </label><input onclick="countRabbits()"  type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | </p>
+                   {% endif %}
                </form>
                <p class="pcLine">____________________________________________________________________________________________________</p>
            </div>
