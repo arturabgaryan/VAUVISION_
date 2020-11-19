@@ -22,6 +22,7 @@ urlpatterns = [
     path('reg_page',registration),
     path('create',create),
     path('log_in',log_in),
+    path('log_out',log_out),
     path('main',main),
     path('form/', form),
     path('form-admin/', panel),
