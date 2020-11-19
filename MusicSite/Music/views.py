@@ -143,6 +143,12 @@ def log_in(request):
         else:
             return render(request, 'authorization.html',{'error':'Пароль не верный'})
 
+def log_out(request):
+    if request.user.is_authenticated:
+        logout(request)
+    return redirect('/')
+
+
 
 def send_email(request):
     time.ctime()
