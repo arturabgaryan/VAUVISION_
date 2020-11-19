@@ -14,7 +14,25 @@ body {
   font-weight:400;
   width:100%;
   min-width:1200px;
+  background-color:white!important;
 
+}
+@font-face {
+    font-family: buttons;
+    src: url("/static/fonts/oswald/Oswald-Regular.ttf");
+}
+.button_is-light{
+    text-transform: uppercase;
+    background: white;
+    border-radius: 4px;
+    font-family: buttons;
+    padding:8px 17px;
+    margin-top:20px;
+
+}
+.button_is-light:hover{
+text-decoration:underline;
+background:white!important;
 }
 ul {
   list-style-type: none;
@@ -916,6 +934,7 @@ width:100%;
     <li><a href="#third" style="float: right;">Преимущества</a></li>
     <li><a href="#second" style="float: right;">О лейбле</a></li>
     <li><a href="#firstdiv" class="active1" style="float: right;">Главная</a></li>
+    <li><a href="/log_out" class="button_is-light" style="float:right;color:black!important;">Выйти</a></li>
 </ul>
 
 
