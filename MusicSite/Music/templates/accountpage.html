@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
      <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/css/styles.css">
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="icon" sizes="192x192" href="https://static.wixstatic.com/media/a9774b_d7271cbb4d624d26b2ecdad58b7cf6da%7Emv2.png/v1/fill/w_32%2Ch_32%2Clg_1%2Cusm_0.66_1.00_0.01/a9774b_d7271cbb4d624d26b2ecdad58b7cf6da%7Emv2.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     {% load static %}
@@ -21,8 +19,24 @@ body {
   background-color: #0d0d0d;
   background-image: url("/static/fon_leybl.png");
   color:white;
-  height:1224;
   min-width:1280px;
+}
+@font-face {
+    font-family: buttons;
+    src: url("/static/fonts/oswald/Oswald-Regular.ttf");
+}
+.button_is-light{
+    text-transform: uppercase;
+    background: white;
+    border-radius: 4px;
+    font-family: buttons;
+    padding:8px 17px;
+    margin-top:20px;
+
+}
+.button_is-light:hover{
+text-decoration:underline;
+background:white!important;
 }
 
 ul {
@@ -197,6 +211,7 @@ transition: 0.3s;
 text-decoration:underline;
 }
 .filename{
+width:40%;
  background-color:#171717;
  border:2px solid;
  border-radius:2px;
@@ -218,8 +233,9 @@ margin:auto;
  min-width:1200px;
 background-color: #0d0d0d;
 width:95vw;
-padding:25px 0px!important
+padding:25px 0px!important;
 margin-bottom:50px;
+text-align:center;
 }
 .pcHeader{
 margin-top:30px;
@@ -227,7 +243,7 @@ text-align:center;
 font-weight:bold;
 }
 .pcDiv3{
-margin-top:80px;
+margin-top:60px;
 display:flex;
 width:70vw;
 }
@@ -236,15 +252,19 @@ margin-left:200px;
 }
 .changeProf{
 font-size:23px;
-padding-left:6vw;
+text-align:center!important;
+border:2px solid white;
+border-radius:15px;
+padding:15px;
+
 }
 .pcDiv4{
-padding-left:6%;
-width: 50vw;
+margin:auto;
+width: 90%;
 }
 .mainDiv{
 max-width:100%;
-height:300px;
+height:350px;
 overflow:auto;
 background-color:#171717;
 border:2px solid;
@@ -256,7 +276,8 @@ display:none;
 }
 .changeForm{
 padding-top:30px;
-min-width:536px;
+width:536px;
+margin:auto;
 }
 .dropbtn {
 margin-top:20px;
@@ -548,7 +569,7 @@ display:none;
     <li><a href="/main#third" style="float: right;">Преимущества</a></li>
     <li><a href="/main#second" style="float: right;">О лейбле</a></li>
     <li><a href="/main#firstdiv" class="active1" style="float: right;">Главная</a></li>
-    <li><a href="/log_out" class="button is-light" style="float:right;margin-top:20px;color:black!important;">Выйти</a></li>
+    <li><a href="/log_out" class="button_is-light" style="float:right;margin-top:20px;color:black!important;">Выйти</a></li>
 </ul>
 
 
@@ -570,6 +591,7 @@ display:none;
       <a href="/main#second" style="color:black!important"><li>О лейбле</li></a>
         <a href="/main#links" style="color:black!important"><li>Соцсети</li></a>
         <a href="/main#firstdiv" style="color:black!important"><li><b>Главная</b></li></a>
+        <a href="/log_out" style="color:black!important"><li><b>Выйти</b></li></a>
     </ul>
   </div>
         <a class="active2" href="#firstdiv" style="float:right" ><img class='logoimg' src="/static/vauvision_white (3).png" ></a>
@@ -581,12 +603,10 @@ display:none;
     <div class="pcDiv2">
     <h1 class="pcHeader">Личный кабинет</h1>
 <h2 style="text-align:center;"> Сдесь ты можешь найти всю необходимую информацию<br> о своих треках</h2>
+        <div style="margin-top:40px;">
+            <a href="/change_profile_info" class="changeProf">Изменить информацию профиля</a>
+        </div>
 <div class="pcDiv3">
-    <div style="display:block;width:506px;margin-left:auto;">
-        <img class="img1" src="/static/img2.png">
-        <form class="changeForm">
-             <a href="/change_profile_info" class="changeProf">Изменить информацию профиля</a>
-        </form>
     </div>
     <div class="pcDiv4">
         <p id="file-name" class="filename">Файл не выбран</p>
@@ -599,9 +619,9 @@ display:none;
                <form id="form_{{track.full_name}}_id" method="post" enctype="multipart/form-data" action="/upload?id={{track.full_name}}={{track.name}}_1">
                    {% csrf_token %}
                    {% if track.full_name in signed_tracks %}
-                   <p style="font-size:18px;display:flex;">Трек - "{{ track.name }}" : Заказчик - {{track.artist_name}} |  <label for="{{track.full_name}}_id" class="upload"> Выбрать файл </label><input onclick="countRabbits()"  type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/Signed-{{track.full_name}}_offer.pdf" download>Скачать</a> |</p>
+                   <p style="font-size:16px;display:flex;">"{{ track.name }}" - {{track.artist_name}} |  <label for="{{track.full_name}}_id" class="upload"> Загрузить договор </label><input onclick="countRabbits()"  type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/Signed-{{track.full_name}}_offer.pdf" download>Скачать</a> |</p>
                    {% else %}
-                   <p style="font-size:18px;display:flex;">Трек - "{{ track.name }}" : Заказчик - {{track.artist_name}} |  <label for="{{track.full_name}}_id" class="upload"> Выбрать файл </label><input onclick="countRabbits()"  type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | </p>
+                   <p style="font-size:16px;display:flex;">"{{ track.name }}" - {{track.artist_name}} |  <label for="{{track.full_name}}_id" class="upload"> Загрузить договор </label><input onclick="countRabbits()"  type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | </p>
                    {% endif %}
                </form>
                <p class="pcLine">____________________________________________________________________________________________________</p>
@@ -609,8 +629,11 @@ display:none;
            <div class="phoneForm">
                <form id="form2" method="post" enctype="multipart/form-data" action="/upload?id={{track.full_name}}_2">
                    {% csrf_token %}
-                   <p style="font-size:16px">Трек - "{{ track.name }}" <br> Заказчик - {{track.artist_name}} <label for="doc1" class="upload"> Выбрать файл </label><input type="file" id="doc1" name="{{track.full_name}}"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/Signed-{{track.full_name}}_offer.pdf" download>Скачать</a></p>
-<!--                       <button type="submit" class="btn1">Загрузить договор</button>-->
+                    {% if track.full_name in signed_tracks %}
+                   <p style="font-size:15px">"{{ track.name }}" - {{track.artist_name}} <br><label for="{{track.full_name}}_id" class="upload">Загрузить договор </label><input onclick="countRabbits()" type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/Signed-{{track.full_name}}_offer.pdf" download>Скачать</a></p>
+                   {% else %}
+                   <p style="font-size:15px">"{{ track.name }}" - {{track.artist_name}} <br><label for="{{track.full_name}}_id" class="upload">Загрузить договор </label><input onclick="countRabbits()" type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;"></p>
+                   {% endif %}
                </form>
                <p>_________________________________</p>
            </div>
@@ -618,9 +641,10 @@ display:none;
            {% endif %}
        </div>
     </div>
+        <h2 style="padding-top:50px; text-align:center;">Все договоры ты сможешь скачать по ссылке, после того как<br> загрузишь его в подписанном PDF варианте</h2>
 </div>
 
-<h2 style="padding-top:50px; text-align:center;">Все договоры ты сможешь скачать по ссылке, после того как<br> загрузишь его в подписанном PDF варианте</h2>
+
 </div>
 
 </div>
