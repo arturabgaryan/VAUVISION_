@@ -41,7 +41,7 @@ def back(request):
     return redirect('/account')
 
 def upload(request):
-    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id',None)
     name = name[:-2]
@@ -192,7 +192,7 @@ def form(request):
 
 
 def index(request):
-    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     releaseType = request.POST['releaseType']
@@ -461,7 +461,7 @@ def submit_request(request):
                 return render(request, 'admin-panel/pages/submit.html',
                               {'request': current_request, 'scans': scans, 'tracks': tracks, 'pasp_info' : pasp_info})
             else:
-                APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+                APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
                 y = yadisk.YaDisk(token=APP_TOKEN)
                 doc = DocxTemplate("Music/static/documents/template1.docx")
                 request_id = request.GET['id']
@@ -527,7 +527,7 @@ def submit_request(request):
                 msg['To'] = addr_to  # Получатель
                 msg['Subject'] = "Аккаунт VAUVISION успешно создан!"  # Тема сообщения
 
-                body = "Добрый день, {}. \nЭто договор для дистрибуции. Если все данные верны, то файл нужно:\n1) Скачать\n2) Распечатать все листы\n3) Подписать две последние страницы (в табличках) синей ручкой\n4) Сфотографировать все листы\n5) Сделать из них один PDF файл\n6) Загрузить получившийся файл в личном кабинете на сайте vauvision.com \nПо всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel".format(
+                body = "Добрый день, {}. \nЭто договор для дистрибуции. Если все данные верны, то файл нужно:\n1) Скачать\n2) Распечатать все листы\n3) Подписать две последние страницы (в табличках) синей ручкой\n4) Сфотографировать все листы\n5) Сделать из них один PDF файл\n6) Загрузить получившийся файл в личном кабинете на сайте vauvision.com \n \nПо всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel \n".format(
                     request.POST['FULLNAME'])  # Текст сообщения
                 msg.attach(MIMEText(body, 'plain'))  # Добавляем в сообщение текст
 
