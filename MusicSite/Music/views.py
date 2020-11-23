@@ -68,16 +68,19 @@ def main(request):
 
 
 def account(request):
-    path = '{}/Music/static/documents/Signed-)(_offer.pdf'.format(str(os.path.abspath('')))
-    tracks = Track.objects.filter(artist=request.user.username)
-    signed_tracks = []
-    for track in tracks:
-        if os.path.isfile(path.replace(')(',track.full_name)):
-            signed_tracks.append(track.full_name)
-            print("Yes:",track.full_name)
-        else:
-            print('No')
-    return render(request,'accountpage.html',{'task':tracks,'name':request.user.username,'signed_tracks':signed_tracks})
+    if request.user.is_authenticated:
+        path = '{}/Music/static/documents/Signed-)(_offer.pdf'.format(str(os.path.abspath('')))
+        tracks = Track.objects.filter(artist=request.user.username)
+        signed_tracks = []
+        for track in tracks:
+            if os.path.isfile(path.replace(')(', track.full_name)):
+                signed_tracks.append(track.full_name)
+                print("Yes:", track.full_name)
+            else:
+                print('No')
+        return render(request, 'accountpage.html',{'task': tracks, 'name': request.user.username, 'signed_tracks': signed_tracks})
+    else:
+        return render(request, 'authorization.html')
 
 
 def change_profile_info_page(request):
@@ -97,13 +100,18 @@ def change(request):
     passw = request.POST.get('psw', None).replace(' ','')
     passw2 = request.POST.get('psw2', None).replace(' ','')
     passw_old = request.POST.get('psw_old',None).replace(' ','')
-    user = User.objects.get(username=name)
+    try:
+        user = User.objects.get(username=name)
+    except:
+        user = None
     if passw and passw2:
         if passw == passw2:
             if (user == request.user) and (check_password(passw_old, user.password)):
-                print(3)
                 user.set_password(passw)
                 user.save()
+                user = authenticate(request, username=name, password=passw)
+                if user is not None:
+                    login(request, user)
                 return redirect('/account')
             else:
                 return render(request, 'change_profile.html',{'error':'Данные введены не верно'})
@@ -305,6 +313,7 @@ def index(request):
             new_track.artist = email
             new_track.artist_name = artist_name
             new_track.full_name = f'{releaseName.replace(" ", "__")}'
+            new_track.release_date = releaseDate
             new_track.save()
 
             info_to_file += f'Имя: {track}\nАвтор мелодии: {info_songs[track]["melodyAuthor"]}\nАвтор текста: {info_songs[track]["textAuthor"]}\nИсполнитель: {info_songs[track]["artist"]}\n\n'
@@ -525,9 +534,9 @@ def submit_request(request):
                 msg = MIMEMultipart()  # Создаем сообщение
                 msg['From'] = addr_from  # Адресат
                 msg['To'] = addr_to  # Получатель
-                msg['Subject'] = "Аккаунт VAUVISION успешно создан!"  # Тема сообщения
+                msg['Subject'] = "{}. Договор на дистрибуцию VAUVISION."  # Тема сообщения
 
-                body = "Добрый день, {}. \nЭто договор для дистрибуции. Если все данные верны, то файл нужно:\n1) Скачать\n2) Распечатать все листы\n3) Подписать две последние страницы (в табличках) синей ручкой\n4) Сфотографировать все листы\n5) Сделать из них один PDF файл\n6) Загрузить получившийся файл в личном кабинете на сайте vauvision.com \n \nПо всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel \n".format(
+                body = "Добрый день, {}. \n \nЭто договор для дистрибуции. Если все данные верны, то файл нужно:\n1) Скачать\n2) Распечатать все листы\n3) Подписать две последние страницы (в табличках) синей ручкой\n4) Сфотографировать все листы\n5) Сделать из них один PDF файл\n6) Загрузить получившийся файл в личном кабинете на сайте vauvision.com \n \nПо всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel \n".format(
                     request.POST['FULLNAME'])  # Текст сообщения
                 msg.attach(MIMEText(body, 'plain'))  # Добавляем в сообщение текст
 
