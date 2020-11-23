@@ -73,14 +73,13 @@ def account(request):
         path = '{}/Music/static/documents/Signed-)(_offer.pdf'.format(str(os.path.abspath('')))
         tracks = Track.objects.filter(artist=request.user.username)
         signed_tracks = []
-        context = RequestContext(request)
         for track in tracks:
             if os.path.isfile(path.replace(')(', track.full_name)):
                 signed_tracks.append(track.full_name)
                 print("Yes:", track.full_name)
             else:
                 print('No')
-        return render(request, 'accountpage.html',{'task': tracks, 'name': request.user.username, 'signed_tracks': signed_tracks},context)
+        return render(request, 'accountpage.html',{'task': tracks, 'name': request.user.username, 'signed_tracks': signed_tracks})
     else:
         return render(request, 'authorization.html')
 
