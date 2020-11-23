@@ -314,6 +314,15 @@ margin-top:20px;
 .dropdown:hover .dropdown-content {display: block;}
 
 .dropdown:hover .dropbtn { background-color: #111;}
+.filename_2{
+width:60%;
+ background-color:#171717;
+ border:2px solid;
+ border-radius:2px;
+ padding:10px;
+ font-size:20px;
+ display:flex;
+}
 }
 
 
@@ -559,9 +568,9 @@ display:none;
         <div class="dropdown" style="float:right;">
   <button class="dropbtn"  >Ещё</button>
   <div class="dropdown-content">
+      <a href="/main#forth" style="color:black!important;">Основатель</a>
     <a href="/main#faq" style="color:black!important;">FAQ</a>
     <a href="/main#rezume" style="color:black!important;">Резюме</a>
-    <a href="/main#forth" style="color:black!important;">Основатель</a>
   </div>
 </div>
     <li><a href="/main#cost" style="float: right;">Цены</a></li>
@@ -609,7 +618,10 @@ display:none;
 <div class="pcDiv3">
     </div>
     <div class="pcDiv4">
-        <p id="file-name" class="filename">Файл не выбран</p>
+        <div style="display:flex;">
+            <p id="file-name" class="filename">Файл не выбран</p>
+        <p class="filename_2" style="margin-left:20px;">Личный кабинет: {{task.0.artist_name}} | Почта: {{name}}</p>
+        </div>
        <div class="mainDiv" >
            {% if task|length == 0 %}
                <p>Треков пока пока нет...</p>
@@ -619,20 +631,20 @@ display:none;
                <form id="form_{{track.full_name}}_id" method="post" enctype="multipart/form-data" action="/upload?id={{track.full_name}}={{track.name}}_1">
                    {% csrf_token %}
                    {% if track.full_name in signed_tracks %}
-                   <p style="font-size:16px;display:flex;">"{{ track.name }}" - {{track.artist_name}} |  <label for="{{track.full_name}}_id" class="upload"> Загрузить договор </label><input onclick="countRabbits()"  type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/Signed-{{track.full_name}}_offer.pdf" download>Скачать</a> |</p>
+                   <p style="font-size:16px;display:flex;">"{{ track.name }}" - {{track.artist_name}}, Дата релиза - {{track.release_date}} |  <label for="{{track.full_name}}_id" class="upload"> Загрузить договор </label><input onclick="countRabbits()"  type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/Signed-{{track.full_name}}_offer.pdf" download>Скачать</a> |</p>
                    {% else %}
-                   <p style="font-size:16px;display:flex;">"{{ track.name }}" - {{track.artist_name}} |  <label for="{{track.full_name}}_id" class="upload"> Загрузить договор </label><input onclick="countRabbits()"  type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | </p>
+                   <p style="font-size:16px;display:flex;">"{{ track.name }}" - {{track.artist_name}}, Дата релиза - {{track.release_date}} |  <label for="{{track.full_name}}_id" class="upload"> Загрузить договор </label><input onclick="countRabbits()"  type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | </p>
                    {% endif %}
                </form>
-               <p class="pcLine">____________________________________________________________________________________________________</p>
+               <p class="pcLine">_____________________________________________________________________________________________________________________________________________________________________________________________</p>
            </div>
            <div class="phoneForm">
                <form id="form2" method="post" enctype="multipart/form-data" action="/upload?id={{track.full_name}}_2">
                    {% csrf_token %}
                     {% if track.full_name in signed_tracks %}
-                   <p style="font-size:15px">"{{ track.name }}" - {{track.artist_name}} <br><label for="{{track.full_name}}_id" class="upload">Загрузить договор </label><input onclick="countRabbits()" type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/Signed-{{track.full_name}}_offer.pdf" download>Скачать</a></p>
+                   <p style="font-size:15px">"{{ track.name }}" - {{track.artist_name}}, Дата релиза - {{track.release_date}} <br><label for="{{track.full_name}}_id" class="upload">Загрузить договор </label><input onclick="countRabbits()" type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;">  | <a class="download" href="/static/documents/Signed-{{track.full_name}}_offer.pdf" download>Скачать</a></p>
                    {% else %}
-                   <p style="font-size:15px">"{{ track.name }}" - {{track.artist_name}} <br><label for="{{track.full_name}}_id" class="upload">Загрузить договор </label><input onclick="countRabbits()" type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;"></p>
+                   <p style="font-size:15px">"{{ track.name }}" - {{track.artist_name}}, Дата релиза - {{track.release_date}} <br><label for="{{track.full_name}}_id" class="upload">Загрузить договор </label><input onclick="countRabbits()" type="file" id="{{track.full_name}}_id" name="{{track.full_name}}={{track.name}}_name"  accept=".pdf" style="display:none;"></p>
                    {% endif %}
                </form>
                <p>_________________________________</p>
