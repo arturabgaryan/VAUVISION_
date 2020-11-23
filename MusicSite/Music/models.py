@@ -35,6 +35,7 @@ class Track(models.Model):
     request = models.ForeignKey(DocsRequest, on_delete=models.SET_NULL, null=True)
     artist = models.CharField(max_length=250,default=None)
     artist_name = models.CharField(max_length=250,default=None)
+    release_date = models.DateField(default=None)
 
 
 class Scan(models.Model):
