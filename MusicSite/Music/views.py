@@ -25,6 +25,7 @@ from django.http import JsonResponse
 from django.conf import settings
 import subprocess
 import time
+from django.template import RequestContext
 
 
 class PathExistsError:
@@ -43,7 +44,7 @@ def back(request):
 def upload(request):
     APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
-    name = request.GET.get('id',None)
+    name = request.POST.get('id',None)
     name = name[:-2]
     full_name = name.split('=')[0]
     folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{full_name}"
@@ -72,13 +73,14 @@ def account(request):
         path = '{}/Music/static/documents/Signed-)(_offer.pdf'.format(str(os.path.abspath('')))
         tracks = Track.objects.filter(artist=request.user.username)
         signed_tracks = []
+        context = RequestContext(request)
         for track in tracks:
             if os.path.isfile(path.replace(')(', track.full_name)):
                 signed_tracks.append(track.full_name)
                 print("Yes:", track.full_name)
             else:
                 print('No')
-        return render(request, 'accountpage.html',{'task': tracks, 'name': request.user.username, 'signed_tracks': signed_tracks})
+        return render(request, 'accountpage.html',{'task': tracks, 'name': request.user.username, 'signed_tracks': signed_tracks},context)
     else:
         return render(request, 'authorization.html')
 
@@ -145,6 +147,7 @@ def log_in(request):
     pwd = request.POST.get('psw', None).replace(' ','')
     if log and pwd:
         user = authenticate(request, username=log, password=pwd)
+        print(user)
         if user is not None:
             login(request, user)
             return redirect('/main')
