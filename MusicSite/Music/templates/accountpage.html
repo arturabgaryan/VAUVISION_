@@ -322,6 +322,7 @@ width:60%;
  padding:10px;
  font-size:20px;
  display:flex;
+ margin-left:20px;
 }
 .accinf{
 display:flex;
@@ -630,7 +631,7 @@ display:none;
     <div class="pcDiv4">
         <div class="accinf">
             <p id="file-name" class="filename">Файл не выбран</p>
-        <p class="filename_2" style="margin-left:20px;">Личный кабинет: {{task.0.artist_name}} | Почта: {{name}}</p>
+        <p class="filename_2">Личный кабинет: {{task.0.artist_name}} | Почта: {{name}}</p>
         </div>
        <div class="mainDiv" >
            {% if task|length == 0 %}
