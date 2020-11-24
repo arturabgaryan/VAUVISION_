@@ -537,7 +537,7 @@ def submit_request(request):
                 msg = MIMEMultipart()  # Создаем сообщение
                 msg['From'] = addr_from  # Адресат
                 msg['To'] = addr_to  # Получатель
-                msg['Subject'] = "{}. Договор на дистрибуцию VAUVISION."  # Тема сообщения
+                msg['Subject'] = "{}. Договор на дистрибуцию VAUVISION.".format(request.POST['FULLNAME'])  # Тема сообщения
 
                 body = "Добрый день, {}. \n \nЭто договор для дистрибуции. Если все данные верны, то файл нужно:\n1) Скачать\n2) Распечатать все листы\n3) Подписать две последние страницы (в табличках) синей ручкой\n4) Сфотографировать все листы\n5) Сделать из них один PDF файл\n6) Загрузить получившийся файл в личном кабинете на сайте vauvision.com \n \nПо всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel \n".format(
                     request.POST['FULLNAME'])  # Текст сообщения
