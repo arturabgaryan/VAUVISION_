@@ -55,8 +55,11 @@ def upload(request):
     except:
         y.upload(path_or_file=io.BytesIO(request.FILES.get(name + "_name").read()),
                  dst_path=f'{folder_path}/Signed-{full_name}.pdf',overwrite=True)
-
+    print(os.path.isfile(f"{str(os.path.abspath(''))}/Music/static/documents/Signed-{full_name}_offer.pdf"))
+    os.remove(f"{str(os.path.abspath(''))}/Music/static/documents/Signed-{full_name}_offer.pdf")
+    print(os.path.isfile(f"{str(os.path.abspath(''))}/Music/static/documents/Signed-{full_name}_offer.pdf"))
     y.download(f"{folder_path}/Signed-{full_name}.pdf", f"Music/static/documents/Signed-{full_name}_offer.pdf")
+    print(os.path.isfile(f"{str(os.path.abspath(''))}/Music/static/documents/Signed-{full_name}_offer.pdf"))
     return redirect('/account')
 
 
