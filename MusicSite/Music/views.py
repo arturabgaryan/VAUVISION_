@@ -50,13 +50,13 @@ def upload(request):
     folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{full_name}"
     files = request.FILES.get(name+"_name")
     try:
-        y.upload(path_or_file=io.BytesIO(request.FILES.get(name+"_name").read()),dst_path=f'{folder_path}/Signed-{full_name}.pdf')
+        pass
     except:
-        y.remove(f'{folder_path}/Signed-{full_name}.pdf', permanently=True)
-        y.upload(path_or_file=io.BytesIO(request.FILES.get(name + "_name").read()),dst_path=f'{folder_path}/Signed-{full_name}.pdf')
-        os.remove(f"{str(os.path.abspath(''))}/Music/static/documents/Signed-{full_name}_offer.pdf")
-        y.download(f"{folder_path}/Signed-{full_name}.pdf", f"Music/static/documents/Signed-{full_name}_offer.pdf")
+        y.upload(path_or_file=io.BytesIO(request.FILES.get(name + "_name").read()),
+                 dst_path=f'{folder_path}/Signed-{full_name}.pdf',overwrite=True)
+        os.remove(f"{str(os.path.abspath(''))}/static/documents/Signed-{full_name}_offer.pdf")
 
+    y.download(f"{folder_path}/Signed-{full_name}.pdf", f"Music/static/documents/Signed-{full_name}_offer.pdf")
     return redirect('/account')
 
 
