@@ -49,8 +49,11 @@ def upload(request):
     full_name = name.split('=')[0]
     folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{full_name}"
     files = request.FILES.get(name+"_name")
-
-    y.upload(path_or_file=io.BytesIO(request.FILES.get(name+"_name").read()),dst_path=f'{folder_path}/Signed-{full_name}.pdf')
+    try:
+        y.upload(path_or_file=io.BytesIO(request.FILES.get(name+"_name").read()),dst_path=f'{folder_path}/Signed-{full_name}.pdf')
+    except:
+        y.remove(f'{folder_path}/Signed-{full_name}.pdf', permanently=True)
+        y.upload(path_or_file=io.BytesIO(request.FILES.get(name + "_name").read()),dst_path=f'{folder_path}/Signed-{full_name}.pdf')
 
     y.download(f"{folder_path}/Signed-{full_name}.pdf", f"Music/static/documents/Signed-{full_name}_offer.pdf")
     return redirect('/account')
@@ -255,7 +258,7 @@ def index(request):
         msg['To'] = addr_to  # Получатель
         msg['Subject'] = "Аккаунт VAUVISION успешно создан!"  # Тема сообщения
 
-        body = 'Добрый день!' + "Вы отправили заявку на дистрибуцию на лейбле VAUVISION.\n Теперь у вас на сайте есть личный кабинет, где вы можете видеть свои загруженные релизы, договоры, получить отчёты о прослушиваниях и прочую информацию. Функционал кабинета постепенно будет пополняться. \n Логин: {} \n Пароль: {} \n Пожалуйста, сохраните логин и пароль от личного кабинета.Скоро на почту придет письмо с договором и дальнейшие инструкции.\n По всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel".format(
+        body = 'Добрый день!' + "Вы отправили заявку на дистрибуцию на лейбле VAUVISION.\n\n Теперь у вас на сайте есть личный кабинет, где вы можете видеть свои загруженные релизы, договоры, получить отчёты о прослушиваниях и прочую информацию. Функционал кабинета постепенно будет пополняться. \n\n\n Логин: {} \n Пароль: {} \n\n\n Пожалуйста, сохраните логин и пароль от личного кабинета.Скоро на почту придет письмо с договором и дальнейшие инструкции.\n\n По всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel".format(
             email, generated_pass)  # Текст сообщения
         msg.attach(MIMEText(body, 'plain'))  # Добавляем в сообщение текст
 
@@ -539,7 +542,7 @@ def submit_request(request):
                 msg['To'] = addr_to  # Получатель
                 msg['Subject'] = "{}. Договор на дистрибуцию VAUVISION.".format(request.POST['FULLNAME'])  # Тема сообщения
 
-                body = "Добрый день, {}. \n \nЭто договор для дистрибуции. Если все данные верны, то файл нужно:\n1) Скачать\n2) Распечатать все листы\n3) Подписать две последние страницы (в табличках) синей ручкой\n4) Сфотографировать все листы\n5) Сделать из них один PDF файл\n6) Загрузить получившийся файл в личном кабинете на сайте vauvision.com \n \nПо всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel \n".format(
+                body = "Добрый день, {}. \n \nЭто договор для дистрибуции. Если все данные верны, то файл нужно:\n1) Скачать\n2) Распечатать все листы\n3) Подписать две последние страницы (в табличках) синей ручкой\n4) Сфотографировать все листы\n5) Сделать из них один PDF файл\n6) Загрузить получившийся файл в личном кабинете на сайте vauvision.com \n\n\nПо всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel \n".format(
                     request.POST['FULLNAME'])  # Текст сообщения
                 msg.attach(MIMEText(body, 'plain'))  # Добавляем в сообщение текст
 
