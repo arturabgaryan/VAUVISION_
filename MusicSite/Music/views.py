@@ -50,7 +50,8 @@ def upload(request):
     folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{full_name}"
     files = request.FILES.get(name+"_name")
     try:
-        pass
+        y.upload(path_or_file=io.BytesIO(request.FILES.get(name + "_name").read()),
+                 dst_path=f'{folder_path}/Signed-{full_name}.pdf')
     except:
         y.upload(path_or_file=io.BytesIO(request.FILES.get(name + "_name").read()),
                  dst_path=f'{folder_path}/Signed-{full_name}.pdf',overwrite=True)
