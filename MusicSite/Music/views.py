@@ -144,6 +144,7 @@ def create(request):
 def log_in(request):
     log = request.POST.get('usrnm', None)
     pwd = request.POST.get('psw', None).replace(' ','')
+    print(len(pwd))
     if log and pwd:
         user = authenticate(request, username=log, password=pwd)
         print(user)
