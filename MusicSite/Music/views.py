@@ -26,12 +26,11 @@ from django.conf import settings
 import subprocess
 import time
 from django.template import RequestContext
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 class PathExistsError:
     pass
-
-
 
 
 def enter(request):
@@ -41,6 +40,8 @@ def enter(request):
 def back(request):
     return redirect('/account')
 
+
+@ensure_csrf_cookie
 def upload(request):
     APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
@@ -152,11 +153,11 @@ def log_in(request):
         else:
             return render(request, 'authorization.html',{'error':'Пароль не верный'})
 
+
 def log_out(request):
     if request.user.is_authenticated:
         logout(request)
     return redirect('/')
-
 
 
 def send_email(request):
@@ -263,7 +264,6 @@ def index(request):
         server.send_message(msg)
         server.quit()
 
-
     if name not in [directory.name for directory in list(y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/'))]:
         new_request = DocsRequest()
         new_request.contact = request.POST['vk']
@@ -343,7 +343,6 @@ def index(request):
             new_scan.save()
             page += 1
         y.upload(path_or_file=io.BytesIO(info_to_file.encode('utf-8')), dst_path=f'{folder_path}/brief.txt')
-
 
     return redirect('https://vk.com/vauvisionlabel/')
 
