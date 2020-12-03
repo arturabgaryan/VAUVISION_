@@ -33,6 +33,13 @@ class PathExistsError:
     pass
 
 
+def test(request):
+    if request.user.is_authenticated:
+        return render(request, 'test..html',{'user':request.user})
+    else:
+        return render(request, 'test..html', {'user': None})
+
+
 def enter(request):
     return render(request, 'unauthmain.html')
 
@@ -43,7 +50,7 @@ def back(request):
 
 @ensure_csrf_cookie
 def upload(request):
-    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id',None)
     name = name[:-2]
@@ -202,7 +209,7 @@ def form(request):
 
 
 def index(request):
-    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     releaseType = request.POST['releaseType']
@@ -470,7 +477,7 @@ def submit_request(request):
                 return render(request, 'admin-panel/pages/submit.html',
                               {'request': current_request, 'scans': scans, 'tracks': tracks, 'pasp_info' : pasp_info})
             else:
-                APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+                APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
                 y = yadisk.YaDisk(token=APP_TOKEN)
                 doc = DocxTemplate("Music/static/documents/template1.docx")
                 request_id = request.GET['id']
