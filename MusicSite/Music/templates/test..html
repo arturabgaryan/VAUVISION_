@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://github.com/t1m0n/air-datepicker/blob/master/dist/css/datepicker.min.css"></script>
+    <link rel="stylesheet" href="https://github.com/t1m0n/air-datepicker/blob/master/dist/css/datepicker.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+{%verbatim%}
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/element-ui/lib/umd/locale/en.js"></script>
+<script type="application/javascript">
+    ELEMENT.locale(ELEMENT.lang.en)
+</script>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            <img src="/static/images/background/logowhite.png" alt="">
+        </a>
+    </div>
+</nav>
+<div id="app" class="maindiv">
+    <section>
+        <transition name="slide-fade" mode="out-in">
+            <div v-if="page == 0" style="text-align:center;">
+                <h1 style="text-align:center;color:white;margin-bottom:20px;font-size:40px; font-family:forTitles;">ФОРМА РАЗМЕЩЕНИЯ ТРЕКОВ VAUVISION</h1>
+                <span class="text">Эта форма ОБЯЗАТЕЛЬНА к заполнению. Пожалуйста, уделите время и <span style="color:#bf7900;">заполнитевсе пункты максимально подробно</span> – это позволит<br>  нам сделать нашу работу качественно</span>
+                <h2 style="text-align:center;color:white;margin-bottom:20px;font-size:30px; font-family:forTitles; padding-top:20px;">ВНИМАНИЕ!</h2>
+                <span class="text">Рекомендуется закладывать минимум <span style="color:#bf7900;">3 рабочих дня на</span> загрузку релиза</span><br>
+               <div style="margin-top:20px; margin-bottom:20px;">
+                    <span class="text">Для редактирования размера обложек используйте сайт <a target="_blank" class="link" href="http://pixlr.com/">pixlr.com</a></span><br>
+                    <span class="text">Для редактирования формата треков используйте конвертер <a target="_blank" class="link" href="https://online-audio-converter.com">online-audio-converter.com</a></span>
+               </div>
+                <span class="text">Треки выходят на площадках в <span style="color:#bf7900;">00:00 выбранной даты (по Москве)</span></span>
+                <div style="margin:20px 0px;">
+                    <span class="text">ПОСЛЕ ЗАПОЛНЕНИЯ ЭТОЙ ФОРМЫ напишите в личные сообщения с пометкой "ДИСТРИБУЦИЯ" <a target="_blank" class="link" href="https://vk.com/vauvision">vk.com/vauvision</a></span>
+                </div>
+                <div class="buttons_one">
+                    <button @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                </div>
+            </div>
+            <div v-if="page == 1" style="margin:auto;width:90%;" key="1" >
+                <h1 style="text-align:center;color:white;margin-bottom:30px;font-size:30px; font-family:forTitles;">ВЫБЕРИТЕ ЧТО БУДЕТЕ ЗАГРУЖАТЬ <font color="red">*</font></h1>
+                <div style="border:2px solid white; border-radius:10px; padding:30px; background-color:#3d3d3d; margin:auto;width:526px;">
+                    <button class="button_is-light" @click="addSingle" style="margin-right:10px;"><b>Сингл</b></button>
+                <button class="button_is-light" @click="addAlbumn" style="margin-right:10px;"><b>Альбом</b></button>
+                <button class="button_is-light"  @click="addThousand" style="margin-right:10px;"><b>Клип</b></button>
+                <button class="button_is-light"  @click="addHundred" ><b>Карточки ВК</b></button>
+                </div>
+                <div class="firstpagediv">
+                    <div v-if="singles>0" style="display:flex;margin-bottom:10px;">
+                    <p>Сингл - {{singles}}</p>
+                    <button @click="deleteSingle" class="deleteButton"><b>x</b></button>
+                </div>
+                <div v-if="albumns>0" style="display:flex;margin-bottom:10px;">
+                    <p>Альбом - {{albumns}}</p>
+                    <button @click="deleteAlbumn" class="deleteButton"><b>x</b></button>
+                </div>
+                <div v-if="thousands>0" style="display:flex;margin-bottom:10px;">
+                    <p>Клип - {{thousands}}</p>
+                    <button @click="deleteThousand" class="deleteButton"><b>x</b></button>
+                </div>
+                <div v-if="hundreds>0" style="display:flex;margin-bottom:10px;">
+                    <p>Карточка ВК - {{hundreds}}</p>
+                    <button @click="deleteHundred" class="deleteButton"><b>x</b></button>
+                </div>
+
+                    <p v-if="total>0" style="color:white;margin:auto;width:600px;">________________________________________________</p>
+                    <p v-if="total>0" style="color:white;text-align:center">Всего: {{total}}</p>
+                </div>
+
+                <div class="buttons">
+                    <button @click="previousPage" class="button2" style="display:flex;"><span>НАЗАД </span></button>
+                    <button @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                </div>
+            </div>
+            <div v-if="page == 2" key="2" style="text-align:center;">
+                <label for="track_names" class="text">Выделите и выберите все нужные треки <font color="red">*</font></label><br>
+                <span style="font-family:main;font-size:20px;color:#4d4d4d;margin-bottom:10px;">Назовите файл трека по образцу: «# трека. Артист — Название». Например «1. КРЕСТ — SHiNE (prod. by CLONNEX)»<br>Формат .wav, разрядность 16 bit</span>
+                <div class="inputDiv">
+                    <label for="first_file">ДОБАВИТЬ ТРЕК</label>
+                    <input id="first_file" type="file" multiple @change="newFiles($event)" :value="null" style="display:none;" accept=".wav">
+                </div>
+                <br>
+             <div class="trackField">
+                    <div v-for="(file,i) in files" style="min-width:1114px;">
+                    <div style="display:flex; width:100%; padding:20px 0px;">
+                        <div style="margin:auto;min-width:345px;width:30%;float:left!important;padding-left:5px;height:27px;">
+                            <span style="color:white;">{{file.name}}</span>
+                        </div>
+                        <div style="width:60%;min-width:645px!important;margin-left:30px!important;margin:auto; height:25px;">
+                            <button @click="deleteFile(i)" class="deleteButton" style="float:right;"><b>x</b></button>
+                                <input style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].text" placeholder="Автор текста" class="inputText">
+                                <input style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText">
+                            <input style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" placeholder="Имя артиста" class="inputText">
+
+                        </div>
+
+                    </div>
+                </div>
+             </div>
+                <div class="buttons">
+                    <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
+                    <button @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                </div>
+            </div>
+            <div v-if="page == 3" style="margin:auto;width:90%;" key="3">
+                <div style="display:flex;min-width:1122px;">
+                          <div style="width:100%;">
+                    <label for="track_artist" class="text">Впишите Псевдоним артиста<font color="red">*</font></label><br>
+                <input id="track_artist" placeholder=" Например: Eminem" class="artistINP"><br>
+                <label for="track_names" class="text">Впишите Название синглов/альбомов через запятую<font color="red">*</font></label><br>
+                <span style="font-family:main;font-size:20px;color:#4d4d4d;">Названия синглов помечать скобкой (сингл)</span><br>
+                <input id="track_names" placeholder="Например: Recovery,Lose Yourself(сингл),Encore" class="artistINP"><br>
+                <label for="platform" class="text" style="margin-top:12px;">На какие площадки заливать?<font color="red">*</font></label><br>
+                <select id="platform" v-model="selectedOption_2" class="form-control" style="outline: none; width:100%;margin-bottom:40px;">
+                    <option>На все площадки</option>
+                    <option>На все кроме Boom</option>
+                    <option>Только Boom</option>
+                    <option>Другое</option>
+                </select>
+                <label v-if="selectedOption_2 == 'Другое'" for="platform" class="text" style="margin-top:28px;">Укажте свой вариант<font color="red">*</font></label><br>
+                <input v-if="selectedOption_2 == 'Другое'" placeholder="" class="artistINP">
+                </div>
+                <div style="margin-left:40px;width:100%">
+                    <label for="date" class="text">Желаемая дата(если всё равно, ставьте ближайшую пятницу)<font color="red">*</font></label><br>
+                        <div id="date" style="width:300%; margin-bottom:90px;">
+                    <el-date-picker
+                            v-model="value1"
+                            type="date"
+                            name="releaseDate"
+                            required="required"
+                            placeholder="Выберите дату выхода">
+                    </el-date-picker>
+                </div>
+                    <label for="track_filthy" class="text">В треках есть мат?<font color="red">*</font></label><br>
+                <div class="form-group col-md-4">
+                <select v-model="selectedOption" id="track_filthy" class="form-control" style="margin-left:-15px;outline: none; width:350%;">
+                    <option selected>Нет</option>
+                    <option>Да</option>
+                </select><br>
+                </div>
+                <label v-if="selectedOption == 'Да'" for="filthyNum" class="text">Если есть, укажите номера треков, где есть мат</label><br>
+                <span v-if="selectedOption == 'Да'" style="font-family:main;font-size:20px; color:#4d4d4d;">Если загружаем 1 трек, то ставьте 1</span><br>
+                <input id="filthyNum" v-if="selectedOption == 'Да'" placeholder="Например: 1,2,4" class="artistINP"><br>
+                </div>
+                </div>
+                <div class="buttons">
+                    <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
+                    <button @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                </div>
+            </div>
+            <div v-if="page == 4" class="container" key="4">
+                <div style="display:flex;min-width:1122px;">
+                          <div style="width:100%;">
+                    <label for="artistScan" class="text">Прикрепите обложку релиза<font color="red">*</font></label><br>
+                <input type="file" accept="image/*" id="artistScan" class="inp" style="margin-bottom:50px;"><br>
+                <label for="VK" class="text">Ссылка на вашу страницу в ВК для проверки и подписания договора <font color="red">*</font></label><br>
+                <input id="VK" placeholder="https://vk.com/****" class="artistINP"><br>
+                 <label for="email" class="text">Введите вашу почту<font color="red">*</font></label><br>
+                <input id="email" placeholder="example@host.com" class="artistINP"><br>
+                </div>
+                <div style="margin-left:40px;width:100%">
+                    <label for="paspscan" class="text">Прикрепите 2 фото паспорта: разворот с фото + страница с регистрацией в формате jpeg<font color="red">*</font></label><br>
+                        <span style="font-family:main;font-size:20px; color:#4d4d4d;">Если вы не гражданин РФ, прикрепите одно фото документа (паспорт, ID) с вашим фото</span><br>
+                    <div class="inputDiv2">
+                        <input id="paspscan" type="file" multiple @change="newScanFiles($event)" :value="null" accept="image/jpeg">
+                    </div>
+                    <div class="trackField2">
+                    <div v-for="(file,i) in scanfiles" >
+                    <div style="display:flex; width:100%; padding:20px 0px;">
+                        <div style="min-width:345px;float:left!important;padding-left:5px;height:27px;">
+                            <span style="color:white;">{{file.name}}</span>
+                            <button @click="deleteScanFile(i)" class="deleteButton"><b>x</b></button>
+                        </div>
+                    </div>
+                </div>
+             </div>
+                </div>
+                </div>
+                <div class="buttons">
+                    <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
+                    <button @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                </div>
+            </div>
+            <div v-if="page == 5" style="margin:auto;width:90%;" key="5">
+                <div style="display:flex;min-width:1122px;">
+                          <div style="width:100%;">
+                    <label for="genre" class="text">Какой жанр указать?</label><br>
+                <input id="genre" placeholder=" Например: Реп/Поп/Альтернатив/Хип-хоп и проч." class="artistINP"><br>
+                <label for="tictoc" class="text">С какой секунды воспроизводить трек в Tik Tok?</label><br>
+                <span style="font-family:main;font-size:20px;color:#4d4d4d;">Укажите секунды через запятую в порядке загруженных ранее треков</span><br>
+                <input id="tictoc" placeholder="Например:1,5,34" class="artistINP"><br>
+                <label for="Appletext" class="text" style="margin-top:12px;">Текст для Apple Music</label><br>
+                <span style="font-family:main;font-size:20px; color:#4d4d4d;">Куплеты и припевы должны быть разделены пробелом, каждая строчка с большой буквы, в конце строчек без знаков препинания. В тексте должно быть только то, что произносится в песне. Все тексты поместите в один файл формата docx.</span><br>
+                <input type="file" accept=".docx" id="Appletext" class="inp" style="margin-bottom:50px;"><br>
+                </div>
+                <div style="margin-left:40px;width:100%">
+                    <label for="where" class="text">Как вы о нас узнали?<font color="red">*</font></label><br>
+                <select id="where" v-model="selectedOption_2" class="form-control" style="outline: none; width:100%;margin-bottom:40px;">
+                    <option>Увидел рекламу в Instagram</option>
+                    <option>Увидел рекламу в Вконтакте</option>
+                    <option>Увидел рекламу в Вконтакте</option>
+                    <option>Другое</option>
+                </select>
+                <label v-if="selectedOption_2 == 'Другое'" for="platform" class="text" style="margin-top:28px;">Укажте свой вариант<font color="red">*</font></label><br>
+                <input v-if="selectedOption_2 == 'Другое'" placeholder="" class="artistINP"><br>
+                <label for="tictoc" class="text">Комментарии</label><br>
+                <textarea placeholder="Добавить комментарий" style="margin-bottom:100px;"></textarea>
+                <label class="check">
+                    <input required type="checkbox">
+                    Я подтверждаю, что мои треки не нарушают права других авторов музыки и текста<font color="red">*</font>
+                </label>
+                </div>
+            </div>
+                <div class="button">
+                    <button disabled class="button"><span>Загрузить</span></button>
+                </div>
+            </div>
+        </transition>
+    </section>
+</div>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: function () {
+            return {
+                page: 0,
+                singles: 0,
+                albumns: 0,
+                thousands: 0,
+                hundreds: 0,
+                files: new Array(),
+                scanfiles: new Array(),
+                fileData: {},
+                scanfileData: {},
+                savedFiles: [],
+                selectedOption: '',
+                selectedOption_2: '',
+                pickerOptions: {
+            disabledDate(time) {
+                return time.getTime() > Date.now();
+            },
+            shortcuts: [{
+                text: 'Today',
+                onClick(picker) {
+                    picker.$emit('pick', new Date());
+                }
+            }]
+        },
+        value1: '',
+            }
+
+        },
+        methods: {
+            nextPage: function () {
+                if (this.page < 6) {
+                    this.page += 1
+                }
+            },
+            previousPage: function () {
+                if (this.page > 0) {
+                    this.page -= 1
+                }
+            },
+            addSingle: function () {
+                this.singles += 1
+            },
+            addAlbumn: function () {
+                this.albumns += 1
+            },
+            addThousand: function () {
+                this.thousands += 1
+            },
+            addHundred: function () {
+                this.hundreds += 1
+            },
+            deleteSingle: function () {
+                if (this.singles > 0) {
+                    this.singles -= 1
+                }
+            }
+            , deleteThousand: function () {
+                if (this.thousands > 0) {
+                    this.thousands -= 1
+                }
+            },
+            deleteHundred: function () {
+                if (this.hundreds > 0) {
+                    this.hundreds -= 1
+                }
+            },
+            deleteAlbumn: function () {
+                if (this.albumns > 0) {
+                    this.albumns -= 1
+                }
+            },
+            newFiles: function (evt) {
+                this.files = Object.keys(this.files).map(key => this.files[key])
+                Array.prototype.slice.call(evt.target.files).forEach((file) => {
+                    if (!this.files.includes(file)) {
+                        this.files.push(file)
+                    }
+                })
+                this.files.forEach((file) => {
+                    let flag = false
+                    for (data in this.fileData) {
+                        if (data == file.name) {
+                            flag = true
+                        }
+                    }
+                    if (!flag) {
+                        this.fileData[file.name] = {singer: '', music: '', text: ''}
+                    }
+                })
+            },
+            deleteFile: function (idx) {
+                const {[idx]: propValue, ...rest} = this.files
+                this.files = rest
+                if (Object.keys(this.files).length == 0) {
+                    this.files = []
+                }
+            },
+            newScanFiles: function (evt) {
+                this.scanfiles = Object.keys(this.scanfiles).map(key => this.scanfiles[key])
+                Array.prototype.slice.call(evt.target.files).forEach((file) => {
+                    if (!this.scanfiles.includes(file)) {
+                        this.scanfiles.push(file)
+                    }
+                })
+                this.scanfiles.forEach((file) => {
+                    let flag = false
+                    for (data in this.scanfileData) {
+                        if (data == file.name) {
+                            flag = true
+                        }
+                    }
+                    if (!flag) {
+                        this.scanfileData[file.name] = {singer: '', music: '', text: ''}
+                    }
+                })
+            },
+            deleteScanFile: function (idx) {
+                const {[idx]: propValue, ...rest} = this.scanfiles
+                this.scanfiles = rest
+                if (Object.keys(this.scanfiles).length == 0) {
+                    this.scanfiles = []
+                }
+            },
+            test: function () {
+            }
+        },
+        computed: {
+            total: function () {
+                return this.singles * 2000 + this.albumns * 3000 + this.thousands * 1000 + this.hundreds * 100
+            }
+        }
+    })
+</script>
+{%endverbatim%}
+</body>
+<style>
+body{
+  background: url("/static/images/background/background.jpeg");
+    background-size: cover;
+    min-height: 100vh;
+    min-width:1333px;
+}
+@font-face {
+    font-family: forTitles;
+    src: url("/static/fonts/bebasneue/bebasneueregular.ttf");
+    font-weight: bold;
+}
+@font-face {
+    font-family: main;
+    src: url("/static/fonts/bebasneue/bebasneueregular.ttf");
+}
+.link{
+color:#0060bf;
+text-decoration:underline;
+}
+textarea {
+  resize: none;
+  overflow: auto;
+  height:150px;
+  width:100%;
+  border-radius:5px;
+  padding:10px;
+}
+.check{
+color:white;
+font-family:main;
+font-size:23px;
+}
+.check:hover{
+color:#3d3d3d;
+}
+
+.artistINP{
+width:100%;
+height:40px;
+border-radius:5px;
+font-size:20px;
+padding: 15px 22px;
+margin-bottom:60px;
+}
+
+.artistINP:focus{
+outline: none;
+}
+
+.link:hover{
+transition:0.3s;
+color:#4d4d4d!important;
+}
+
+.deleteButton{
+height:27px;
+border:2px solid white;
+border-radius:5px;
+color:white;
+background:#3d3d3d;
+font-size:15px;
+padding:0px 7px;
+margin-left:10px;
+margin-top:5px;
+}
+
+.text{
+color:white;
+font-family:main;
+font-size:25px;
+}
+.maindiv{
+margin-top:105px!important;
+margin:auto;
+border-radius:20px;
+background-color:rgba(0, 0, 0, 0.8);
+width:95%;
+padding-top:60px;
+padding-bottom:60px;
+}
+    nav.navbar {
+        background-color: black;
+        padding: 1%;
+    }
+
+    nav.navbar h1.title {
+        color: white;
+    }
+@font-face {
+    font-family: buttons;
+    src: url("/static/fonts/oswald/Oswald-Regular.ttf");
+}
+.firstpagediv{
+margin-top:30px!important;
+padding:30px;
+border:2px solid white;
+border-radius:10px;
+background-color:#3d3d3d;
+margin:auto;
+width:80%;
+color:white;
+font-size:22px;
+height:297px;
+min-width:800px;
+}
+.button_is-light{
+    text-transform: uppercase;
+    font-size:20px;
+    background: white;
+    border-radius: 4px;
+    font-family: buttons;
+    padding:8px 17px;
+    margin-top:5px;
+
+
+}
+.button_is-light:hover{
+text-decoration:underline;
+background:white!important;
+}
+.button {
+  border-radius: 15px;
+  background-color: white;
+  border: none;
+  color: black;
+  text-align: center;
+  font-size: 20px!important;
+  padding:10px 27px;
+  width: 110px;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family:buttons;
+  margin:7px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover{
+    transition: 0.3s;
+    background-color: #bdbdbd;
+    }
+
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.inputText{
+ padding:5px;
+ border:2px solid black;
+ border-radius:5px;
+}
+.inputDiv{
+width:200px;
+color:white;
+margin:auto;
+border: 2px solid white;
+border-radius:10px;
+background:#3d3d3d;
+text-align:center;
+padding:5px;
+padding-top:15px;
+font-family:buttons;
+font-size:18px;
+}
+.inputDiv2{
+border: 2px solid white;
+border-radius:10px;
+background:#3d3d3d;
+margin-bottom: 30px;
+padding:15px;
+padding-top:15px;
+font-family:buttons;
+font-size:18px;
+}
+.inp{
+border:1px solid white;
+border-radius:5px;
+padding:3px 8px;
+background-color:white;
+font-family:main;
+color:#3d3d3d;
+font-size:18px;
+width:100%;
+}
+
+.trackField{
+border:2px solid white;
+border-radius:10px;
+max-height:400px!important;
+overflow:auto;
+padding:5px;
+background-color:#3d3d3d;
+min-height:160px;
+margin:auto;
+width:95%;
+}
+.trackField2{
+border:2px solid white;
+border-radius:10px;
+max-height:400px!important;
+overflow:auto;
+padding:5px;
+background-color:#3d3d3d;
+min-height:160px;
+max-width:
+}
+
+
+    .buttons {
+        clear: both;
+        display: flex;
+        flex-direction: row;
+        margin:auto;
+        width:240px;
+        padding-top:30px;
+    }
+    .buttons_one {
+        margin:auto;
+        width:110px;
+        padding-top:30px;
+
+    }
+
+    .slide-fade-enter-active {
+        transition: all .8s ease;
+        align-items: center;
+        text-align: center;
+    }
+    .slide-fade-leave-active {
+        transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        align-items: center;
+        text-align: center;
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+        /* .slide-fade-leave-active до версии 2.1.8 */ {
+        transform: translateX(10px);
+        opacity: 0;
+        align-items: center;
+        text-align: center;
+    }
+    .no-mode-translate-fade-enter-active, .no-mode-translate-fade-leave-active {
+        transition: all 1s;
+    }
+    .no-mode-translate-fade-enter, .no-mode-translate-fade-leave-active {
+        opacity: 0;
+    }
+    .no-mode-translate-fade-enter {
+        transform: translateX(31px);
+    }
+    .no-mode-translate-fade-leave-active {
+        transform: translateX(-31px);
+    }
+    .section{
+        align-items: center;
+        text-align: center;
+    }
+</style>
+<style>
+    .button2 {
+  border-radius: 15px;
+  background-color: white;
+  border: none;
+  color: black;
+  text-align: center;
+  font-size: 20px!important;
+  padding:10px 27px;
+  width: 110px;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family:buttons;
+}
+
+.button2 span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button2 span:after {
+  content: '\00ab';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -15px;
+  transition: 0.5s;
+}
+
+.button2:hover span {
+  padding-left: 10px;
+}
+
+.button2:hover span:after {
+  opacity: 1;
+  left: -1;
+}
+.button2:hover{
+    transition: 0.3s;
+    background-color: #bdbdbd;
+    }
+</style>
+</html>
