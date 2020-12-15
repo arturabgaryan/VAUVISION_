@@ -42,5 +42,6 @@ urlpatterns = [
     path('log_in',log_in),
     path('send_email',send_email),
     path('index',index),
-    path('upload',upload)
+    path('upload',upload),
+    path('test',test)
 ]
