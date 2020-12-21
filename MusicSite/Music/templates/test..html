@@ -120,8 +120,8 @@
              </div>
                 <div class="buttons">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button v-if="files.length " @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
-                    <button disabled v-if="!files.length" class="button_unclick"><span>ДАЛЕЕ</span></button>
+                    <button v-if="files.length>0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button disabled v-if="files.length == 0" class="button_unclick"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
             <div v-if="page == 3" style="margin:auto;width:90%;" key="3">
