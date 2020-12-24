@@ -120,8 +120,8 @@
              </div>
                 <div class="buttons">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button v-if="files.length>0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
-                    <button disabled v-if="files.length == 0" class="button_unclick"><span>ДАЛЕЕ</span></button>
+                    <button v-if="tracks>0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button disabled v-else class="button_unclick"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
             <div v-if="page == 3" style="margin:auto;width:90%;" key="3">
@@ -175,7 +175,7 @@
                 <div style="display:flex;min-width:1122px;">
                           <div style="width:100%;">
                     <label for="artistScan" class="text">Прикрепите обложку релиза<font color="red">*</font></label><br>
-                <input type="file" accept="image/*" id="artistScan" class="inp" style="margin-bottom:50px;" v-model="releaseCover"><br>
+                <input type="file" accept="image/*" id="artistScan" class="inp" @change="newCoverFiles($event)" style="margin-bottom:50px;"><br>
                 <label for="VK" class="text">Ссылка на вашу страницу в ВК для проверки и подписания договора <font color="red">*</font></label><br>
                 <input v-model="link" id="VK" placeholder="https://vk.com/****" class="artistINP"><br>
                  <label for="email" class="text">Введите вашу почту<font color="red">*</font></label><br>
@@ -185,7 +185,7 @@
                     <label for="paspscan" class="text">Прикрепите 2 фото паспорта: разворот с фото + страница с регистрацией в формате jpeg<font color="red">*</font></label><br>
                         <span style="font-family:main;font-size:20px; color:#4d4d4d;">Если вы не гражданин РФ, прикрепите одно фото документа (паспорт, ID) с вашим фото</span><br>
                     <div class="inputDiv2">
-                        <input id="paspscan" type="file" multiple @change="newScanFiles($event)" :value="null" accept="image/jpeg">
+                        <input id="paspscan" type="file" multiple @change="newScanFiles($event)" accept="image/jpeg">
                     </div>
                     <div class="trackField2">
                     <div v-for="(file,i) in scanfiles" >
@@ -201,7 +201,7 @@
                 </div>
                 <div class="buttons">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button v-if="releaseCover != '' && link != '' && email != '' && scanfiles.length" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>4
+                    <button v-if="link != '' && email != '' && counter2 > 0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
                     <button v-else disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
@@ -249,8 +249,12 @@
                 <label for="Appletext" class="text" style="margin-top:12px;">Текст для Apple Music</label><br>
                 <span style="font-family:main;font-size:20px; color:#4d4d4d;">Куплеты и припевы должны быть разделены пробелом, каждая строчка с большой буквы, в конце строчек без знаков препинания. В тексте должно быть только то, что произносится в песне. Все тексты поместите в один файл формата docx.</span><br>
                 <input type="file" accept=".docx" id="Appletext" class="inp" style="margin-bottom:50px;"><br>
+                <label for="spotify" class="text">Укажите ссылку на Spotify</label><br>
+                <input id="spotify" placeholder=" Например: https://spotify.com/your_account" class="artistINP"><br>
                 </div>
                 <div style="margin-left:40px;width:100%">
+                <label for="appmusic" class="text">Ссылка на карточку артиста в Apple Music</label><br>
+                <input id="appmusic" placeholder=" Например: https://applemusic.com/your_account" class="artistINP"><br>
                     <label for="where" class="text">Как вы о нас узнали?<font color="red">*</font></label><br>
                 <select id="where" v-model="selectedOption_3" class="form-control" style="outline: none; width:100%;margin-bottom:40px;">
                     <option>Увидел рекламу в Instagram</option>
@@ -259,18 +263,19 @@
                     <option>Другое</option>
                 </select>
                 <label v-if="selectedOption_3 == 'Другое'" for="platform" class="text" style="margin-top:28px;">Укажте свой вариант<font color="red">*</font></label><br>
-                <input v-if="selectedOption_3 == 'Другое'" placeholder="" class="artistINP"><br>
+                <input v-model="adv" v-if="selectedOption_3 == 'Другое'" placeholder="" class="artistINP"><br>
                 <label for="tictoc" class="text">Комментарии</label><br>
                 <textarea placeholder="Добавить комментарий" style="margin-bottom:100px;"></textarea>
                 <label class="check">
-                    <input required type="checkbox">
+                    <input v-model="check" required type="checkbox">
                     Я подтверждаю, что мои треки не нарушают права других авторов музыки и текста<font color="red">*</font>
                 </label>
                 </div>
             </div>
-                <div class="buttons">
+                <div class="buttons_submit">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button disabled class="button"><span>Загрузить</span></button>
+                    <button v-if="check" class="button_upload"><span>ЗАГРУЗИТЬ</span></button>
+                    <button v-else disabled class="button_unclick_upload"><span>ЗАГРУЗИТЬ</span></button>
                 </div>
             </div>
         </transition>
@@ -281,14 +286,19 @@
         el: "#app",
         data: function () {
             return {
+                adv:'',
                 page: 0,
+                check:false,
                 singles: 0,
                 albumns: 0,
                 thousands: 0,
                 hundreds: 0,
                 files: new Array(),
                 scanfiles: new Array(),
+                files: new Array(),
                 fileData: {},
+                coverfiles: new Array(),
+                coverfileData: {},
                 scanfileData: {},
                 savedFiles: [],
                 selectedOption: '',
@@ -298,9 +308,11 @@
                 trackName:'',
                 platf:'',
                 filthy:'',
-                releaseCover:'',
                 link:'',
                 email: '',
+                counter:0,
+                counter2:0,
+                counter3:0,
                 pickerOptions: {
             disabledDate(time) {
                 return time.getTime() > Date.now();
@@ -360,6 +372,7 @@
                 }
             },
             newFiles: function (evt) {
+                this.counter += 1
                 this.files = Object.keys(this.files).map(key => this.files[key])
                 Array.prototype.slice.call(evt.target.files).forEach((file) => {
                     if (!this.files.includes(file)) {
@@ -379,6 +392,7 @@
                 })
             },
             deleteFile: function (idx) {
+                this.counter -= 1
                 const {[idx]: propValue, ...rest} = this.files
                 this.files = rest
                 if (Object.keys(this.files).length == 0) {
@@ -386,38 +400,57 @@
                 }
             },
             newScanFiles: function (evt) {
+                this.counter2 += 1
                 this.scanfiles = Object.keys(this.scanfiles).map(key => this.scanfiles[key])
                 Array.prototype.slice.call(evt.target.files).forEach((file) => {
                     if (!this.scanfiles.includes(file)) {
                         this.scanfiles.push(file)
                     }
                 })
-                this.scanfiles.forEach((file) => {
-                    let flag = false
-                    for (data in this.scanfileData) {
-                        if (data == file.name) {
-                            flag = true
-                        }
-                    }
-                    if (!flag) {
-                        this.scanfileData[file.name] = {singer: '', music: '', text: ''}
-                    }
-                })
             },
             deleteScanFile: function (idx) {
+            this.counter2 -= 1
                 const {[idx]: propValue, ...rest} = this.scanfiles
                 this.scanfiles = rest
                 if (Object.keys(this.scanfiles).length == 0) {
                     this.scanfiles = []
                 }
             },
+            newCoverFiles: function (evt) {
+                this.counter2 += 1
+                this.coverfiles = Object.keys(this.coverfiles).map(key => this.coverfiles[key])
+                Array.prototype.slice.call(evt.target.files).forEach((file) => {
+                    if (!this.coverfiles.includes(file)) {
+                        this.coverfiles.push(file)
+                    }
+                })
+            },
+            deleteCoverFile: function (idx) {
+            this.counter2 -= 1
+                const {[idx]: propValue, ...rest} = this.coverfiles
+                this.coverfiles = rest
+                if (Object.keys(this.coverfiles).length == 0) {
+                    this.coverfiles = []
+                }
+            },
+            uploaded: function(){
+               this.counter2 += 1
+            },
+
             test: function () {
             }
         },
         computed: {
             total: function () {
                 return this.singles * 2000 + this.albumns * 3000 + this.thousands * 1000 + this.hundreds * 100
-            }
+            },
+            tracks: function () {
+                return this.counter
+            },
+            scans: function () {
+                return this.counter2
+            },
+
         }
     })
 </script>
@@ -560,6 +593,33 @@ background:white!important;
   margin:7px;
 
 }
+.button_unclick_upload{
+  border-radius: 15px;
+  background-color: gray;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 20px!important;
+  padding:10px 27px;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family:buttons;
+  margin:7px;
+
+}
+.button_upload {
+  border-radius: 15px;
+  background-color: black;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 20px!important;
+  padding:10px 27px;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family:buttons;
+  margin:7px;
+}
 .button {
   border-radius: 15px;
   background-color: black;
@@ -674,6 +734,14 @@ max-width:
         flex-direction: row;
         margin:auto;
         width:240px;
+        padding-top:30px;
+    }
+    .buttons_upload {
+        clear: both;
+        display: flex;
+        flex-direction: row;
+        margin:auto;
+        width:280px;
         padding-top:30px;
     }
     .buttons_one {
