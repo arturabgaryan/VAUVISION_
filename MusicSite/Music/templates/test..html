@@ -274,7 +274,7 @@
             </div>
                 <div class="buttons_submit">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button v-if="check" class="button_upload"><span>ЗАГРУЗИТЬ</span></button>
+                    <button v-if="check && selectedOption_3 != ''" class="button_upload"><span>ЗАГРУЗИТЬ</span></button>
                     <button v-else disabled class="button_unclick_upload"><span>ЗАГРУЗИТЬ</span></button>
                 </div>
             </div>
