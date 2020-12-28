@@ -172,7 +172,7 @@
                 </div>
             </div>
             <div v-if="page == 4" class="container" key="4">
-                <div style="display:flex;min-width:1122px;">
+                <div style=";min-width:1122px;">
                           <div style="width:100%;">
                     <label for="artistScan" class="text">Прикрепите обложку релиза<font color="red">*</font></label><br>
                 <input type="file" accept="image/*" id="artistScan" class="inp" @change="newCoverFiles($event)" style="margin-bottom:50px;"><br>
@@ -180,23 +180,6 @@
                 <input v-model="link" id="VK" placeholder="https://vk.com/****" class="artistINP"><br>
                  <label for="email" class="text">Введите вашу почту<font color="red">*</font></label><br>
                 <input v-model="email" id="email" placeholder="example@host.com" class="artistINP"><br>
-                </div>
-                <div style="margin-left:40px;width:100%">
-                    <label for="paspscan" class="text">Прикрепите 2 фото паспорта: разворот с фото + страница с регистрацией в формате jpeg<font color="red">*</font></label><br>
-                        <span style="font-family:main;font-size:20px; color:#4d4d4d;">Если вы не гражданин РФ, прикрепите одно фото документа (паспорт, ID) с вашим фото</span><br>
-                    <div class="inputDiv2">
-                        <input id="paspscan" type="file" multiple @change="newScanFiles($event)" accept="image/jpeg">
-                    </div>
-                    <div class="trackField2">
-                    <div v-for="(file,i) in scanfiles" >
-                    <div style="display:flex; width:100%; padding:20px 0px;">
-                        <div style="min-width:345px;float:left!important;padding-left:5px;height:27px;">
-                            <span style="color:white;">{{file.name}}</span>
-                            <button @click="deleteScanFile(i)" class="deleteButton"><b>x</b></button>
-                        </div>
-                    </div>
-                </div>
-             </div>
                 </div>
                 </div>
                 <div class="buttons">
@@ -206,36 +189,37 @@
                 </div>
             </div>
             <div v-if="page == 5" style="margin:auto;width:90%;" key="5">
-                 <h1 style="text-align:center;color:black;margin-bottom:20px;font-size:40px; font-family:forTitles;">Данные паспорта (не обязательно для заполнения)</h1>
+                 <h1 style="text-align:center;color:black;margin-bottom:20px;font-size:40px; font-family:forTitles;">Данные паспорта</h1>
                 <div style="display:flex;min-width:1122px;">
                           <div style="width:100%;">
-                <label for="grajdanstvo" class="text">Гражданство</label><br>
-                <input id="grajdanstvo" placeholder=" Например: РФ/Казахстан/Буларусь " class="artistINP"><br>
-                <label for="fio" class="text">ФИО (в именительном падеже)</label><br>
-                <input id="fio" placeholder=" Например: Иванов Иван Иванович" class="artistINP"><br>
+                <label for="grajdanstvo" class="text">Гражданство<font color="red">*</font></label><br>
+                <input v-model="grajdanstvo" id="grajdanstvo" placeholder=" Например: РФ/Казахстан/Буларусь " class="artistINP"><br>
+                <label for="fio" class="text">ФИО (в именительном падеже)<font color="red">*</font></label><br>
+                <input v-model="fio" id="fio" placeholder=" Например: Иванов Иван Иванович" class="artistINP"><br>
                 <div style="display:flex">
                      <div style="width:35%; margin-right:10px;">
-                         <label for="seria" class="text">Серия паспорта</label><br>
-                     <input style="width:100%;" id="seria" placeholder="Например: 4444" class="artistINP"><br>
+                         <label for="seria" class="text">Серия паспорта<font color="red">*</font></label><br>
+                     <input v-model="seria" style="width:100%;" id="seria" placeholder="Например: 4444" class="artistINP"><br>
                      </div>
                      <div style="width:60%;">
-                         <label for="num" class="text">Номер паспорта</label><br>
-                <input style="width:100%;" id="num" placeholder=" Например: 666666" class="artistINP"><br>
+                         <label for="num" class="text">Номер паспорта<font color="red">*</font></label><br>
+                <input v-model="num" style="width:100%;" id="num" placeholder=" Например: 666666" class="artistINP"><br>
                      </div>
                 </div>
                 </div>
                 <div style="margin-left:40px;width:100%">
-                <label for="given_by" class="text">Кем выдан</label><br>
-                <input id="given_by" placeholder=" Например: ГУ МВД РОССИИ ПО Г.МОСКВЕ " class="artistINP"><br>
-                <label for="giving_date" class="text">Дата выдачи</label><br>
-                <input id="giving_date" placeholder=" Например: 31.12.2020" class="artistINP"><br>
-                <label for="adress" class="text">Адрес регистрации</label><br>
-                <input id="adress" placeholder=" Например: Ленинский проспект 63" class="artistINP"><br>
+                <label for="given_by" class="text">Кем выдан<font color="red">*</font></label><br>
+                <input v-model="given_by" id="given_by" placeholder=" Например: ГУ МВД РОССИИ ПО Г.МОСКВЕ " class="artistINP"><br>
+                <label for="giving_date" class="text">Дата выдачи<font color="red">*</font></label><br>
+                <input v-model="giving_date" id="giving_date" placeholder=" Например: 31.12.2020" class="artistINP"><br>
+                <label for="adress" class="text">Адрес регистрации<font color="red">*</font></label><br>
+                <input v-model="adress" id="adress" placeholder=" Например: Ленинский проспект 63" class="artistINP"><br>
                 </div>
             </div>
                 <div class="buttons">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button v-if="grajdanstvo != '' && fio != '' && seria != '' && num != '' && given_by != '' && giving_date != '' && adress != ''" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button v-else disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
             <div v-if="page == 6" style="margin:auto;width:90%;" key="6">
@@ -246,16 +230,29 @@
                 <label for="tictoc" class="text">С какой секунды воспроизводить трек в Tik Tok?</label><br>
                 <span style="font-family:main;font-size:20px;color:#4d4d4d;">Укажите секунды через запятую в порядке загруженных ранее треков</span><br>
                 <input id="tictoc" placeholder="Например:1,5,34" class="artistINP"><br>
-                <label for="Appletext" class="text" style="margin-top:12px;">Текст для Apple Music</label><br>
+                <label for="Appletext" class="text">Текст для Apple Music</label><br>
                 <span style="font-family:main;font-size:20px; color:#4d4d4d;">Куплеты и припевы должны быть разделены пробелом, каждая строчка с большой буквы, в конце строчек без знаков препинания. В тексте должно быть только то, что произносится в песне. Все тексты поместите в один файл формата docx.</span><br>
                 <input type="file" accept=".docx" id="Appletext" class="inp" style="margin-bottom:50px;"><br>
-                <label for="spotify" class="text">Укажите ссылку на Spotify</label><br>
-                <input id="spotify" placeholder=" Например: https://spotify.com/your_account" class="artistINP"><br>
                 </div>
                 <div style="margin-left:40px;width:100%">
                 <label for="appmusic" class="text">Ссылка на карточку артиста в Apple Music</label><br>
                 <input id="appmusic" placeholder=" Например: https://applemusic.com/your_account" class="artistINP"><br>
-                    <label for="where" class="text">Как вы о нас узнали?<font color="red">*</font></label><br>
+                <label for="spotify" class="text">Укажите ссылку на Spotify</label><br>
+                <input id="spotify" placeholder=" Например: https://spotify.com/your_account" class="artistINP"><br>
+                <label for="apptext" class="text">Караоке текст для Apple Music</label><br>
+                <input id="apptext" type="file" class="inp" accept=".docx><br>
+                </div>
+            </div>
+                <div class="buttons_submit">
+                    <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
+                    <button v-if="" @click="nextPage" class="button_upload"><span>ДАЛЕЕ</span></button>
+                    <button v-else disabled class="button_unclick_upload"><span>ДАЛЕЕ</span></button>
+                </div>
+            </div>
+            <div v-if="page == 7" class="container" key="7">
+                <div style=";min-width:1122px;">
+                          <div style="width:100%;">
+                              <label for="where" class="text">Как вы о нас узнали?<font color="red">*</font></label><br>
                 <select id="where" v-model="selectedOption_3" class="form-control" style="outline: none; width:100%;margin-bottom:40px;">
                     <option>Увидел рекламу в Instagram</option>
                     <option>Увидел рекламу в Вконтакте</option>
@@ -271,8 +268,8 @@
                     Я подтверждаю, что мои треки не нарушают права других авторов музыки и текста<font color="red">*</font>
                 </label>
                 </div>
-            </div>
-                <div class="buttons_submit">
+                </div>
+                <div class="buttons">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
                     <button v-if="check && selectedOption_3 != ''" class="button_upload"><span>ЗАГРУЗИТЬ</span></button>
                     <button v-else disabled class="button_unclick_upload"><span>ЗАГРУЗИТЬ</span></button>
@@ -281,6 +278,7 @@
         </transition>
     </section>
 </div>
+
 <script>
     const app = new Vue({
         el: "#app",
@@ -300,6 +298,8 @@
                 coverfiles: new Array(),
                 coverfileData: {},
                 scanfileData: {},
+                textfiles:new Array(),
+                textfileData:{},
                 savedFiles: [],
                 selectedOption: '',
                 selectedOption_2: '',
@@ -310,6 +310,13 @@
                 filthy:'',
                 link:'',
                 email: '',
+                grajdanstvo:'',
+                fio:'',
+                seria:'',
+                num:'',
+                given_by:'',
+                giving_date:'',
+                adress:'',
                 counter:0,
                 counter2:0,
                 counter3:0,
@@ -330,7 +337,7 @@
         },
         methods: {
             nextPage: function () {
-                if (this.page < 6) {
+                if (this.page < 7) {
                     this.page += 1
                 }
             },
@@ -372,7 +379,7 @@
                 }
             },
             newFiles: function (evt) {
-                this.counter += 1
+                let  cFiles = document.getElementById("first_file").files.length;
                 this.files = Object.keys(this.files).map(key => this.files[key])
                 Array.prototype.slice.call(evt.target.files).forEach((file) => {
                     if (!this.files.includes(file)) {
@@ -390,6 +397,7 @@
                         this.fileData[file.name] = {singer: '', music: '', text: ''}
                     }
                 })
+                this.counter += cFiles
             },
             deleteFile: function (idx) {
                 this.counter -= 1
@@ -400,7 +408,7 @@
                 }
             },
             newScanFiles: function (evt) {
-                this.counter2 += 1
+                this.counter2 += this.scanfiles.length
                 this.scanfiles = Object.keys(this.scanfiles).map(key => this.scanfiles[key])
                 Array.prototype.slice.call(evt.target.files).forEach((file) => {
                     if (!this.scanfiles.includes(file)) {
@@ -431,6 +439,21 @@
                 this.coverfiles = rest
                 if (Object.keys(this.coverfiles).length == 0) {
                     this.coverfiles = []
+                }
+            },
+            newAppleTextFiles: function (evt) {
+                this.textfiles = Object.keys(this.textfiles).map(key => this.textfiles[key])
+                Array.prototype.slice.call(evt.target.files).forEach((file) => {
+                    if (!this.textfiles.includes(file)) {
+                        this.textfiles.push(file)
+                    }
+                })
+            },
+            deleteAppleTextFile: function (idx) {
+                const {[idx]: propValue, ...rest} = this.textfiles
+                this.textfiles = rest
+                if (Object.keys(this.textfiles).length == 0) {
+                    this.textfiles = []
                 }
             },
             uploaded: function(){
