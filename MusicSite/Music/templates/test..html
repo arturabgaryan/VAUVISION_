@@ -425,7 +425,7 @@
                 if (Object.keys(this.files).length == 0) {
                     this.files = []
                 }
-                alert(this.fileData.hasOwnProperty(propValue.name))
+               
                 if(this.fileData[propValue.name].text != ''){
                 this.signed_counter -=1
                 }
@@ -436,8 +436,7 @@
                 this.signed_counter -=1
                 }
                 delete this.fileData[propValue.name]
-                alert(this.fileData.hasOwnProperty(propValue.name))
-                alert(this.signed_counter)
+
 
             },
             newScanFiles: function (evt) {
