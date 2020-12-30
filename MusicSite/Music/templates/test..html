@@ -109,9 +109,9 @@
                         </div>
                         <div style="width:60%;min-width:645px!important;margin-left:30px!important;margin:auto; height:25px;">
                             <button @click="deleteFile(i)" class="deleteButton" style="float:right;"><b>x</b></button>
-                                <input style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].text" placeholder="Автор текста" class="inputText">
-                                <input style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText">
-                            <input style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" placeholder="Имя артиста" class="inputText">
+                                <input @change="test($event)" style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].text" id="" placeholder="Автор текста" class="inputText">
+                                <input @change="test($event)" style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" id="" >
+                            <input @change="test($event)" style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" placeholder="Имя артиста" class="inputText" id="">
 
                         </div>
 
@@ -120,7 +120,7 @@
              </div>
                 <div class="buttons">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button v-if="tracks>0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button type="submit" v-if="tracks>0 && counter*3 == signed_counter" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
                     <button disabled v-else class="button_unclick"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
@@ -129,22 +129,21 @@
                           <div style="width:100%;">
                     <label for="track_artist" class="text">Впишите Псевдоним артиста<font color="red">*</font></label><br>
                 <input id="track_artist" placeholder=" Например: Eminem" class="artistINP" v-model="artistName"><br>
-                <label for="track_names" class="text">Впишите Название синглов/альбомов через запятую<font color="red">*</font></label><br>
-                <span style="font-family:main;font-size:20px;color:#4d4d4d;">Названия синглов помечать скобкой (сингл)</span><br>
+                <label v-if="singles != 0 && albumns == 0" for="track_names" class="text">Впишите Название синглов через запятую<font color="red">*</font></label>
+                <label v-if="singles == 0 && albumns != 0" for="track_names" class="text">Впишите Название альбомов через запятую<font color="red">*</font></label>
+                <label v-if="singles != 0 && albumns != 0" for="track_names" class="text">Впишите Название синглов/альбомов через запятую<font color="red">*</font></label><br>
                 <input id="track_names" placeholder="Например: Recovery,Lose Yourself(сингл),Encore" class="artistINP" v-model="trackName"><br>
-                <label for="platform" class="text" style="margin-top:12px;">На какие площадки заливать?<font color="red">*</font></label><br>
-                <select id="platform" v-model="selectedOption_2" class="form-control" style="outline: none; width:100%;margin-bottom:40px;">
+                <label for="platform" class="text">На какие площадки заливать?<font color="red">*</font></label><br>
+                <select id="platform" v-model="selectedOption_2" class="form-control" style="outline: none; width:100%;margin-bottom:20px;">
                     <option>На все площадки</option>
                     <option>На все кроме Boom</option>
                     <option>Только Boom</option>
                     <option>Другое</option>
                 </select>
-                <label v-if="selectedOption_2 == 'Другое'" for="platform" class="text" style="margin-top:28px;">Укажте свой вариант<font color="red">*</font></label><br>
-                <input v-if="selectedOption_2 == 'Другое'" placeholder="" class="artistINP" v-model="platf">
-                </div>
-                <div style="margin-left:40px;width:100%">
-                    <label for="date" class="text">Желаемая дата(если всё равно, ставьте ближайшую пятницу)<font color="red">*</font></label><br>
-                        <div id="date" style="width:300%; margin-bottom:90px;">
+                <label v-if="selectedOption_2 == 'Другое'" for="platform" class="text" >Укажте свой вариант<font color="red">*</font></label><br>
+                <input v-if="selectedOption_2 == 'Другое'" placeholder="" class="artistINP" v-model="platf"><br>
+                <label for="date" class="text">Желаемая дата(если всё равно, ставьте ближайшую пятницу)<font color="red">*</font></label><br>
+                        <div id="date" style="width:300%; margin-bottom:20px;">
                     <el-date-picker
                             v-model="value1"
                             type="date"
@@ -153,9 +152,9 @@
                             placeholder="Выберите дату выхода">
                     </el-date-picker>
                 </div>
-                    <label for="track_filthy" class="text">В треках есть мат?<font color="red">*</font></label><br>
+                <label for="track_filthy" class="text">В треках есть мат?<font color="red">*</font></label><br>
                 <div class="form-group col-md-4">
-                <select v-model="selectedOption" id="track_filthy" class="form-control" style="margin-left:-15px;outline: none; width:350%;">
+                <select v-model="selectedOption" id="track_filthy" class="form-control" style="margin-left:-15px;outline: none; width:340%;">
                     <option selected>Нет</option>
                     <option>Да</option>
                 </select><br>
@@ -163,6 +162,10 @@
                 <label v-if="selectedOption == 'Да'" for="filthyNum" class="text">Если есть, укажите номера треков, где есть мат<font color="red">*</font></label><br>
                 <span v-if="selectedOption == 'Да'" style="font-family:main;font-size:20px; color:#4d4d4d;">Если загружаем 1 трек, то ставьте 1</span><br>
                 <input id="filthyNum" v-if="selectedOption == 'Да'" placeholder="Например: 1,2,4" class="artistINP" v-model="filthy"><br>
+                </div>
+                <div style="margin-left:130px;width:100%; margin-top:-70px;">
+                  <img height="60%" width="80%" src="/static/images/background/img.png">
+
                 </div>
                 </div>
                 <div class="buttons">
@@ -172,8 +175,8 @@
                 </div>
             </div>
             <div v-if="page == 4" class="container" key="4">
-                <div style=";min-width:1122px;">
-                          <div style="width:100%;">
+                <div style="min-width:1122px;display:flex;">
+                          <div style="width:50%;margin-right:130px;">
                     <label for="artistScan" class="text">Прикрепите обложку релиза<font color="red">*</font></label><br>
                 <input type="file" accept="image/*" id="artistScan" class="inp" @change="newCoverFiles($event)" style="margin-bottom:50px;"><br>
                 <label for="VK" class="text">Ссылка на вашу страницу в ВК для проверки и подписания договора <font color="red">*</font></label><br>
@@ -181,7 +184,11 @@
                  <label for="email" class="text">Введите вашу почту<font color="red">*</font></label><br>
                 <input v-model="email" id="email" placeholder="example@host.com" class="artistINP"><br>
                 </div>
+               <div style="width:45%">
+                    <img width="80%" height="60%" src="/static/images/background/img.png">
                 </div>
+                </div>
+
                 <div class="buttons">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
                     <button v-if="link != '' && email != '' && counter2 > 0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
@@ -197,13 +204,9 @@
                 <label for="fio" class="text">ФИО (в именительном падеже)<font color="red">*</font></label><br>
                 <input v-model="fio" id="fio" placeholder=" Например: Иванов Иван Иванович" class="artistINP"><br>
                 <div style="display:flex">
-                     <div style="width:35%; margin-right:10px;">
-                         <label for="seria" class="text">Серия паспорта<font color="red">*</font></label><br>
-                     <input v-model="seria" style="width:100%;" id="seria" placeholder="Например: 4444" class="artistINP"><br>
-                     </div>
-                     <div style="width:60%;">
-                         <label for="num" class="text">Номер паспорта<font color="red">*</font></label><br>
-                <input v-model="num" style="width:100%;" id="num" placeholder=" Например: 666666" class="artistINP"><br>
+                     <div style="width:100%">
+                         <label  for="seria" class="text">Серия-Номер паспорта<font color="red">*</font></label><br>
+                     <input title="Серия-номер" pattern="[0-9]{4,}-[0-9]{6,}" v-model="seria" style="width:100%;" id="seria" placeholder="Например: 4545-63646" class="artistINP"><br>
                      </div>
                 </div>
                 </div>
@@ -211,14 +214,14 @@
                 <label for="given_by" class="text">Кем выдан<font color="red">*</font></label><br>
                 <input v-model="given_by" id="given_by" placeholder=" Например: ГУ МВД РОССИИ ПО Г.МОСКВЕ " class="artistINP"><br>
                 <label for="giving_date" class="text">Дата выдачи<font color="red">*</font></label><br>
-                <input v-model="giving_date" id="giving_date" placeholder=" Например: 31.12.2020" class="artistINP"><br>
+                <input v-model="giving_date" id="giving_date" type="date"  placeholder=" Например: 31.12.2020" class="unstyled"><br>
                 <label for="adress" class="text">Адрес регистрации<font color="red">*</font></label><br>
                 <input v-model="adress" id="adress" placeholder=" Например: Ленинский проспект 63" class="artistINP"><br>
                 </div>
             </div>
                 <div class="buttons">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button v-if="grajdanstvo != '' && fio != '' && seria != '' && num != '' && given_by != '' && giving_date != '' && adress != ''" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button v-if="grajdanstvo != '' && fio != '' && seria != '' && given_by != '' && giving_date != '' && adress != ''" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
                     <button v-else disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
@@ -240,7 +243,7 @@
                 <label for="spotify" class="text">Укажите ссылку на Spotify</label><br>
                 <input id="spotify" placeholder=" Например: https://spotify.com/your_account" class="artistINP"><br>
                 <label for="apptext" class="text">Караоке текст для Apple Music</label><br>
-                <input id="apptext" type="file" class="inp" accept=".docx"><br>
+                <input id="apptext" type="file" class="inp" accept=".ttml"><br>
                 </div>
             </div>
                 <div class="buttons_submit">
@@ -271,7 +274,7 @@
                 </div>
                 <div class="buttons">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button v-if="check && selectedOption_3 != ''" class="button_upload"><span>ЗАГРУЗИТЬ</span></button>
+                    <button type="submit" v-if="check && selectedOption_3 != ''" class="button_upload"><span>ЗАГРУЗИТЬ</span></button>
                     <button v-else disabled class="button_unclick_upload"><span>ЗАГРУЗИТЬ</span></button>
                 </div>
             </div>
@@ -320,6 +323,7 @@
                 counter:0,
                 counter2:0,
                 counter3:0,
+                signed_counter:0,
                 pickerOptions: {
             disabledDate(time) {
                 return time.getTime() > Date.now();
@@ -383,8 +387,21 @@
                 this.files = Object.keys(this.files).map(key => this.files[key])
                 Array.prototype.slice.call(evt.target.files).forEach((file) => {
                     if (!this.files.includes(file)) {
+                       for (data in this.fileData) {
+                        if (!Object.keys(this.fileData).includes(file.name) && Object.keys(this.fileData).length != 0){
+
                         this.files.push(file)
+                        }
+                        }
+                        if(Object.keys(this.fileData).length == 0){
+
+                        this.files.push(file)
+                        }
+                        if (Object.keys(this.fileData).includes(file.name) && Object.keys(this.fileData).length != 0){
+                        this.counter -=1
+                        }
                     }
+
                 })
                 this.files.forEach((file) => {
                     let flag = false
@@ -394,10 +411,12 @@
                         }
                     }
                     if (!flag) {
-                        this.fileData[file.name] = {singer: '', music: '', text: ''}
+                this.fileData[file.name] = {singer: '', music: '', text: ''}
                     }
+
                 })
                 this.counter += cFiles
+
             },
             deleteFile: function (idx) {
                 this.counter -= 1
@@ -406,6 +425,20 @@
                 if (Object.keys(this.files).length == 0) {
                     this.files = []
                 }
+                alert(this.fileData.hasOwnProperty(propValue.name))
+                if(this.fileData[propValue.name].text != ''){
+                this.signed_counter -=1
+                }
+                if (this.fileData[propValue.name].music != ''  ){
+                this.signed_counter -=1
+                }
+                if(this.fileData[propValue.name].singer != ''){
+                this.signed_counter -=1
+                }
+                delete this.fileData[propValue.name]
+                alert(this.fileData.hasOwnProperty(propValue.name))
+                alert(this.signed_counter)
+
             },
             newScanFiles: function (evt) {
                 this.counter2 += this.scanfiles.length
@@ -460,7 +493,16 @@
                this.counter2 += 1
             },
 
-            test: function () {
+            test: function (evt) {
+            if(evt.target.value != '' && evt.target.id == ''){
+               evt.target.id = true
+               this.signed_counter += 1
+            }
+            if(evt.target.value == '')
+            {
+               evt.target.id = ''
+               this.signed_counter -= 1
+            }
             }
         },
         computed: {
@@ -472,6 +514,17 @@
             },
             scans: function () {
                 return this.counter2
+            },
+            tracks_2: function(){
+                let flag_2 = true
+                var filesss
+                for (filesss in this.fileData){
+                  if (this.fileData[filesss].text == ''){
+                  flag_2 = false
+                  }
+
+                }
+                return flag_2
             },
 
         }
@@ -522,7 +575,7 @@ height:40px;
 border-radius:5px;
 font-size:20px;
 padding: 15px 22px;
-margin-bottom:60px;
+margin-bottom:20px;
 }
 
 .artistINP:focus{
@@ -551,11 +604,23 @@ color:black;
 font-family:main;
 font-size:25px;
 }
+.unstyled::-webkit-inner-spin-button,
+.unstyled::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+.unstyled{
+width:100%;
+height:40px;
+border-radius:5px;
+font-size:20px;
+padding: 15px 22px;
+margin-bottom:60px;
+}
 .maindiv{
 margin-top:75px!important;
 margin:auto;
 border-radius:20px;
-background-color:rgba(0, 0, 0, 0.1);
 width:95%;
 padding-top:60px;
 padding-bottom:60px;
