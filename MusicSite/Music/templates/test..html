@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div v-if="page == 1" style="margin:auto;width:90%;" key="1" >
-                <h1 style="text-align:center;color:black;margin-bottom:30px;font-size:30px; font-family:forTitles;">ВЫБЕРИТЕ ЧТО БУДЕТЕ ЗАГРУЖАТЬ <font color="red">*</font></h1>
+                <h1 style="text-align:center;color:black;margin-bottom:30px;font-size:30px; font-family:forTitles;">ВЫБЕРИТЕ ЧТО БУДЕТЕ ЗАГРУЖАТЬ <font color="red">*</font> <p class="question" data-title="Выберите нужные вам пункты кликнув по ним один раз. Если какой-то пункт необходимо выбрать больше одного раза,кликните на него нужное количество раз">?</p></h1>
                 <div style="border:2px solid white; border-radius:10px; padding:30px; background-color:#3d3d3d; margin:auto;width:526px;">
                     <button class="button_is-light" @click="addSingle" style="margin-right:10px;"><b>Сингл</b></button>
                 <button class="button_is-light" @click="addAlbumn" style="margin-right:10px;"><b>Альбом</b></button>
@@ -603,6 +603,21 @@ font-size:15px;
 padding:0px 7px;
 margin-left:10px;
 margin-top:0px;
+}
+.question {
+    display: inline-block; /* Строчно-блочный элемент */
+    position: relative; /* Относительное позиционирование */
+   }
+.question:hover::after {
+ content: attr(data-title); /* Выводим текст */
+    position: absolute; /* Абсолютное позиционирование */
+    left: 10%; top: 30%; /* Положение подсказки */
+    z-index: 1; /* Отображаем подсказку поверх других элементов */
+    background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
+    font-family: main; /* Гарнитура шрифта */
+    font-size: 14px; /* Размер текста подсказки */
+    padding: 5px 10px; /* Поля */
+    border: 1px solid #333;
 }
 
 .text{
