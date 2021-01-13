@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
@@ -61,7 +61,7 @@
             </div>
             <div v-if="page == 1" style="margin:auto;width:90%;" key="1" >
                 <h1 style="text-align:center;color:black;margin-bottom:30px;font-size:30px; font-family:forTitles;">ВЫБЕРИТЕ ЧТО БУДЕТЕ ЗАГРУЖАТЬ <font color="red">*</font> <p class="question" data-title="Выберите нужные вам пункты кликнув по ним один раз. Если какой-то пункт необходимо выбрать больше одного раза,кликните на него нужное количество раз">?</p></h1>
-                <div style="border:2px solid white; border-radius:10px; padding:30px; background-color:#3d3d3d; margin:auto;width:526px;">
+                <div style="border:2px solid white; border-radius:10px; padding:30px; background-color:#3d3d3d; margin:auto;width:546px;">
                     <button class="button_is-light" @click="addSingle" style="margin-right:10px;"><b>Сингл</b></button>
                 <button class="button_is-light" @click="addAlbumn" style="margin-right:10px;"><b>Альбом</b></button>
                 <button class="button_is-light"  @click="addThousand" style="margin-right:10px;"><b>Клип</b></button>
@@ -106,11 +106,11 @@
              <div class="trackField">
                     <div v-for="(file,i) in files" style="min-width:1114px;">
                     <div style="display:flex; width:100%; padding:20px 0px;">
-                        <div style="margin:auto;min-width:345px;width:30%;float:left!important;padding-left:5px;height:27px;">
+                        <div style="margin:auto;min-width:345px;width:30%;float:left!important;padding-left:5px;height:27px;">x
                             <span style="color:white;">{{file.name}}</span>
                         </div>
                         <div style="width:60%;min-width:645px!important;margin-left:30px!important;margin:auto; height:25px;">
-                            <button @click="deleteFile(i)" class="deleteButton" style="float:right;margin-top:7px;"><b>x</b></button>
+                            <a @click="deleteFile(i)" class="deleteButton" style="float:right;margin-top:7px;color:white;"><b>X</b></a>
                                 <input @change="test($event)" style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].text" id="" placeholder="Автор текста" class="inputText">
                                 <input @change="test($event)" style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" id="" >
                             <input @change="test($event)" style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" placeholder="Имя артиста" class="inputText" id="">
@@ -610,7 +610,7 @@ margin-left:10px;
 margin-top:0px;
 }
 .question {
-    font-family: 'Permanent Marker', cursive;
+    font-family: 'East Sea Dokdo', cursive;
     border:2px solid;
     border-radius:30px;
     font-size:18px;
