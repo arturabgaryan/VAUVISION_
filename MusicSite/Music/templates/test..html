@@ -437,16 +437,17 @@
                     this.files = []
                 }
 
+
                 if(this.fileData[propValue.name].text != ''){
                 this.signed_counter -=1
                 }
-                if (this.fileData[propValue.name].music != ''  ){
+                if (this.fileData[propValue.name].music != ''){
                 this.signed_counter -=1
                 }
                 if(this.fileData[propValue.name].singer != ''){
                 this.signed_counter -=1
                 }
-                delete this.fileData[propValue.name]
+                delete this.val(fileData[propValue.name])
 
 
             },
