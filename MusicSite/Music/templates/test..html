@@ -106,7 +106,7 @@
              <div class="trackField">
                     <div v-for="(file,i) in files" style="min-width:1114px;">
                     <div style="display:flex; width:100%; padding:20px 0px;">
-                        <div style="margin:auto;min-width:345px;width:30%;float:left!important;padding-left:5px;height:27px;">x
+                        <div style="margin:auto;min-width:345px;width:30%;float:left!important;padding-left:5px;height:27px;">
                             <span style="color:white;">{{file.name}}</span>
                         </div>
                         <div style="width:60%;min-width:645px!important;margin-left:30px!important;margin:auto; height:25px;">
@@ -397,22 +397,9 @@
                 let  cFiles = document.getElementById("first_file").files.length;
                 this.files = Object.keys(this.files).map(key => this.files[key])
                 Array.prototype.slice.call(evt.target.files).forEach((file) => {
-                    if (!this.files.includes(file)) {
-                       for (data in this.fileData) {
-                        if (!Object.keys(this.fileData).includes(file.name) && Object.keys(this.fileData).length != 0){
-
+                     if (!this.files.includes(file)) {
                         this.files.push(file)
-                        }
-                        }
-                        if(Object.keys(this.fileData).length == 0){
-
-                        this.files.push(file)
-                        }
-                        if (Object.keys(this.fileData).includes(file.name) && Object.keys(this.fileData).length != 0){
-                        this.counter -=1
-                        }
                     }
-
                 })
                 this.files.forEach((file) => {
                     let flag = false
@@ -447,7 +434,7 @@
                 if(this.fileData[propValue.name].singer != ''){
                 this.signed_counter -=1
                 }
-                delete this.val(fileData[propValue.name])
+
 
 
             },
