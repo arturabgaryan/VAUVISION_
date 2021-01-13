@@ -11,6 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
@@ -237,12 +239,12 @@
                 <label for="Appletext" class="text">Текст для Apple Music</label><br>
                 <span style="font-family:main;font-size:16px; color:#4d4d4d;">Куплеты и припевы должны быть разделены пробелом, каждая строчка с большой буквы, в конце строчек без знаков препинания. В тексте должно быть только то, что произносится в песне. Все тексты поместите в один файл формата docx.</span><br>
                 <input type="file" accept=".docx" id="Appletext" class="inp" style="margin-bottom:20px;"><br>
+                <label for="apptext" class="text">Караоке текст для Apple Music</label><br>
+                <input id="apptext" type="file" class="inp" accept=".ttml"><br>
                 <label for="appmusic" class="text">Ссылка на карточку артиста в Apple Music</label><br>
                 <input id="appmusic" placeholder=" Например: https://applemusic.com/your_account" class="artistINP"><br>
                 <label for="spotify" class="text">Укажите ссылку на Spotify</label><br>
                 <input id="spotify" placeholder=" Например: https://spotify.com/your_account" class="artistINP"><br>
-                <label for="apptext" class="text">Караоке текст для Apple Music</label><br>
-                <input id="apptext" type="file" class="inp" accept=".ttml"><br>
                 </div>
                 <div style="margin-left:130px;width:100%">
                 <img width="80%" height="60%" src="/static/images/background/img.png">
@@ -605,17 +607,25 @@ margin-left:10px;
 margin-top:0px;
 }
 .question {
+    font-family: 'Permanent Marker', cursive;
+    border:2px solid;
+    border-radius:30px;
+    font-size:18px;
+    padding:1px 6px;
+    color:#2068f7;
     display: inline-block; /* Строчно-блочный элемент */
     position: relative; /* Относительное позиционирование */
    }
 .question:hover::after {
  content: attr(data-title); /* Выводим текст */
+ width:250px;
+ color:black;
     position: absolute; /* Абсолютное позиционирование */
-    left: 10%; top: 30%; /* Положение подсказки */
+    left: 90%; top: 90%; /* Положение подсказки */
     z-index: 1; /* Отображаем подсказку поверх других элементов */
     background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
     font-family: main; /* Гарнитура шрифта */
-    font-size: 14px; /* Размер текста подсказки */
+    font-size: 18px; /* Размер текста подсказки */
     padding: 5px 10px; /* Поля */
     border: 1px solid #333;
 }
