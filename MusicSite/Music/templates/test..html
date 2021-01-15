@@ -103,7 +103,7 @@
                     <input id="first_file" type="file" multiple @change="newFiles($event)" :value="null" style="display:none;" accept=".wav">
                 </div>
                 <br>
-                <span v-if="tracks>0" style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;">Имена авторов обязательны для заполнения, без них форма не будет отправлена!</span>
+                <span v-if="tracks>0" style="font-family:main;font-size:18px;color:#b50000;margin-bottom:10px;">Имена авторов обязательны для заполнения, без них форма не будет отправлена!</span>
              <div class="trackField">
                     <div v-for="(file,i) in files" style="min-width:1114px;">
                     <div style="display:flex; width:100%; padding:20px 0px;">
