@@ -103,6 +103,7 @@
                     <input id="first_file" type="file" multiple @change="newFiles($event)" :value="null" style="display:none;" accept=".wav">
                 </div>
                 <br>
+                <span v-if="tracks>0" style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;">Имена авторов обязательны для заполнения, без них форма не будет отправлена!</span>
              <div class="trackField">
                     <div v-for="(file,i) in files" style="min-width:1114px;">
                     <div style="display:flex; width:100%; padding:20px 0px;">
@@ -122,7 +123,7 @@
              </div>
                 <div class="buttons">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button type="submit" v-if="tracks>0 && counter*3 == signed_counter" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button type="submit" v-if="tracks>0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
                     <button disabled v-else class="button_unclick"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
