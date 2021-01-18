@@ -112,9 +112,9 @@
                         </div>
                         <div style="width:60%;min-width:645px!important;margin-left:30px!important;margin:auto; height:25px;">
                             <a @click="deleteFile(i)" class="deleteButton" style="float:right;margin-top:7px;color:white;"><b>X</b></a>
-                                <input @change="test($event)" style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].text" id="" placeholder="Автор текста" class="inputText">
-                                <input @change="test($event)" style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" id="" >
-                            <input @change="test($event)" style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" placeholder="Имя артиста" class="inputText" id="">
+                                <input style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].text" id="" placeholder="Автор текста" class="inputText">
+                                <input style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" id="" >
+                            <input style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" placeholder="Имя артиста" class="inputText" id="">
 
                         </div>
 
@@ -424,19 +424,7 @@
                 if (Object.keys(this.files).length == 0) {
                     this.files = []
                 }
-
-
-                if(this.fileData[propValue.name].text != ''){
-                this.signed_counter -=1
-                }
-                if (this.fileData[propValue.name].music != ''){
-                this.signed_counter -=1
-                }
-                if(this.fileData[propValue.name].singer != ''){
-                this.signed_counter -=1
-                }
-
-
+                alert(Object.keys(this.files).length)
 
             },
             newScanFiles: function (evt) {
@@ -509,7 +497,7 @@
                 return this.singles * 2000 + this.albumns * 3000 + this.thousands * 1000 + this.hundreds * 100
             },
             tracks: function () {
-                return this.counter
+                return Object.keys(this.files).length
             },
             scans: function () {
                 return this.counter2
