@@ -100,7 +100,7 @@
                 <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;">Назовите файл трека по образцу: «# трека. Артист — Название». Например «1. КРЕСТ — SHiNE (prod. by CLONNEX)»<br>Формат .wav, разрядность 16 bit</span>
                 <div class="inputDiv">
                     <label for="first_file">ДОБАВИТЬ ТРЕК</label>
-                    <input id="first_file" type="file" multiple @change="newFiles($event)" :value="null" style="display:none;" accept=".wav">
+                    <input id="first_file" type="file" multiple @change="newFiles($event)" :value="null" style="display:none;" accept="">
                 </div>
                 <br>
                 <span v-if="tracks>0" style="font-family:main;font-size:21px;color:#eb0202;margin-bottom:10px;">Имена авторов обязательны для заполнения, без них форма не будет отправлена!</span>
