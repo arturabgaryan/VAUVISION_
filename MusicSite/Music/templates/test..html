@@ -40,18 +40,20 @@
     </div>
 </nav>
 <div id="app" class="maindiv">
+    <form action="/index" method="post" enctype='multipart/form-data' ref="form" action="/index">{% csrf_token %}
     <section>
         <transition :duration="180" name="slide-fade" mode="out-in">
             <div v-if="page == 0" style="text-align:center;">
                 <h1 style="text-align:center;color:black;margin-bottom:20px;font-size:40px; font-family:forTitles;">ФОРМА РАЗМЕЩЕНИЯ ТРЕКОВ VAUVISION</h1>
-                <span class="text">Эта форма ОБЯЗАТЕЛЬНА к заполнению. Пожалуйста, уделите время и <span style="color:#bf7900;">заполнитевсе пункты максимально подробно</span> – это позволит<br>  нам сделать нашу работу качественно</span>
+                <span class="text">Пожалуйста, <span style="color:#bf7900;">заполните все пункты максимально подробно</span> – это позволит<br>  нам сделать нашу работу качественно</span>
                 <h2 style="text-align:center;color:black;margin-bottom:20px;font-size:30px; font-family:forTitles; padding-top:20px;">ВНИМАНИЕ!</h2>
                 <span class="text">Рекомендуется закладывать минимум <span style="color:#bf7900;">3 рабочих дня на</span> загрузку релиза</span><br>
+                <span class="text">Треки выходят на площадках в <span style="color:#bf7900;">00:00 выбранной даты (по Москве)</span></span>
                <div style="margin-top:20px; margin-bottom:20px;">
                     <span class="text">Для редактирования размера обложек используйте сайт <a target="_blank" class="link" href="http://pixlr.com/">pixlr.com</a></span><br>
                     <span class="text">Для редактирования формата треков используйте конвертер <a target="_blank" class="link" href="https://online-audio-converter.com">online-audio-converter.com</a></span>
                </div>
-                <span class="text">Треки выходят на площадках в <span style="color:#bf7900;">00:00 выбранной даты (по Москве)</span></span>
+
                 <div style="margin:20px 0px;">
                     <span class="text">ПОСЛЕ ЗАПОЛНЕНИЯ ЭТОЙ ФОРМЫ напишите в личные сообщения с пометкой "ДИСТРИБУЦИЯ" <a target="_blank" class="link" href="https://vk.com/vauvision">vk.com/vauvision</a></span>
                 </div>
@@ -60,12 +62,16 @@
                 </div>
             </div>
             <div v-if="page == 1" style="margin:auto;width:90%;" key="1" >
-                <h1 style="text-align:center;color:black;margin-bottom:30px;font-size:30px; font-family:forTitles;">ВЫБЕРИТЕ ЧТО БУДЕТЕ ЗАГРУЖАТЬ <font color="red">*</font> <p class="question" data-title="Выберите нужные вам пункты кликнув по ним один раз. Если какой-то пункт необходимо выбрать больше одного раза,кликните на него нужное количество раз">?</p></h1>
-                <div style="border:2px solid white; border-radius:10px; padding:30px; background-color:#3d3d3d; margin:auto;width:546px;">
-                    <button class="button_is-light" @click="addSingle" style="margin-right:10px;"><b>Сингл</b></button>
-                <button class="button_is-light" @click="addAlbumn" style="margin-right:10px;"><b>Альбом</b></button>
-                <button class="button_is-light"  @click="addThousand" style="margin-right:10px;"><b>Клип</b></button>
-                <button class="button_is-light"  @click="addHundred" ><b>Карточки ВК</b></button>
+                <h1 style="text-align:center;color:black;margin-bottom:30px;font-size:30px; font-family:forTitles;">ЧТО ВЫ ХОТИТЕ ЗАГРУЗИТЬ?<font color="red">*</font> <p class="question" data-title="Выберите нужные вам пункты кликнув по ним один раз. Если какой-то пункт необходимо выбрать больше одного раза,кликните на него нужное количество раз">?</p></h1>
+                <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;">Соберите тот комплект, который хотите заказать. Общая цена будет меняться автоматически</span>
+                <div style="display:flex;">
+                    <div style="border:2px solid white; border-radius:10px; padding:30px; background-color:#3d3d3d; margin:auto;width:276px;height:297px;">
+                    <div style="width:150px; margin:auto; display:block">
+                        <button class="button_is-light" @click="addSingle" style="margin-right:10px;"><b>Сингл</b></button>
+                        <button class="button_is-light" @click="addAlbumn" style="margin-right:10px;"><b>Альбом</b></button>
+                        <button class="button_is-light"  @click="addThousand" style="margin-right:10px;"><b>Клип</b></button>
+                        <button class="button_is-light"  @click="addHundred" ><b>Карточки ВК</b></button>
+                    </div>
                 </div>
                 <div class="firstpagediv">
                     <div v-if="singles>0" style="display:flex;margin-bottom:10px;">
@@ -85,10 +91,10 @@
                     <button @click="deleteHundred" class="deleteButton"><b>x</b></button>
                 </div>
 
-                    <p v-if="total>0" style="color:white;margin:auto;width:350px;">________________________________________________</p>
-                    <p v-if="total>0" style="color:white;text-align:center">Всего: {{total}}</p>
+                    <p v-if="total>0" style="color:white;margin:auto;width:500px;">________________________________________________</p>
+                    <p v-if="total>0" style="color:white;text-align:center">Цена: {{total}}руб.</p>
                 </div>
-
+                </div>
                 <div class="buttons">
                     <button @click="previousPage" class="button2" style="display:flex;"><span>НАЗАД </span></button>
                     <button v-if="total == 0" disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
@@ -96,8 +102,10 @@
                 </div>
             </div>
             <div v-if="page == 2" key="2" style="text-align:center;">
-                <label for="track_names" class="text">Выделите и выберите все нужные треки <font color="red">*</font></label><br>
-                <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;">Назовите файл трека по образцу: «# трека. Артист — Название». Например «1. КРЕСТ — SHiNE (prod. by CLONNEX)»<br>Формат .wav, разрядность 16 bit</span>
+                <div style="display:flex;">
+                <div style="width:80%;">
+                    <label for="track_names" class="text">Выделите и выберите все нужные треки <font color="red">*</font></label><br>
+                    <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;margin:auto">Назовите файл трека по образцу: «# трека. Артист — Название». Например «1. КРЕСТ — SHiNE (prod. by CLONNEX)»<br>Формат .wav, разрядность 16 bit</span>
                 <div class="inputDiv">
                     <label for="first_file">ДОБАВИТЬ ТРЕК</label>
                     <input id="first_file" type="file" multiple @change="newFiles($event)" :value="null" style="display:none;" accept=".wav">
@@ -106,21 +114,23 @@
                 <span v-if="tracks>0" style="font-family:main;font-size:21px;color:#eb0202;margin-bottom:10px;">Имена авторов обязательны для заполнения, без них форма не будет отправлена!</span>
              <div class="trackField">
                     <div v-for="(file,i) in files" style="min-width:1114px;">
-                    <div style="display:flex; width:100%; padding:20px 0px;">
-                        <div style="margin:auto;min-width:345px;width:30%;float:left!important;padding-left:5px;height:27px;">
+                    <div style="display:flex; width:100%; padding:20px 0px;margin:auto;">
+                        <div style="float:left!important;padding-left:5px;height:27px;margin-right:50px;min-width:415px;">
                             <span style="color:white;">{{file.name}}</span>
                         </div>
-                        <div style="width:60%;min-width:645px!important;margin-left:30px!important;margin:auto; height:25px;">
+                        <div style="width:70%;min-width:735px!important;margin-left:30px!important; height:25px;float:right;">
                             <a @click="deleteFile(i)" class="deleteButton" style="float:right;margin-top:7px;color:white;"><b>X</b></a>
-                                <input style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].text" id="" placeholder="Автор текста" class="inputText">
-                                <input style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" id="" >
-                            <input style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" placeholder="Имя артиста" class="inputText" id="">
-
+                                <input required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].text" id="" placeholder="Автор текста" class="inputText">
+                                <input required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" id="" >
+                            <input required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" placeholder="Имя артиста" class="inputText" id="">
                         </div>
-
                     </div>
                 </div>
-             </div>
+             </div></div>
+                <div style="margin-left:30px;width:20%; margin-top:-115px;">
+                  <img height="100%" width="100%" src="/static/images/background/3page.jpg">
+                </div>
+                </div>
                 <div class="buttons">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
                     <button type="submit" v-if="tracks>0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
@@ -132,20 +142,19 @@
                           <div style="width:100%;">
                     <label for="track_artist" class="text">Впишите Псевдоним артиста<font color="red">*</font></label><br>
                 <input id="track_artist" placeholder=" Например: Eminem" class="artistINP" v-model="artistName"><br>
-                <label v-if="singles != 0 && albumns == 0" for="track_names" class="text">Впишите Название синглов через запятую<font color="red">*</font></label>
-                <label v-if="singles == 0 && albumns != 0" for="track_names" class="text">Впишите Название альбомов через запятую<font color="red">*</font></label>
-                <label v-if="singles != 0 && albumns != 0" for="track_names" class="text">Впишите Название синглов/альбомов через запятую<font color="red">*</font></label><br>
+                <label for="track_names" class="text">Впишите название релиза<font color="red">*</font></label><br>
+                <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;">Если вы выбрали несколько релизов, впишите их названия через запятую</span>
                 <input id="track_names" placeholder="Например: Recovery,Lose Yourself(сингл),Encore" class="artistINP" v-model="trackName"><br>
-                <label for="platform" class="text">На какие площадки заливать?<font color="red">*</font></label><br>
+                <label for="platform" class="text">Куда загружать релиз?<font color="red">*</font></label><br>
                 <select id="platform" v-model="selectedOption_2" class="form-control" style="outline: none; width:100%;margin-bottom:-20px;">
                     <option>На все площадки</option>
                     <option>На все кроме Boom</option>
                     <option>Только Boom</option>
                     <option>Другое</option>
-                </select><br>
-                <label v-if="selectedOption_2 == 'Другое'" for="platform" class="text" style="magrin-top:20px;magrin-bottom:20px;">Укажте свой вариант<font color="red">*</font></label><br>
+                </select><br><br>
+                <label v-if="selectedOption_2 == 'Другое'" for="platform" class="text" style="magrin-top:50px;magrin-bottom:10px;">Укажте свой вариант<font color="red">*</font></label><br>
                 <input v-if="selectedOption_2 == 'Другое'" placeholder="" class="artistINP" v-model="platf"><br>
-                <label for="date" class="text">Желаемая дата(если всё равно, ставьте ближайшую пятницу)<font color="red">*</font></label><br>
+                <label for="date" class="text">Желаемая дата выхода(если всё равно, ставьте ближайшую пятницу)<font color="red">*</font></label><br>
                         <div id="date" style="width:300%; margin-bottom:20px;">
                     <el-date-picker
                             v-model="value1"
@@ -166,9 +175,8 @@
                 <span v-if="selectedOption == 'Да'" style="font-family:main;font-size:16px; color:#4d4d4d;">Если загружаем 1 трек, то ставьте 1</span><br>
                 <input id="filthyNum" v-if="selectedOption == 'Да'" placeholder="Например: 1,2,4" class="artistINP" v-model="filthy"><br>
                 </div>
-                <div style="margin-left:130px;width:100%; margin-top:-70px;">
-                  <img height="60%" width="80%" src="/static/images/background/img.png">
-
+                <div style="margin-left:130px;width:60%; margin-top:-70px;">
+                  <img height="10%" width="80%" src="/static/images/background/4.png">
                 </div>
                 </div>
                 <div class="buttons">
@@ -179,16 +187,16 @@
             </div>
             <div v-if="page == 4" class="container" key="4">
                 <div style="min-width:1122px;display:flex;">
-                          <div style="width:50%;margin-right:130px;">
+                          <div style="width:50%;margin-right:130px;margin-top:200px;">
                     <label for="artistScan" class="text">Прикрепите обложку релиза<font color="red">*</font></label><br>
                 <input type="file" accept="image/*" id="artistScan" class="inp" @change="newCoverFiles($event)" style="margin-bottom:50px;"><br>
                 <label for="VK" class="text">Ссылка на вашу страницу в ВК для проверки и подписания договора <font color="red">*</font></label><br>
-                <input pattern="https://vk.com/*" type="url" v-model="link" id="VK" placeholder="https://vk.com/****" class="artistINP"><br>
+                <input pattern="https://*" type="url" v-model="link" id="VK" placeholder="https://vk.com/****" class="artistINP"><br>
                  <label for="email" class="text">Введите вашу почту<font color="red">*</font></label><br>
                 <input  type="email" v-model="email" id="email" placeholder="example@host.com" class="artistINP"><br>
                 </div>
                <div style="width:45%">
-                    <img width="80%" height="60%" src="/static/images/background/img.png">
+                    <img width="80%" height="60%" src="/static/images/background/4.png">
                 </div>
                 </div>
 
@@ -208,19 +216,19 @@
                 <input v-model="fio" id="fio" placeholder=" Например: Иванов Иван Иванович" class="artistINP"><br>
                 <div style="display:flex">
                      <div style="width:100%">
-                         <label  for="seria" class="text">Серия-Номер паспорта<font color="red">*</font></label><br>
-                     <input title="Серия-номер" pattern="[0-9]{4,}-[0-9]{6,}" v-model="seria" style="width:100%;" id="seria" placeholder="Например: 4545-63646" class="artistINP"><br>
+                         <label  for="seria" class="text">Серия и номер паспорта (либо удостоверения)<font color="red">*</font></label><br>
+                     <input title="Серия-номер" v-model="seria" style="width:100%;" id="seria" placeholder="Например: 4545-63646" class="artistINP"><br>
                      </div>
                 </div>
                 <label for="given_by" class="text">Кем выдан<font color="red">*</font></label><br>
                 <input v-model="given_by" id="given_by" placeholder=" Например: ГУ МВД РОССИИ ПО Г.МОСКВЕ " class="artistINP"><br>
                 <label for="giving_date" class="text">Дата выдачи<font color="red">*</font></label><br>
                 <input v-model="giving_date" id="giving_date" maxlength="10" placeholder="Например: 31/12/2020" class="unstyled" onkeydown="this.value=this.value.replace(/^(\d\d)(\d)$/g,'$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g,'$1/$2').replace(/[^\d\/]/g,'')"><br>
-                <label for="adress" class="text">Адрес регистрации<font color="red">*</font></label><br>
+                <label for="adress" class="text">Адрес регистрации / вашей прописки полностью, как в документе<font color="red">*</font></label><br>
                 <input v-model="adress" id="adress" placeholder=" Например: Ленинский проспект 63" class="artistINP"><br>
                 </div>
                 <div style="margin-left:130px;width:100%">
-                      <img width="80%" height="60%" src="/static/images/background/img.png">
+                      <img width="80%" height="60%" src="/static/images/background/5.png">
                 </div>
             </div>
                 <div class="buttons">
@@ -241,14 +249,17 @@
                 <span style="font-family:main;font-size:16px; color:#4d4d4d;">Куплеты и припевы должны быть разделены пробелом, каждая строчка с большой буквы, в конце строчек без знаков препинания. В тексте должно быть только то, что произносится в песне. Все тексты поместите в один файл формата docx.</span><br>
                 <input type="file" accept=".docx" id="Appletext" class="inp" style="margin-bottom:20px;"><br>
                 <label for="apptext" class="text">Караоке текст для Apple Music</label><br>
-                <input id="apptext" type="file" class="inp" accept=".ttml" style="padding-bottom:20px;"><br>
-                <label for="appmusic" class="text">Ссылка на карточку артиста в Apple Music</label><br>
-                <input id="appmusic" placeholder=" Например: https://applemusic.com/your_account" class="artistINP"><br>
-                <label for="spotify" class="text">Укажите ссылку на Spotify</label><br>
-                <input id="spotify" placeholder=" Например: https://spotify.com/your_account" class="artistINP"><br>
+                <span style="font-family:main;font-size:16px;color:#4d4d4d;">Чтобы сделать караоке файл, зайдите на сайт <a href="https://lyric.maggregator.com">https://lyric.maggregator.com </a>, следуйте инструкции на сайте и создайте необходимые файлы. Обязательно подпишите их по названию треков, к которым они относятся</span><br>
+                <input id="apptext" type="file" class="inp" accept=".ttml" style="padding-bottom:20px;" multiple><br>
+                <label for="appmusic" class="text">Ссылки на карточки артистов в Apple Music</label><br>
+                <span style="font-family:main;font-size:16px;color:#4d4d4d;">Укажите через запятую ссылки на карточки в Apple Music всех артистов, указанных в загружаемом релизе. Если карточек нет, укажите "Нужны новые карточки"</span><br>
+                <input id="appmusic" placeholder=" Например: https://music.apple.com/ru/artist/eminem/111051" class="artistINP"><br>
+                <label for="spotify" class="text">Ссылки на карточки артистов в Spotify</label><br>
+                <span style="font-family:main;font-size:16px;color:#4d4d4d;">Укажите через запятую ссылки на карточки в Spotify всех артистов, указанных в загружаемом релизе. Если карточек нет, укажите "Нужны новые карточки"</span><br>
+                <input id="spotify" placeholder=" Например: https://open.spotify.com/artist/7dGJo4pcD2V6oG8kP0tJRR" class="artistINP"><br>
                 </div>
                 <div style="margin-left:130px;width:100%">
-                <img width="80%" height="60%" src="/static/images/background/img.png">
+                <img width="80%" height="60%" src="/static/images/background/6_1.png">
                 </div>
             </div>
                 <div class="buttons">
@@ -269,10 +280,10 @@
                 </select>
                 <label v-if="selectedOption_3 == 'Другое'" for="platform" class="text" style="margin-top:28px;">Укажте свой вариант<font color="red">*</font></label><br>
                 <input v-model="adv" v-if="selectedOption_3 == 'Другое'" placeholder="" class="artistINP"><br>
-                <label for="tictoc" class="text">Комментарии</label><br>
-                <textarea placeholder="Добавить комментарий" style="margin-bottom:50px;"></textarea>
+                <label for="tictoc" class="text">Дополнительные комментарии</label><br>
+                <textarea placeholder="Пишите всё, что хотите нам сказать о вашем релизе. Все пожелания и уточнения" style="margin-bottom:50px;"></textarea>
                 <label for="tictoc" class="text">ПРОМО ПЛАН РЕЛИЗА ДЛЯ РЕДАКТОРОВ ПЛОЩАДОК</label><br>
-                <span style="font-family:main;font-size:16px;color:#4d4d4d;">Добавьте кратко информацию об артисте, готовящемся релизе (кратко, 1-2 предложения), где и с каким бюджетом будет делаться реклама релиза (если планируется)</span><br>
+                <span style="font-family:main;font-size:16px;color:#4d4d4d;">Добавьте кратко информацию об артисте, готовящемся релизе (1-2 предложения), где и с каким бюджетом будет делаться реклама (если планируется). Эта информация повысит шансы на получение поддержки от площадок</span><br>
                 <textarea placeholder="Добавить комментарий" style="margin-bottom:5but0px;"></textarea>
                 <label class="check">
                     <input v-model="check" required type="checkbox">
@@ -280,17 +291,18 @@
                 </label>
                 </div>
                 <div style="margin-left:130px;width:100%">
-                <img width="80%" height="60%" src="/static/images/background/img.png">
+                <img width="80%" height="60%" src="/static/images/background/7_1.png">
                 </div>
                 </div>
                 <div class="buttons_upload">
                     <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
                     <button type="submit" v-if="check && selectedOption_3 != ''" class="button_upload"><span>ЗАГРУЗИТЬ</span></button>
-                    <button v-else disabled class="button_unclick_upload"><span>ЗАГРУЗИТЬ</span></button>
+                    <button v-else disabled class="button_unclick_upload"><span></span></button>
                 </div>
             </div>
         </transition>
     </section>
+   </form>
 </div>
 
 
@@ -528,12 +540,12 @@ body{
 }
 @font-face {
     font-family: forTitles;
-    src: url("/static/fonts/bebasneue/bebasneueregular.ttf");
+    src: url("/static/fonts/montserrat/Montserrat-Bold.ttf");
     font-weight: bold;
 }
 @font-face {
     font-family: main;
-    src: url("/static/fonts/bebasneue/bebasneueregular.ttf");
+    src: url("/static/fonts/montserrat/Montserrat-Medium.ttf");
 }
 .link{
 color:#0060bf;
@@ -662,7 +674,6 @@ padding-bottom:60px;
     src: url("/static/fonts/oswald/Oswald-Regular.ttf");
 }
 .firstpagediv{
-margin-top:30px!important;
 padding:30px;
 border:2px solid white;
 border-radius:10px;
@@ -679,12 +690,12 @@ overflow:auto;
     text-transform: uppercase;
     font-size:20px;
     background: white;
-    border-radius: 4px;
+    border-radius: 20px;
     font-family: buttons;
     padding:8px 17px;
     margin-top:5px;
-
-
+    margin-bottom:5px;
+    width:144px;
 }
 .button_is-light:hover{
 text-decoration:underline;
@@ -822,11 +833,11 @@ border:2px solid white;
 border-radius:10px;
 max-height:400px!important;
 overflow:auto;
-padding:5px;
+padding:15px;
 background-color:#3d3d3d;
-min-height:160px;
+min-height:400px;
 margin:auto;
-width:95%;
+width:100%;
 }
 .trackField2{
 border:2px solid white;
