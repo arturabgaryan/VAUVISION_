@@ -28,12 +28,13 @@ import time
 from django.template import RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 
 
 class PathExistsError:
     pass
 
-@csrf_protect
+@csrf_exempt
 def test(request):
     if request.user.is_authenticated:
         return render(request, 'test..html',{'user':request.user})
