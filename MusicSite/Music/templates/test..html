@@ -40,7 +40,6 @@
     </div>
 </nav>
 <div id="app" class="maindiv">
-    <form action="/index" method="post" enctype='multipart/form-data' ref="form" action="/index">{% csrf_token %}
     <section>
         <transition :duration="180" name="slide-fade" mode="out-in">
             <div v-if="page == 0" style="text-align:center;">
@@ -58,7 +57,7 @@
                     <span class="text">ПОСЛЕ ЗАПОЛНЕНИЯ ЭТОЙ ФОРМЫ напишите в личные сообщения с пометкой "ДИСТРИБУЦИЯ" <a target="_blank" class="link" href="https://vk.com/vauvision">vk.com/vauvision</a></span>
                 </div>
                 <div class="buttons_one">
-                    <button @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button type="button" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
             <div v-if="page == 1" style="margin:auto;width:90%;" key="1" >
@@ -67,28 +66,28 @@
                 <div style="display:flex;">
                     <div style="border:2px solid white; border-radius:10px; padding:30px; background-color:#3d3d3d; margin:auto;width:276px;height:297px;">
                     <div style="width:150px; margin:auto; display:block">
-                        <button class="button_is-light" @click="addSingle" style="margin-right:10px;"><b>Сингл</b></button>
-                        <button class="button_is-light" @click="addAlbumn" style="margin-right:10px;"><b>Альбом</b></button>
-                        <button class="button_is-light"  @click="addThousand" style="margin-right:10px;"><b>Клип</b></button>
-                        <button class="button_is-light"  @click="addHundred" ><b>Карточки ВК</b></button>
+                        <button type="button" class="button_is-light" @click="addSingle" style="margin-right:10px;"><b>Сингл</b></button>
+                        <button type="button" class="button_is-light" @click="addAlbumn" style="margin-right:10px;"><b>Альбом</b></button>
+                        <button type="button" class="button_is-light"  @click="addThousand" style="margin-right:10px;"><b>Клип</b></button>
+                        <button type="button" class="button_is-light"  @click="addHundred" ><b>Карточки ВК</b></button>
                     </div>
                 </div>
                 <div class="firstpagediv">
                     <div v-if="singles>0" style="display:flex;margin-bottom:10px;">
                     <p>Сингл - {{singles}}</p>
-                    <button @click="deleteSingle" class="deleteButton"><b>x</b></button>
+                    <button type="button" @click="deleteSingle" class="deleteButton"><b>x</b></button>
                 </div>
                 <div v-if="albumns>0" style="display:flex;margin-bottom:10px;">
                     <p>Альбом - {{albumns}}</p>
-                    <button @click="deleteAlbumn" class="deleteButton"><b>x</b></button>
+                    <button type="button" @click="deleteAlbumn" class="deleteButton"><b>x</b></button>
                 </div>
                 <div v-if="thousands>0" style="display:flex;margin-bottom:10px;">
                     <p>Клип - {{thousands}}</p>
-                    <button @click="deleteThousand" class="deleteButton"><b>x</b></button>
+                    <button type="button" @click="deleteThousand" class="deleteButton"><b>x</b></button>
                 </div>
                 <div v-if="hundreds>0" style="display:flex;margin-bottom:10px;">
                     <p>Карточка ВК - {{hundreds}}</p>
-                    <button @click="deleteHundred" class="deleteButton"><b>x</b></button>
+                    <button type="button" @click="deleteHundred" class="deleteButton"><b>x</b></button>
                 </div>
 
                     <p v-if="total>0" style="color:white;margin:auto;width:500px;">________________________________________________</p>
@@ -96,9 +95,9 @@
                 </div>
                 </div>
                 <div class="buttons">
-                    <button @click="previousPage" class="button2" style="display:flex;"><span>НАЗАД </span></button>
-                    <button v-if="total == 0" disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
-                    <button v-if="total>0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button type="button" @click="previousPage" class="button2" style="display:flex;"><span>НАЗАД </span></button>
+                    <button type="button" v-if="total == 0" disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
+                    <button type="button" v-if="total>0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
             <div v-if="page == 2" key="2" style="text-align:center;">
@@ -132,8 +131,8 @@
                 </div>
                 </div>
                 <div class="buttons">
-                    <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button type="submit" v-if="tracks>0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button type="button" @click="previousPage" class="button2"><span>НАЗАД</span></button>
+                    <button type="button" v-if="tracks>0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
                     <button disabled v-else class="button_unclick"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
@@ -180,8 +179,8 @@
                 </div>
                 </div>
                 <div class="buttons">
-                    <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button v-if="(artistName != '' && trackName != '' && selectedOption_2 != '' &&  selectedOption_2 != 'Другое' && value1 != '' && selectedOption == 'Нет') || (artistName != '' && trackName != '' && selectedOption_2 == 'Другое' && platf != '' && value1 != '' && filthy != '' && selectedOption == 'Да') || (artistName != '' && trackName != '' && selectedOption_2 == 'Другое' && platf != '' && value1 != '' && selectedOption != 'Да') || (artistName != '' && trackName != '' && selectedOption_2 != ''  && value1 != '' && filthy != '' && selectedOption == 'Да') || (artistName != '' && trackName != '' && selectedOption_2 == 'Другое' &&  platf != ''  && value1 != '' && filthy == '' && selectedOption == 'Нет')" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button type="button" @click="previousPage" class="button2"><span>НАЗАД</span></button>
+                    <button type="button" v-if="(artistName != '' && trackName != '' && selectedOption_2 != '' &&  selectedOption_2 != 'Другое' && value1 != '' && selectedOption == 'Нет') || (artistName != '' && trackName != '' && selectedOption_2 == 'Другое' && platf != '' && value1 != '' && filthy != '' && selectedOption == 'Да') || (artistName != '' && trackName != '' && selectedOption_2 == 'Другое' && platf != '' && value1 != '' && selectedOption != 'Да') || (artistName != '' && trackName != '' && selectedOption_2 != ''  && value1 != '' && filthy != '' && selectedOption == 'Да') || (artistName != '' && trackName != '' && selectedOption_2 == 'Другое' &&  platf != ''  && value1 != '' && filthy == '' && selectedOption == 'Нет')" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
                     <button v-else disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
@@ -201,8 +200,8 @@
                 </div>
 
                 <div class="buttons">
-                    <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button v-if="link != '' && email != '' && counter2 > 0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button type="button" @click="previousPage" class="button2"><span>НАЗАД</span></button>
+                    <button type="button" v-if="link != '' && email != '' && counter2 > 0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
                     <button v-else disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
@@ -232,8 +231,8 @@
                 </div>
             </div>
                 <div class="buttons">
-                    <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button v-if="grajdanstvo != '' && fio != '' && seria != '' && given_by != '' && giving_date != '' && adress != ''" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
+                    <button type="button" @click="previousPage" class="button2"><span>НАЗАД</span></button>
+                    <button type="button" v-if="grajdanstvo != '' && fio != '' && seria != '' && given_by != '' && giving_date != '' && adress != ''" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
                     <button v-else disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
@@ -263,8 +262,8 @@
                 </div>
             </div>
                 <div class="buttons">
-                    <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button v-if="" @click="nextPage" class="button_upload"><span>ДАЛЕЕ</span></button>
+                    <button type="button" @click="previousPage" class="button2"><span>НАЗАД</span></button>
+                    <button type="button" v-if="" @click="nextPage" class="button_upload"><span>ДАЛЕЕ</span></button>
                     <button v-else disabled class="button_unclick_upload"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
@@ -295,14 +294,13 @@
                 </div>
                 </div>
                 <div class="buttons_upload">
-                    <button @click="previousPage" class="button2"><span>НАЗАД</span></button>
+                    <button type="button" @click="previousPage" class="button2"><span>НАЗАД</span></button>
                     <button type="submit" v-if="check && selectedOption_3 != ''" class="button_upload"><span>ЗАГРУЗИТЬ</span></button>
                     <button v-else disabled class="button_unclick_upload"><span></span></button>
                 </div>
             </div>
         </transition>
     </section>
-   </form>
 </div>
 
 
