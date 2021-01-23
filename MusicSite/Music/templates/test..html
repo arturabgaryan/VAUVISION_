@@ -61,8 +61,8 @@
                 </div>
             </div>
             <div v-if="page == 1" style="margin:auto;width:90%;" key="1" >
-                <h1 style="text-align:center;color:black;margin-bottom:30px;font-size:30px; font-family:forTitles;">ЧТО ВЫ ХОТИТЕ ЗАГРУЗИТЬ?<font color="red">*</font> <p class="question" data-title="Выберите нужные вам пункты кликнув по ним один раз. Если какой-то пункт необходимо выбрать больше одного раза,кликните на него нужное количество раз">?</p></h1>
-                <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;text-align:center;">Соберите тот комплект, который хотите заказать. Общая цена будет меняться автоматически</span>
+                <h1 style="text-align:center;color:black;margin-bottom:30px;font-size:30px; font-family:forTitles;">ЧТО ВЫ ХОТИТЕ ЗАГРУЗИТЬ?<font color="red">*</font> <p class="question" data-title="Выберите нужные вам пункты кликнув по ним один раз.Если какой-то пункт необходимо выбрать больше одного раза,кликните на него нужное количество раз"><img style="margin-top:-13px;" width="50%" height="50%" src="/static/icons/questmark.png"></p></h1>
+                <p style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;text-align:center;">Соберите тот комплект, который хотите заказать. Общая цена будет меняться автоматически</p>
                 <div style="display:flex;">
                     <div style="border:2px solid white; border-radius:10px; padding:30px; background-color:#3d3d3d; margin:auto;width:276px;height:297px;">
                     <div style="width:150px; margin:auto; display:block">
@@ -598,11 +598,9 @@ margin-top:0px;
 }
 .question {
     font-family: 'East Sea Dokdo', cursive;
-    border:2px solid;
-    border-radius:30px;
     font-size:18px;
-    padding:0px 7px;
-    color:#2068f7;
+    margin-top:-20px;
+    margin-left:-20px;
     display: inline-block; /* Строчно-блочный элемент */
     position: relative; /* Относительное позиционирование */
    }
@@ -611,9 +609,9 @@ margin-top:0px;
  width:250px;
  color:black;
     position: absolute; /* Абсолютное позиционирование */
-    left: 90%; top: 90%; /* Положение подсказки */
+    left: 70%; top: 70%; /* Положение подсказки */
     z-index: 1; /* Отображаем подсказку поверх других элементов */
-    background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
+    background: rgba(177, 208, 227,0.9); /* Полупрозрачный цвет фона */
     font-family: main; /* Гарнитура шрифта */
     font-size: 18px; /* Размер текста подсказки */
     padding: 5px 10px; /* Поля */
