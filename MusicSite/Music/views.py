@@ -27,19 +27,22 @@ import subprocess
 import time
 from django.template import RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.decorators.csrf import csrf_protect
+from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
-
 
 class PathExistsError:
     pass
 
+
 @csrf_exempt
 def test(request):
+    context={}
+    context.update(csrf(request))
+    context['user'] = request.user
     if request.user.is_authenticated:
-        return render(request, 'test..html',{'user':request.user})
+        return render(request, 'test..html',context)
     else:
-        return render(request, 'test..html', {'user': None})
+        return render(request, 'test..html',context)
 
 
 def enter(request):
@@ -210,6 +213,7 @@ def form(request):
     return render(request,'index.html')
 
 
+@csrf_exempt
 def index(request):
     APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
