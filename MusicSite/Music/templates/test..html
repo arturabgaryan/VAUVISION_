@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+
 <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
@@ -23,6 +24,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
+ {% csrf_token %}
 {%verbatim%}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -41,10 +43,9 @@
 </nav>
 <div id="app" class="maindiv">
     <form method="post" enctype='multipart/form-data' action="/index">
-    <section>
-        <transition :duration="180" name="slide-fade" mode="out-in">
-        {% csrf_token %}
-            <div v-if="page == 0" style="text-align:center;">
+
+        <section>
+            <div style="text-align:center;margin-bottom:170px;">
                 <h1 style="text-align:center;color:black;margin-bottom:20px;font-size:40px; font-family:forTitles;">ФОРМА РАЗМЕЩЕНИЯ ТРЕКОВ VAUVISION</h1>
                 <span class="text">Пожалуйста, <span style="color:#bf7900;">заполните все пункты максимально подробно</span> – это позволит<br>  нам сделать нашу работу качественно</span>
                 <h2 style="text-align:center;color:black;margin-bottom:20px;font-size:30px; font-family:forTitles; padding-top:20px;">ВНИМАНИЕ!</h2>
@@ -54,15 +55,11 @@
                     <span class="text">Для редактирования размера обложек используйте сайт <a target="_blank" class="link" href="http://pixlr.com/">pixlr.com</a></span><br>
                     <span class="text">Для редактирования формата треков используйте конвертер <a target="_blank" class="link" href="https://online-audio-converter.com">online-audio-converter.com</a></span>
                </div>
-
                 <div style="margin:20px 0px;">
                     <span class="text"><span style="color:#bf7900;">ПОСЛЕ ЗАПОЛНЕНИЯ ЭТОЙ ФОРМЫ</span>, пожалуйста, напишите "ДИСТРИБУЦИЯ"<br> в сообщения паблика <a target="_blank" class="link" href="https://vk.com/vauvisionlabel">vk.com/vauvisionlabel</a>, либо телеграмм <a target="_blank"  href="https://teleg.run/vauvision_bot" class="link">@vauvision_bot</a></span>
                 </div>
-                <div class="buttons_one">
-                    <button type="button" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
-                </div>
             </div>
-            <div v-if="page == 1" style="margin:auto;width:90%;" key="1" >
+            <div style="margin:auto;width:90%;margin-bottom:170px;" >
                 <h1 style="text-align:center;color:black;margin-bottom:30px;font-size:30px; font-family:forTitles;">ЧТО ВЫ ХОТИТЕ ЗАГРУЗИТЬ?<font color="red">*</font> <p class="question" data-title="Выберите нужные вам пункты кликнув по ним один раз. Если какой-то пункт необходимо выбрать больше одного раза, кликните на него нужное количество раз"><img style="margin-top:-13px;" width="50%" height="50%" src="/static/icons/questmark.png"></p></h1>
                 <p style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;text-align:center;">Соберите тот комплект, который хотите заказать. Общая цена будет меняться автоматически</p>
                 <div style="display:flex;">
@@ -91,19 +88,13 @@
                     <p>Оформление карточки артиста - {{hundreds}}</p>
                     <button type="button" @click="deleteHundred" class="deleteButton"><b>x</b></button>
                 </div>
-
                     <p v-if="total>0" style="color:white;margin:auto;width:500px;">________________________________________________</p>
                     <p v-if="total>0" style="color:white;text-align:center">Цена: {{total}}руб.</p>
                 </div>
                 </div>
-                <input type="hidden" value="final" name="releaseType">
-                <div class="buttons">
-                    <button type="button" @click="previousPage" class="button2" style="display:flex;"><span>НАЗАД </span></button>
-                    <button type="button" v-if="total == 0" disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
-                    <button type="button" v-if="total>0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
-                </div>
+                <input type="hidden" v-model="final">
             </div>
-            <div v-if="page == 2" key="2" style="text-align:center;">
+            <div style="text-align:center;margin-bottom:170px;">
                 <div style="width:100%;">
                     <label for="track_names" class="text">Выделите и выберите все нужные треки <font color="red">*</font> <p class="question" data-title="Выберите нужные вам треки и загрузите их. Обязательно заполните все поля, прилагающиеся к появившемуся названию трека"><img style="margin-top:-13px;" width="50%" height="50%" src="/static/icons/questmark.png"></p></label><br>
                     <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;margin:auto">Назовите файл трека по образцу: «# трека. Артист — Название». Например «1. КРЕСТ — SHiNE (prod. by CLONNEX)»<br>Формат .wav, разрядность 16 bit</span>
@@ -128,14 +119,9 @@
                     </div>
                 </div>
              </div></div>
-                <input name="tracks" type="hidden" value="files">
-                <div class="buttons">
-                    <button type="button" @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button type="button" v-if="tracks>0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
-                    <button disabled v-else class="button_unclick"><span>ДАЛЕЕ</span></button>
-                </div>
+
             </div>
-            <div v-if="page == 3" style="margin:auto;width:90%;float:right;" key="3">
+            <div  style="margin:auto;width:90%;;margin-bottom:170px;" >
                 <div style="display:flex;min-width:1122px;">
                           <div style="width:50%;">
                     <label for="track_artist" class="text">Впишите псевдоним артиста<font color="red">*</font></label><br>
@@ -173,19 +159,14 @@
                 <span v-if="selectedOption == 'Да'" style="font-family:main;font-size:16px; color:#4d4d4d;">Если загружаем 1 трек, то ставьте 1</span><br>
                 <input name="filthyTracks" id="filthyNum" v-if="selectedOption == 'Да'" placeholder="Например: 1,2,4" class="artistINP" v-model="filthy"><br>
                 </div>
-                <div style="margin:auto;">
-                  <img style="width:70%;height:60%" src="/static/images/background/3.jpg">
+                <div style="margin:auto;margin-left:260px;">
+                  <img style="width:90%;height:90%" src="/static/images/background/3.jpg">
                 </div>
-                </div>
-                <div class="buttons">
-                    <button type="button" @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button type="button" v-if="(artistName != '' && trackName != '' && selectedOption_2 != '' &&  selectedOption_2 != 'Другое' && value1 != '' && selectedOption == 'Нет') || (artistName != '' && trackName != '' && selectedOption_2 == 'Другое' && platf != '' && value1 != '' && filthy != '' && selectedOption == 'Да') || (artistName != '' && trackName != '' && selectedOption_2 == 'Другое' && platf != '' && value1 != '' && selectedOption != 'Да') || (artistName != '' && trackName != '' && selectedOption_2 != ''  && value1 != '' && filthy != '' && selectedOption == 'Да') || (artistName != '' && trackName != '' && selectedOption_2 == 'Другое' &&  platf != ''  && value1 != '' && filthy == '' && selectedOption == 'Нет')" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
-                    <button v-else disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
                 </div>
             </div>
-            <div v-if="page == 4" class="container" key="4">
+            <div style="margin-bottom:170px; width:90%;margin:auto;">
                 <div style="min-width:1122px;display:flex;">
-                          <div style="width:50%;margin-right:130px;margin-top:200px;">
+                          <div style="width:90%;margin-right:130px;margin-top:200px;">
                     <label for="artistScan" class="text">Прикрепите обложку релиза<font color="red">*</font></label><br>
                 <input name="releaseCover" type="file" accept="image/*" id="artistScan" class="inp" @change="newCoverFiles($event)" style="margin-bottom:50px;"><br>
                 <label  for="VK" class="text">Ссылка на вашу страницу в ВК для проверки и подписания договора <font color="red">*</font></label><br>
@@ -193,18 +174,13 @@
                  <label for="email" class="text">Введите вашу почту<font color="red">*</font></label><br>
                 <input name="email"  type="email" v-model="email" id="email" placeholder="example@host.com" class="artistINP"><br>
                 </div>
-               <div style="margin-top:70px;width:30%;">
-                    <img src="/static/images/background/44.png">
+               <div style="margin-top:70px;margin-left:260px">
+                    <img style="width:90%;height:90%" src="/static/images/background/44.png">
                 </div>
                 </div>
 
-                <div class="buttons">
-                    <button type="button" @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button type="button" v-if="link != '' && email != '' && counter2 > 0" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
-                    <button v-else disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
-                </div>
             </div>
-            <div v-if="page == 5" style="margin:auto;width:90%;" key="5">
+            <div style="margin:auto;width:90%;margin-bottom:170px;">
                  <h1 style="text-align:center;color:black;margin-bottom:20px;font-size:40px; font-family:forTitles;">Данные паспорта</h1>
                 <div style="display:flex;min-width:1122px;">
                           <div style="width:100%;">
@@ -227,17 +203,12 @@
                 <label for="adress" class="text">Адрес регистрации / вашей прописки полностью, как в документе<font color="red">*</font></label><br>
                 <input name="REGISTRATION" v-model="adress" id="adress" placeholder=" Например: Ленинский проспект 63" class="artistINP"><br>
                 </div>
-                <div style="margin-left:130px;width:60%">
+                <div style="margin-left:130px;">
                       <img src="/static/images/background/55.png">
                 </div>
             </div>
-                <div class="buttons">
-                    <button type="button" @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button type="button" v-if="grajdanstvo != '' && fio != '' && seria != '' && given_by != '' && giving_date != '' && adress != '' && birth != ''" @click="nextPage" class="button"><span>ДАЛЕЕ</span></button>
-                    <button v-else disabled class="button_unclick"><span>ДАЛЕЕ</span></button>
-                </div>
             </div>
-            <div v-if="page == 6" style="margin:auto;width:90%;" key="6">
+            <div style="margin:auto;width:90%;margin-bottom:170px;">
                 <div style="display:flex;min-width:1122px;">
                           <div style="width:100%;">
                     <label for="genre" class="text">Какой жанр указать?</label><br>
@@ -258,17 +229,12 @@
                 <span style="font-family:main;font-size:12px;color:#4d4d4d;">Укажите через запятую ссылки на карточки в Spotify всех артистов, указанных в загружаемом релизе. Если карточек нет, укажите "Нужны новые карточки"</span><br>
                 <input name="spotify" id="spotify" placeholder=" Например: https://open.spotify.com/artist/7dGJo4pcD2V6oG8kP0tJRR" class="artistINP"><br>
                 </div>
-                <div style="margin-left:130px;width:100%">
-                <img width="80%" height="60%" src="/static/images/background/6_1.png">
+                <div style="margin-left:170px;">
+                <img width="90%" height="90%" src="/static/images/background/6_1.png">
                 </div>
             </div>
-                <div class="buttons">
-                    <button type="button" @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button type="button" v-if="" @click="nextPage" class="button_upload"><span>ДАЛЕЕ</span></button>
-                    <button v-else disabled class="button_unclick_upload"><span>ДАЛЕЕ</span></button>
-                </div>
             </div>
-            <div v-if="page == 7" class="container" key="7">
+            <div style="margin-bottom:170px; width:90%;margin:auto;">
                 <div style="display:flex;min-width:1122px;">
                           <div style="width:100%;">
                               <label for="where" class="text">Как вы о нас узнали?<font color="red">*</font></label><br>
@@ -288,41 +254,21 @@
                 <label for="tictoc" class="text">Промо-план релиза для редкаторов площадок</label><br>
                 <textarea name="promo-plan" placeholder="Добавьте кратко информацию об артисте, готовящемся релизе (1-2 предложения), где и с каким бюджетом будет делаться реклама (если планируется). Эта информация повысит шансы на получение поддержки от площадок" style="margin-bottom:5but0px;"></textarea>
                 <label class="check" style="font-size:16px;">
-                    <input v-model="check" required type="checkbox" >
+                    <input v-model="check" required type="checkbox">
                     Я подтверждаю, что мои треки не нарушают права других авторов музыки и текста<font color="red">*</font>
                 </label>
                 </div>
-                <div style="margin-left:130px;width:100%">
-                <img width="80%" height="60%" src="/static/images/background/7_1.png">
+                <div style="margin-left:170px">
+                <img width="90%" height="90%" src="/static/images/background/7_1.png">
                 </div>
+
                 </div>
-                <input name="tracks" type="hidden" v-model="files">
-                <input type="hidden" v-model="relType" name="releaseType">
-                <input type="hidden" v-model="artistName" name="artistName">
-                <input type="hidden" value="trackName" name="releaseName">
-                <input type="hidden" value="selectedOption_2" name="releasePlaces">
-                <input name="releasePlaces" type="hidden" value="platf">
-<!--                <input type="hidden" value="final" name="releaseType">-->
-<!--                <input type="hidden" value="artistName" name="artistName">-->
-<!--                <input type="hidden" value="trackName" name="releaseName">-->
-<!--                <input type="hidden" value="final" name="releaseType">-->
-<!--                <input name="tracks" type="hidden" value="files">-->
-<!--                <input type="hidden" value="final" name="releaseType">-->
-<!--                <input type="hidden" value="artistName" name="artistName">-->
-<!--                <input type="hidden" value="trackName" name="releaseName">-->
-<!--                <input type="hidden" value="final" name="releaseType">-->
-                <div class="buttons_upload">
-                    <button type="button" @click="previousPage" class="button2"><span>НАЗАД</span></button>
-                    <button disabled type="submit" v-if="check && selectedOption_3 != ''" class="button_upload"><span>ЗАГРУЗИТЬ</span></button>
-                    <button v-else disabled class="button_unclick_upload"><span>ЗАГРУЗИТЬ</span></button>
-                </div>
+                    <button v-if="check != ''" class="button_upload">Загрузить</button>
+                    <button v-else class="button_unclick_upload">Заполните все поля</button>
             </div>
-        </transition>
-    </section>
+        </section>
         </form>
 </div>
-
-
 <script>
     const app = new Vue({
         el: "#app",
@@ -337,7 +283,6 @@
                 hundreds: 0,
                 files: new Array(),
                 scanfiles: new Array(),
-
                 fileData: {},
                 coverfiles: new Array(),
                 coverfileData: {},
@@ -366,7 +311,6 @@
                 counter2:0,
                 counter3:0,
                 signed_counter:0,
-                relType:'',
                 pickerOptions: {
             disabledDate(time) {
                 return time.getTime() > Date.now();
@@ -383,27 +327,21 @@
 
         },
         methods: {
-            nextPage: function () {
-                if (this.page < 7) {
-                    this.page += 1
-                }
-            },
-            previousPage: function () {
-                if (this.page > 0) {
-                    this.page -= 1
-                }
-            },
+
             addSingle: function () {
                 this.singles += 1
+
             },
             addAlbumn: function () {
                 this.albumns += 1
             },
             addThousand: function () {
                 this.thousands += 1
+
             },
             addHundred: function () {
                 this.hundreds += 1
+
             },
             deleteSingle: function () {
                 if (this.singles > 0) {
@@ -419,6 +357,7 @@
                 if (this.hundreds > 0) {
                     this.hundreds -= 1
                 }
+
             },
             deleteAlbumn: function () {
                 if (this.albumns > 0) {
@@ -431,6 +370,7 @@
                 Array.prototype.slice.call(evt.target.files).forEach((file) => {
                      if (!this.files.includes(file)) {
                         this.files.push(file)
+
                     }
                 })
                 this.files.forEach((file) => {
@@ -528,19 +468,8 @@
                 return this.singles * 1300 + this.albumns * 1800 + this.thousands * 1300 + this.hundreds * 490
             },
             final: function () {
-                if (this.singles > 0){
-                   relType += 'Сингл;'
-                   }
-                if (this.albumns > 0){
-                   relType += 'Альбом;'
-                   }
-                if (this.thousands > 0){
-                   relType += 'Клип'
-                   }
-                if (this.hundreds > 0){
-                   relType += 'Карточка;'
-                }
-                return relType
+                return "Синглы - " + this.singles + ";Альбомы - " + this.albumns + ";Клипы - " + this.thousands + ";Карточка - " + this.hundreds
+
             },
             tracks: function () {
                 return Object.keys(this.files).length
