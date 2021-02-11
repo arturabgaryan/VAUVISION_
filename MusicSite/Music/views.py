@@ -217,12 +217,8 @@ def form(request):
 def index(request):
     APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
-    files = request.FILES.getlist('file1')
-    attached_file1 = files[0]
-    print(attached_file1)
-    print(request.is_ajax())
-    file = request.FILES.getlist('file1')
-
+    files = request.FILES.getlist('files')
+    print(files)
     artistName = request.POST['artistName']
     releaseType = request.POST['releaseType']
     releaseName = request.POST['releaseName']
