@@ -101,7 +101,7 @@
                     <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;margin:auto">Назовите файл трека по образцу: «# трека. Артист — Название». Например «1. КРЕСТ — SHiNE (prod. by CLONNEX)»<br>Формат .wav, разрядность 16 bit</span>
                 <div class="inputDiv" style="margin-bottom:15px; margin-top:15px;">
                     <label for="first_file">ДОБАВИТЬ ТРЕК</label>
-                    <input name="fiils" id="first_file" type="file" multiple @change="newFiles($event)"  style="display:none;" accept=".wav">
+                    <input name="files" id="first_file" type="file" multiple @change="newFiles($event)"  style="display:none;" accept=".wav">
                 </div>
 
                 <span v-if="tracks>0" style="font-family:main;font-size:21px;color:#eb0202;margin-bottom:10px;">Имена авторов обязательны для заполнения, без них форма не будет отправлена!</span>
@@ -112,7 +112,6 @@
                             <span style="color:white; float:right;">{{file.name}}</span>
                         </div>
                         <div style="width:60%;min-width:735px!important;margin-left:30px!important; height:25px;float:right;">
-                            <a @click="deleteFile(i)" class="deleteButton" style="float:right;margin-top:7px;color:white;"><b>X</b></a>
                                 <input name="{{file.name}}_text" required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].text" id="" placeholder="Автор текста" class="inputText">
                                 <input name="{{file.name}}_music" required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" id="" >
                             <input name="{{file.name}}_artist" required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" placeholder="Имя артиста" class="inputText" id="">
