@@ -415,21 +415,21 @@
              UplData.append('file1', file)
             })
             alert(UplData)
-            fetch('http://194.67.112.134:8080/index', {
-            method: "POST",
-            body: UplData
-            })
-<!--            $.ajax({-->
-<!--                    type:'POST',-->
-<!--                    url: '194.67.112.134/index',-->
-<!--                    data : UplData,-->
-<!--                    traditional: true,-->
-<!--                    cache: false,-->
-<!--                    contentType: "multipart/form-data",-->
-<!--                    success: function(response){-->
-<!--                        console.log('Success')-->
-<!--                    },-->
-<!--                })-->
+<!--            fetch('http://194.67.112.134:8000/index', {-->
+<!--            method: "POST",-->
+<!--            body: UplData-->
+<!--            })-->
+            $.ajax({
+                    type:'POST',
+                    url: 'http://194.67.112.134:8000/index',
+                    data : UplData,
+                    traditional: true,
+                    cache: false,
+                    contentType: "multipart/form-data",
+                    success: function(response){
+                        console.log('Success')
+                    },
+                })
 
 
             },
