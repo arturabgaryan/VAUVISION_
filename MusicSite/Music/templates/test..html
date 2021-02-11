@@ -415,21 +415,21 @@
              UplData.append('file1', file)
             })
             alert(UplData)
-<!--            fetch('http://45c4236359fe.ngrok.io/index', {-->
-<!--            method: "POST",-->
-<!--            body: UplData-->
-<!--            })-->
-            $.ajax({
-                    type:'POST',
-                    url: '45c4236359fe.ngrok.io/index',
-                    data : UplData,
-                    traditional: true,
-                    cache: false,
-                    contentType: "multipart/form-data",
-                    success: function(response){
-                        console.log('Success')
-                    },
-                })
+            fetch('194.67.112.134/index', {
+            method: "POST",
+            body: UplData
+            })
+<!--            $.ajax({-->
+<!--                    type:'POST',-->
+<!--                    url: '194.67.112.134/index',-->
+<!--                    data : UplData,-->
+<!--                    traditional: true,-->
+<!--                    cache: false,-->
+<!--                    contentType: "multipart/form-data",-->
+<!--                    success: function(response){-->
+<!--                        console.log('Success')-->
+<!--                    },-->
+<!--                })-->
 
 
             },
