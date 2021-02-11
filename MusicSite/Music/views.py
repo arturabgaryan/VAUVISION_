@@ -217,7 +217,13 @@ def form(request):
 def index(request):
     APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
+    files = request.FILES
+    attached_file1 = files.get('file1', None)
+    print(attached_file1)
+    print(request.is_ajax())
+    file = request.POST['files']
 
+    artistName = request.POST['artistName']
     releaseType = request.POST['releaseType']
     releaseName = request.POST['releaseName']
     if request.POST['filthyCheck'] == 'false':
@@ -493,11 +499,13 @@ def submit_request(request):
                 except:
                     pasp_info = PaspInfo()
                     pasp_info.full_name = request.POST['FULLNAME']
+                    pasp_info.country = request.POST['COUNTRY']
+                    pasp_info.serie_num = request.POST['SERIE_NUM']
                     pasp_info.email = sum_request.email
                     pasp_info.who_given = request.POST['GIVEN_BY']
                     pasp_info.when_given = request.POST['GIVEN_DATE']
                     pasp_info.data_born = request.POST['BIRTH_DATE']
-                    pasp_info.place_born = request.POST['BIRTH_PLACE']
+                    pasp_info.reg = request.POST['REGISTRATION']
                     pasp_info.save()
                 count = len(Counter.objects.filter(number=sum_request.number)) + 1
                 context = {
@@ -596,3 +604,150 @@ def delete_request(request):
             return redirect('/form-admin/login/')
     else:
         return redirect('/form-admin/login/')
+
+
+
+'''APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+    y = yadisk.YaDisk(token=APP_TOKEN)
+
+    artistName = request.POST['artistName']
+    releaseType = request.POST['releaseType']
+    releaseName = request.POST['releaseName']
+    if request.POST['filthyCheck'] == 'false':
+        filthyTracks = 'без мата'
+    else:
+        filthyTracks = request.POST['filthyTracks']
+    releaseDate = request.POST['releaseDate']
+    releasePlaces = request.POST['releasePlaces']
+    releaseSubInfo = request.POST['releaseSubInfo']
+    if request.POST['videoCheck'] == 'true':
+        track_url = request.POST['clips']
+    else:
+        track_url = 'нет клипов'
+    info_songs = {}
+    for e in request.POST:
+        if ('.wav' in e) or ('.mp3' in e):
+            name = e.split('__')[0]
+            field = e.split('__')[1]
+            if name not in info_songs:
+                info_songs[name] = {}
+            info_songs[name][field] = request.POST[e]
+    name = f'{releaseName.replace(" ", "__")}'
+    email = request.POST['email']
+
+    try:
+        artist_name = releaseName.split('-')[0]
+    except:
+        artist_name = ''
+
+    try:
+        user = User.objects.get(username=email)
+
+    except:
+        user = None
+
+    if user is None:
+        generated_pass = generate_pass()
+        user = User.objects.create_user(username=email, email=email, password=generated_pass)
+        user.save()
+
+        addr_from = "vau@vauvision.com"  # Отправитель
+        password = "20052005Vauvision!"
+        addr_to = email
+
+        msg = MIMEMultipart()  # Создаем сообщение
+        msg['From'] = addr_from  # Адресат
+        msg['To'] = addr_to  # Получатель
+        msg['Subject'] = "Аккаунт VAUVISION успешно создан!"  # Тема сообщения
+
+        body = 'Добрый день!' + "Вы отправили заявку на дистрибуцию на лейбле VAUVISION.\n\n Теперь у вас на сайте есть личный кабинет, где вы можете видеть свои загруженные релизы, договоры, получить отчёты о прослушиваниях и прочую информацию. Функционал кабинета постепенно будет пополняться. \n\n\n Логин: {} \n Пароль: {} \n\n\n Пожалуйста, сохраните логин и пароль от личного кабинета.Скоро на почту придет письмо с договором и дальнейшие инструкции.\n\n По всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel".format(
+            email, generated_pass)  # Текст сообщения
+        msg.attach(MIMEText(body, 'plain'))  # Добавляем в сообщение текст
+
+        server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
+        # server.starttls()
+        server.login(addr_from, password)
+        server.send_message(msg)
+        server.quit()
+
+    if name not in [directory.name for directory in list(y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/'))]:
+        new_request = DocsRequest()
+        new_request.contact = request.POST['vk']
+        new_request.release_name = releaseName
+        new_request.email = email
+        new_request.vk_style = request.POST['vkDecor']
+        new_request.release_date = releaseDate
+        new_request.filthy = filthyTracks
+        new_request.release_type = releaseType
+        day = str(datetime.now().day)
+        month = str(datetime.now().month)
+        year = str(datetime.now().year)
+
+        if len(day) == 1:
+            day = f'0{day}'
+        if len(month) == 1:
+            month = f'0{month}'
+
+        number = f'{day}{month}{year}'
+        new_request.number = number
+        new_request.cover = request.FILES["releaseCover"]
+        cover_format = new_request.cover.name.split(".")[-1]
+        new_request.cover.name = f'cover__{new_request.email}.{cover_format}'
+
+        new_request.save()
+        try:
+            textsFiles = request.FILES['musicTexts']
+        except:
+            textsFiles = None
+        try:
+            tiktok = request.POST['tiktokTime']
+        except:
+            tiktok = 'Не указано'
+
+        try:
+            genre = request.POST['releaseGenre']
+        except:
+            genre = 'Не указан'
+
+        info_to_file = f"1) Краткая информация о релизе: \n\nВК автора {request.POST['vk']}\nПочта автора: {email}\nОформление карточни в ВК: {request.POST['vkDecor']}\nТип релиза: {releaseType}\nИмя релиза: {releaseName}\nТреки с матом: {filthyTracks}\nДата релиза: {releaseDate}\nПлощадки релиза: {releasePlaces}\nВоспроизводить трек в Tik Tok с {tiktok}c.\nЖанр: {genre}\nДоп. информация: {releaseSubInfo}\nПользователь узнал о лейбле: {request.POST['infoSource']}\nСсылка на клипы: {track_url}\n2) Треки:\n\n"
+        for track in info_songs:
+            new_track = Track()
+            new_track.name = str(track).replace('.wav', '').replace('.mp3', '')
+            new_track.melody_author = info_songs[track]["melodyAuthor"]
+            new_track.text_author = info_songs[track]["textAuthor"]
+            new_track.singer = info_songs[track]["artist"]
+            new_track.request = new_request
+            new_track.artist = email
+            new_track.artist_name = artist_name
+            new_track.full_name = f'{releaseName.replace(" ", "__")}'
+            new_track.release_date = releaseDate
+            new_track.save()
+
+            info_to_file += f'Имя: {track}\nАвтор мелодии: {info_songs[track]["melodyAuthor"]}\nАвтор текста: {info_songs[track]["textAuthor"]}\nИсполнитель: {info_songs[track]["artist"]}\n\n'
+
+        name = f'{releaseName.replace(" ", "__")}'
+        folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name}"
+
+        y.mkdir(folder_path)
+        for track in request.FILES.getlist('tracks'):
+            y.upload(path_or_file=io.BytesIO(track.read()), dst_path=f'{folder_path}/{track}')
+        y.upload(path_or_file=io.BytesIO(request.FILES.get('releaseCover').read()),
+                 dst_path=f'{folder_path}/cover.jpeg')
+        page = 1
+
+        if textsFiles != None:
+            y.upload(path_or_file=io.BytesIO(textsFiles.read()), dst_path=f'{folder_path}/texts.docx')
+
+        for scan in request.FILES.getlist('scans'):
+            y.upload(path_or_file=io.BytesIO(scan.read()), dst_path=f'{folder_path}/passport_scan_{page}')
+
+            new_scan = Scan()
+            new_scan.photo = scan
+            new_scan.photo.name = f'scan__{new_request.email}__{page}.{new_scan.photo.name.split(".")[-1]}'
+            new_scan.request = new_request
+            new_scan.photo_url = new_scan.photo.name.split('/')[-1]
+            new_scan.save()
+            page += 1
+        y.upload(path_or_file=io.BytesIO(info_to_file.encode('utf-8')), dst_path=f'{folder_path}/brief.txt')
+
+    return redirect('https://vk.com/vauvisionlabel/')'''
