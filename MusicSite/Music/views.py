@@ -219,7 +219,6 @@ def index(request):
     y = yadisk.YaDisk(token=APP_TOKEN)
     files = request.FILES['releaseCover']
     print(files)
-    artistName = request.POST['artistName']
     releaseType = request.POST['releaseType']
     releaseName = request.POST['releaseName']
     if request.POST['filthyCheck'] == 'false':
