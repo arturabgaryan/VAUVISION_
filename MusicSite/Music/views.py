@@ -217,7 +217,7 @@ def form(request):
 def index(request):
     APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
-    files = request.FILES['files']
+    files = request.FILES['releaseCover']
     print(files)
     artistName = request.POST['artistName']
     releaseType = request.POST['releaseType']
