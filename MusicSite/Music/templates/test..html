@@ -101,7 +101,7 @@
                     <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;margin:auto">Назовите файл трека по образцу: «# трека. Артист — Название». Например «1. КРЕСТ — SHiNE (prod. by CLONNEX)»<br>Формат .wav, разрядность 16 bit</span>
                 <div class="inputDiv" style="margin-bottom:15px; margin-top:15px;">
                     <label for="first_file">ДОБАВИТЬ ТРЕК</label>
-                    <input name="files" id="first_file" type="file" multiple style="display:none;" accept=".wav">
+                    <input name="files" id="first_file" type="file" multiple @change="newFiles($event)"  style="display:none;" accept=".wav">
                 </div>
 
                 <span v-if="tracks>0" style="font-family:main;font-size:21px;color:#eb0202;margin-bottom:10px;">Имена авторов обязательны для заполнения, без них форма не будет отправлена!</span>
@@ -112,9 +112,9 @@
                             <span style="color:white; float:right;">{{file.name}}</span>
                         </div>
                         <div style="width:60%;min-width:735px!important;margin-left:30px!important; height:25px;float:right;">
-                                <input name="{{file.name}}_text" required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].text" id="" placeholder="Автор текста" class="inputText">
-                                <input name="{{file.name}}_music" required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" id="" >
-                            <input name="{{file.name}}_artist" required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" placeholder="Имя артиста" class="inputText" id="">
+                                <input required style="float:right;margin-top:2px; margin-right:10px;" v-bind:id="file.name + '_text'" v-model="fileData[file.name].text" placeholder="Автор текста" class="inputText">
+                                <input required style="float:right;margin-top:2px; margin-right:10px;" v-bind:id="file.name + '_music'" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" >
+                            <input required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" v-bind:id="file.name + '_artis'" placeholder="Имя артиста" class="inputText">
                         </div>
                     </div>
                 </div>
@@ -168,7 +168,7 @@
                 <div style="min-width:1122px;display:flex;">
                           <div style="width:90%;margin-right:130px;margin-top:200px;">
                     <label for="artistScan" class="text">Прикрепите обложку релиза<font color="red">*</font></label><br>
-                <input multiple name="releaseCover" type="file" accept="image/*" id="artistScan" class="inp" style="margin-bottom:50px;"><br>
+                <input name="releaseCover" type="file" accept="image/*" id="artistScan" class="inp" @change="newCoverFiles($event)" style="margin-bottom:50px;"><br>
                 <label  for="VK" class="text">Ссылка на вашу страницу в ВК для проверки и подписания договора <font color="red">*</font></label><br>
                 <input name="vk" pattern="https://" type="url" v-model="link" id="VK" placeholder="https://vk.com/****" class="artistINP"><br>
                  <label for="email" class="text">Введите вашу почту<font color="red">*</font></label><br>
@@ -261,9 +261,9 @@
                 <div style="margin-left:170px">
                 <img width="90%" height="90%" src="/static/images/background/7_1.png">
                 </div>
-
+                    <input id="songInfo" type="hidden" v-model="fileData" value="">
                 </div>
-                    <button @click="uploadFiles" v-if="check != ''" class="button_upload">Загрузить</button>
+                    <button v-if="check != ''" class="button_upload">Загрузить</button>
                     <button disabled v-else class="button_unclick_upload">Заполните все поля</button>
             </div>
         </section>
@@ -366,7 +366,7 @@
             },
             newFiles: function (evt) {
                 let  cFiles = document.getElementById("first_file").files.length;
-                this.files = Object.keys(this.files).map(key => this.files[key])
+                this.files = new Array()
                 Array.prototype.slice.call(evt.target.files).forEach((file) => {
                      if (!this.files.includes(file)) {
                         this.files.push(file)
@@ -407,30 +407,6 @@
                     }
                 })
             },
-            uploadFiles: function(){
-            let UplData = new FormData()
-            this.files.forEach((file) => {
-            alert(file)
-             UplData.append('file1', file)
-            })
-            alert(UplData)
-<!--            fetch('http://194.67.112.134:8000/index', {-->
-<!--            method: "POST",-->
-<!--            body: UplData-->
-<!--            })-->
-            $.ajax({
-                    type:'POST',
-                    url: 'http://194.67.112.134:8000/index',
-                    data : UplData,
-                    traditional: true,
-                     cache: false,
-                    processData: false,
-                    contentType: "multipart/form-data",
-                    success: function(response){
-                        console.log('Success')
-                    },
-                })
-
 
             },
             deleteScanFile: function (idx) {
@@ -476,6 +452,7 @@
             uploaded: function(){
                this.counter2 += 1
             },
+
 
             test: function (evt) {
             if(evt.target.value != '' && evt.target.id == ''){
