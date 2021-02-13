@@ -112,6 +112,7 @@
                             <span style="color:white; float:right;">{{file.name}}</span>
                         </div>
                         <div style="width:60%;min-width:735px!important;margin-left:30px!important; height:25px;float:right;">
+                            <a @click="deleteFile(i)" class="deleteButton" style="float:right;margin-top:7px;color:white;"><b>X</b></a>
                                 <input required style="float:right;margin-top:2px; margin-right:10px;" v-bind:id="file.name + '_text'" v-model="fileData[file.name].text" placeholder="Автор текста" class="inputText">
                                 <input required style="float:right;margin-top:2px; margin-right:10px;" v-bind:id="file.name + '_music'" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" >
                             <input required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" v-bind:id="file.name + '_artis'" placeholder="Имя артиста" class="inputText">
@@ -263,7 +264,7 @@
                 </div>
                     <input id="songInfo" type="hidden" v-model="fileData" value="">
                 </div>
-                    <button v-if="check != ''" class="button_upload">Загрузить</button>
+                    <button @click="uploadFiles" v-if="check != ''" class="button_upload">Загрузить</button>
                     <button disabled v-else class="button_unclick_upload">Заполните все поля</button>
             </div>
         </section>
@@ -407,7 +408,20 @@
                     }
                 })
             },
+            uploadFiles: function(){
+            let UplData = new FormData()
+            let val = document.getElementById("songInfo")
+              val.setAttribute('value', this.fileData)
+            this.files.forEach((file) => {
+            alert(file)
+             UplData.append('file1', file)
+            })
+            alert(UplData)
 
+            fetch('http://194.67.112.134:8000/index', {
+            method: "POST",
+            body: UplData
+            })
             },
             deleteScanFile: function (idx) {
             this.counter2 -= 1
