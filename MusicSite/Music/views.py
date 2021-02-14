@@ -1,6 +1,6 @@
-from django.shortcuts import render,redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from Music.models import *
+from Music.models import AuthCodes, Counter, DocsRequest, Track, Scan, PaspInfo
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password
@@ -10,43 +10,58 @@ import mimetypes
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
-from email.mime.image import MIMEImage
-from email.mime.audio import MIMEAudio
 from email.mime.multipart import MIMEMultipart
 import yadisk
 import io
 from datetime import datetime
-from typing import Type
 import random
 from docxtpl import DocxTemplate, InlineImage
 from docx.shared import Mm
-from .models import Counter
 from django.http import JsonResponse
-from django.conf import settings
 import subprocess
 import time
-from django.template import RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from django.http import HttpResponse
+from django.core import exceptions
+
 
 class PathExistsError:
     pass
 
+
+def send_email_util(
+    addr_from: str, password: str, addr_to: str, subject: str, body: str
+) -> 1:
+    """Sending mail to specified address"""
+
+    msg = MIMEMultipart()
+    msg['From'] = addr_from
+    msg['To'] = addr_to
+    msg['Subject'] = subject
+    msg.attach(MIMEText(body, 'plain'))
+
+    server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
+    # server.starttls()
+    server.login(addr_from, password)
+    server.send_message(msg)
+    server.quit()
+    return 1
 
 @csrf_exempt
 def test(request):
     print(request.POST)
     print(request.FILES)
 
-    context={}
+    context = {}
     context.update(csrf(request))
     context['user'] = request.user
     if request.user.is_authenticated:
-        return render(request, 'test..html',context)
+        return render(request, 'test..html', context)
     else:
-        return render(request, 'test..html',context)
+        return render(request, 'test..html', context)
 
 
 def enter(request):
@@ -61,13 +76,21 @@ def back(request):
 def upload(request):
     APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
-    name = request.GET.get('id',None)
+    name = request.GET.get('id', None)
     name = name[:-2]
     full_name = name.split('=')[0]
     folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{full_name}"
-    files = request.FILES.get(name+"_name")
-    y.upload(path_or_file=io.BytesIO(request.FILES.get(name + "_name").read()),dst_path=f'{folder_path}/Signed-{full_name}.pdf', overwrite=True)
-    y.download(f"{folder_path}/Signed-{full_name}.pdf", f"Music/static/documents/Signed-{full_name}_offer.pdf")
+    _ = request.FILES.get(name+"_name")
+    y.upload(
+        path_or_file=io.BytesIO(
+            request.FILES.get(name + "_name").read()),
+        dst_path=f'{folder_path}/Signed-{full_name}.pdf',
+        overwrite=True
+    )
+    y.download(
+        f"{folder_path}/Signed-{full_name}.pdf",
+        f"Music/static/documents/Signed-{full_name}_offer.pdf"
+    )
     return redirect('/account')
 
 
@@ -80,12 +103,13 @@ def registration(request):
 
 
 def main(request):
-    return render(request,'main.html')
+    return render(request, 'main.html')
 
 
 def account(request):
     if request.user.is_authenticated:
-        path = '{}/Music/static/documents/Signed-)(_offer.pdf'.format(str(os.path.abspath('')))
+        path = '{}/Music/static/documents/Signed-)(_offer.pdf'.format(
+            str(os.path.abspath('')))
         tracks = Track.objects.filter(artist=request.user.username)
         signed_tracks = []
         for track in tracks:
@@ -94,13 +118,18 @@ def account(request):
                 print("Yes:", track.full_name)
             else:
                 print('No')
-        return render(request, 'accountpage.html',{'task': tracks, 'name': request.user.username, 'signed_tracks': signed_tracks})
+        return render(request, 'accountpage.html', {
+            'task': tracks,
+            'name': request.user.username,
+            'signed_tracks': signed_tracks
+        })
     else:
         return render(request, 'authorization.html')
 
 
 def change_profile_info_page(request):
-    return render(request,'change_profile.html',{'email':request.user.email,'name':request.user.username})
+    return render(request, 'change_profile.html', {
+        'email': request.user.email, 'name': request.user.username})
 
 
 def generate_pass():
@@ -113,16 +142,20 @@ def generate_pass():
 
 def change(request):
     name = request.POST.get('usrnm', None)
-    passw = request.POST.get('psw', None).replace(' ','')
-    passw2 = request.POST.get('psw2', None).replace(' ','')
-    passw_old = request.POST.get('psw_old',None).replace(' ','')
+    passw = request.POST.get('psw', None).replace(' ', '')
+    passw2 = request.POST.get('psw2', None).replace(' ', '')
+    passw_old = request.POST.get('psw_old', None).replace(' ', '')
+
     try:
         user = User.objects.get(username=name)
-    except:
+    except exceptions.ObjectDoesNotExist:
         user = None
+
     if passw and passw2:
         if passw == passw2:
-            if (user == request.user) and (check_password(passw_old, user.password)):
+            if (user == request.user) and (
+                check_password(passw_old, user.password)
+            ):
                 user.set_password(passw)
                 user.save()
                 user = authenticate(request, username=name, password=passw)
@@ -130,18 +163,21 @@ def change(request):
                     login(request, user)
                 return redirect('/account')
             else:
-                return render(request, 'change_profile.html',{'error':'Данные введены не верно'})
+                return render(request, 'change_profile.html', {
+                    'error': 'Данные введены не верно'})
         else:
-            return render(request, 'change_profile.html',{'error':'Пароли не совпадают'})
+            return render(request, 'change_profile.html', {
+                'error': 'Пароли не совпадают'})
     else:
-        return render(request,'change_profile.html',{'error':'Заполните все поля'})
+        return render(request, 'change_profile.html', {
+            'error': 'Заполните все поля'})
 
 
 def create(request):
     name = request.GET.get('log', None)
     email = request.GET.get('email', None)
-    passw = request.GET.get('pwd', None).replace(' ','')
-    passw2 = request.GET.get('pwd2',None).replace(' ','')
+    passw = request.GET.get('pwd', None).replace(' ', '')
+    passw2 = request.GET.get('pwd2', None).replace(' ', '')
     if email and passw and passw2:
         if passw2 != passw:
             messages.info(request, "Пароли не совпадают")
@@ -150,7 +186,8 @@ def create(request):
             messages.info(request, "Такой пароль уже существует")
             return redirect('/reg_page')
         else:
-            user = User.objects.create_user(username=name, email=email, password=passw)
+            user = User.objects.create_user(
+                username=name, email=email, password=passw)
             user.save()
 
         return redirect('/')
@@ -158,7 +195,7 @@ def create(request):
 
 def log_in(request):
     log = request.POST.get('usrnm', None)
-    pwd = request.POST.get('psw', None).replace(' ','')
+    pwd = request.POST.get('psw', None).replace(' ', '')
     print(len(pwd))
     if log and pwd:
         user = authenticate(request, username=log, password=pwd)
@@ -167,7 +204,8 @@ def log_in(request):
             login(request, user)
             return redirect('/main')
         else:
-            return render(request, 'authorization.html',{'error':'Пароль не верный'})
+            return render(request, 'authorization.html', {
+                'error': 'Пароль не верный'})
 
 
 def log_out(request):
@@ -179,7 +217,7 @@ def log_out(request):
 def send_email(request):
     time.ctime()
     time_list = time.localtime()
-    hours = time_list[3]
+    _ = time_list[3]  # hours var
     # print(hours)
     # if 5 <= int(hours) <= 12:
     #     daytime = 'Доброго утра, '
@@ -190,17 +228,18 @@ def send_email(request):
     # else:
     #     daytime = 'Доброй ночи, '
     addr_from = "vau@vauvision.com"                         # Отправитель
-    password  = "20052005Vauvision!"
+    password = "20052005Vauvision!"
     addr_to = request.GET.get('email', None)
     name = request.GET.get('name', None)
 
     msg = MIMEMultipart()                                   # Создаем сообщение
     msg['From'] = addr_from                              # Адресат
     msg['To'] = addr_to                                # Получатель
-    msg['Subject'] = "Вы включены в рассылку VAUVISION"                               # Тема сообщения
+    msg['Subject'] = "Вы включены в рассылку VAUVISION"  # Тема сообщения
 
-    body = 'Добрый день, ' + name + ", вас будут оповещать о всех событиях через рассылку. Оставайтесь на связи!)"
-    msg.attach(MIMEText(body, 'plain'))                     # Добавляем в сообщение текст
+    body = 'Добрый день, ' + name + \
+        ", вас будут оповещать о всех событиях через рассылку. Оставайтесь на связи!)"
+    msg.attach(MIMEText(body, 'plain'))  # Добавляем в сообщение текст
 
     server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
     # server.starttls()
@@ -217,148 +256,150 @@ def form(request):
     if request.method == "POST":
         print(request.POST)
         print(request.FILES)
-    return render(request,'index.html')
+    return render(request, 'index.html')
 
 
 @csrf_exempt
 def index(request):
-    print(request.FILES)
-    print(request.FILES.getlist('files')[0])
-    print(request.POST[str(request.FILES.getlist('files')[0])+'_text'])
+    print("request files: \n", request.FILES)
+    print("request post\n", request.POST)
+    print("request files list tracks:\n", request.FILES.getlist('files'))
+
+    email = request.POST.get('email', None)
+    try:
+        user = User.objects.get(username=email)
+    except exceptions.ObjectDoesNotExist:
+        generated_pass = generate_pass()
+        user = User.objects.create_user(
+            username=email, email=email, password=generated_pass)
+        user.save()
+
+        if send_email_util(
+            addr_from="vau@vauvision.com",
+            password="20052005Vauvision!",
+            addr_to=email,
+            subject="Аккаунт VAUVISION успешно создан!",
+            body="""Добрый день!
+Вы отправили заявку на дистрибуцию на лейбле VAUVISION.\n
+Теперь у вас на сайте есть личный кабинет, где вы можете видеть свои загруженные релизы, договоры, получить отчёты о прослушиваниях и прочую информацию. Функционал кабинета постепенно будет пополняться.\n\n
+Логин: {} \n Пароль: {} \n\n
+Пожалуйста, сохраните логин и пароль от личного кабинета.Скоро на почту придет письмо с договором и дальнейшие инструкции.\n
+По всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel""".format(
+                email, generated_pass)
+        ) != 0:
+            print("EMAIL WAS NOT SENT")
 
     APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
-    files = request.FILES['releaseCover']
-    print(files)
+    name = request.POST.get('releaseName', None).replace(
+                    " ", "__"),
 
-    releasetype = request.POST['releaseType']
-    releaseName = request.POST['releaseName']
+    if name not in [directory.name for directory in list(
+        y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
+    )]:
+        if request.POST.get('filthyCheck', None) == 'Да':
+            filthy = request.POST.get('filthyTracks', None)
+        else:
+            filthy = 'Нет'
 
-    filthyTracks = request.POST.get('filthyCheck', '')
+        docsrequest = DocsRequest.objects.create(
+            contact=request.POST.get('vk', None),
+            release_name=name,
+            email=email,
+            release_date=datetime.strptime(
+                request.POST.get('releaseDate', None), "%Y-%m-%d"),
+            filthy=filthy,
+            release_type=request.POST.get('releaseType', None),
+            number=datetime.now().strftime("%d%m%Y"),
+            cover=request.FILES.get('releaseCover', None),
+        )
+        docsrequest.cover.name = 'cover__{}.{}'.format(
+            email,
+            request.FILES.get('releaseCover', None).name.split(".")[-1])
+        docsrequest.save()
 
-    releaseDate = request.POST['releaseDate']
-    releasePlaces = request.POST['releasePlaces']
-    releaseSubInfo = request.POST['releaseSubInfo']
 
-    track_url = request.POST.get('clips', '') if int(releasetype[21]) > 0 \
-        else 'нет клипов'
+        tiktok = request.POST.get('tiktokTime', None)
+        genre = request.POST.get('releaseGenre', 'Не указан')
 
-    info_songs = {}
-    for e in request.POST:
-        if ('.wav' in e) or ('.mp3' in e):
-            name = e.split('__')[0]
-            field = e.split('__')[1]
-            if name not in info_songs:
-                info_songs[name] = {}
-            info_songs[name][field] = request.POST[e]
-    name = f'{releaseName.replace(" ", "__")}'
-    email = request.POST['email']
+        info_to_file = f"""1) Краткая информация о релизе: \n
+ВК автора {docsrequest.contact}
+Почта автора: {email}
+Оформление карточни в ВК: Тип релиза: {docsrequest.release_type}
+Имя релиза: {docsrequest.release_name}
+Треки с матом: {docsrequest.filthy}
+Дата релиза: {docsrequest.release_date}
+Площадки релиза: {request.POST.get('releasePlaces', None)}
+Воспроизводить трек в Tik Tok с {tiktok}c.
+Жанр: {genre}
+Доп. информация: {request.POST.get('releaseSubInfo', None)}
+Пользователь узнал о лейбле: {request.POST.get('infoSource', None)}"""
 
-    try:
-        artist_name = releaseName.split('-')[0]
-    except:
-        artist_name = ''
+        files = [key for key, value in request.POST.items() if 'text' in key]
+        files = [i.split("_")[0] for i in files]
 
-    try:
-        user = User.objects.get(username=email)
-    except:
-        user = None
+        for f in files:
+            track = Track.objects.create(
+                name=".".join(f.split(".")[:-1]),
+                melody_author=request.POST.get(f+'_music', None),
+                text_author=request.POST.get(f+'_text', None),
+                singer=request.POST.get(f+'_artis', None),
+                request=docsrequest,
+                artist=email,
+                artist_name=request.POST.get('artistName', None),
+                full_name=request.POST.get('releaseName', None).replace(
+                    " ", "__"),
+                release_date=datetime.strptime(
+                    request.POST.get('releaseDate', None), "%Y-%m-%d")
+            )
+            track.save()
 
-    if user is None:
-        generated_pass = generate_pass()
-        user = User.objects.create_user(username=email, email=email, password=generated_pass)
-        user.save()
+            info_to_file += f"""Имя: {f}
+Автор мелодии: {track.melody_author}
+Автор текста: {track.text_author}
+Исполнитель: {track.singer}\n\n"""
 
-        addr_from = "vau@vauvision.com"  # Отправитель
-        password = "20052005Vauvision!"
-        addr_to = email
 
-        msg = MIMEMultipart()  # Создаем сообщение
-        msg['From'] = addr_from  # Адресат
-        msg['To'] = addr_to  # Получатель
-        msg['Subject'] = "Аккаунт VAUVISION успешно создан!"  # Тема сообщения
+        paspinfo = PaspInfo.objects.create(
+            full_name=request.POST.get('FULLNAME', None),
+            who_given=request.POST.get('GIVEN_BY', None),
+            when_given=request.POST.get('GIVEN_DATE', None),
+            data_born=request.POST.get('BIRTH_DATE', None),
+            place_born=request.POST.get('REGISTRATION', None),
+            email=email
+        )
+        paspinfo.save()
 
-        body = 'Добрый день!' + "Вы отправили заявку на дистрибуцию на лейбле VAUVISION.\n\n Теперь у вас на сайте есть личный кабинет, где вы можете видеть свои загруженные релизы, договоры, получить отчёты о прослушиваниях и прочую информацию. Функционал кабинета постепенно будет пополняться. \n\n\n Логин: {} \n Пароль: {} \n\n\n Пожалуйста, сохраните логин и пароль от личного кабинета.Скоро на почту придет письмо с договором и дальнейшие инструкции.\n\n По всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel".format(
-            email, generated_pass)  # Текст сообщения
-        msg.attach(MIMEText(body, 'plain'))  # Добавляем в сообщение текст
+        info_to_file += f"""
+Паспортные данные:
+ФИО: {paspinfo.full_name}
+Кем выдан: {paspinfo.when_given}
+Дата рождения: {paspinfo.data_born}
+Место регистрации: {paspinfo.place_born}
+"""
 
-        server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
-        # server.starttls()
-        server.login(addr_from, password)
-        server.send_message(msg)
-        server.quit()
-
-    if name not in [directory.name for directory in list(y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/'))]:
-        new_request = DocsRequest()
-        new_request.contact = request.POST['vk']
-        new_request.release_name = releaseName
-        new_request.email = email
-        new_request.vk_style = ""
-        new_request.release_date = releaseDate
-        new_request.filthy = filthyTracks
-        new_request.release_type = releasetype
-        new_request.number = datetime.now().strftime("%d%m%Y")
-        new_request.cover = request.FILES["releaseCover"]
-        cover_format = new_request.cover.name.split(".")[-1]
-        new_request.cover.name = f'cover__{new_request.email}.{cover_format}'
-        new_request.save()
-
-        try:
-            textsFiles = request.FILES['musicTexts']
-        except:
-            textsFiles = None
-
-        try:
-            tiktok = request.POST['tiktokTime']
-        except:
-            tiktok = 'Не указано'
-
-        try:
-            genre = request.POST['releaseGenre']
-        except:
-            genre = 'Не указан'
-
-        info_to_file = f"1) Краткая информация о релизе: \n\nВК автора {request.POST['vk']}\nПочта автора: {email}\nОформление карточни в ВК: Тип релиза: {releasetype}\nИмя релиза: {releaseName}\nТреки с матом: {filthyTracks}\nДата релиза: {releaseDate}\nПлощадки релиза: {releasePlaces}\nВоспроизводить трек в Tik Tok с {tiktok}c.\nЖанр: {genre}\nДоп. информация: {releaseSubInfo}\nПользователь узнал о лейбле: {request.POST['infoSource']}\nСсылка на клипы: {track_url}\n2) Треки:\n\n"
-        for track in info_songs:
-            new_track = Track()
-            new_track.name = str(track).replace('.wav', '').replace('.mp3', '')
-            new_track.melody_author = info_songs[track]["melodyAuthor"]
-            new_track.text_author = info_songs[track]["textAuthor"]
-            new_track.singer = info_songs[track]["artist"]
-            new_track.request = new_request
-            new_track.artist = email
-            new_track.artist_name = artist_name
-            new_track.full_name = f'{releaseName.replace(" ", "__")}'
-            new_track.release_date = releaseDate
-            new_track.save()
-
-            info_to_file += f'Имя: {track}\nАвтор мелодии: {info_songs[track]["melodyAuthor"]}\nАвтор текста: {info_songs[track]["textAuthor"]}\nИсполнитель: {info_songs[track]["artist"]}\n\n'
-
-        name = f'{releaseName.replace(" ", "__")}'
         folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name}"
 
         y.mkdir(folder_path)
-        for track in request.FILES.getlist('tracks'):
-            y.upload(path_or_file=io.BytesIO(track.read()), dst_path=f'{folder_path}/{track}')
-        y.upload(path_or_file=io.BytesIO(request.FILES.get('releaseCover').read()),
-                 dst_path=f'{folder_path}/cover.jpeg')
-        page = 1
+        for track in request.FILES.getlist('files'):
+            y.upload(
+                path_or_file=io.BytesIO(track.read()),
+                dst_path=f'{folder_path}/{track}')
 
-        if textsFiles != None:
-            y.upload(path_or_file=io.BytesIO(textsFiles.read()), dst_path=f'{folder_path}/texts.docx')
+        y.upload(
+            path_or_file=io.BytesIO(request.FILES.get('releaseCover').read()),
+            dst_path=f'{folder_path}/cover.jpeg')
 
-        # for scan in request.FILES.getlist('scans'):
-            # y.upload(path_or_file=io.BytesIO(scan.read()), dst_path=f'{folder_path}/passport_scan_{page}')
+        textsFiles = request.FILES.get('musicTexts', None)
+        if textsFiles is not None:
+            y.upload(
+                path_or_file=io.BytesIO(textsFiles.read()),
+                dst_path=f'{folder_path}/texts.docx')
 
-            # new_scan = Scan()
-            # new_scan.photo = scan
-            # new_scan.photo.name = f'scan__{new_request.email}__{page}.{new_scan.photo.name.split(".")[-1]}'
-            # new_scan.request = new_request
-            # new_scan.photo_url = new_scan.photo.name.split('/')[-1]
-            # new_scan.save()
-            # page += 1
-        # y.upload(path_or_file=io.BytesIO(info_to_file.encode('utf-8')), dst_path=f'{folder_path}/brief.txt')
+        y.upload(path_or_file=io.BytesIO(
+            info_to_file.encode('utf-8')),
+            dst_path=f'{folder_path}/brief.txt')
 
     return redirect('https://vk.com/vauvisionlabel/')
 
@@ -381,17 +422,18 @@ def admin_logout(request):
 
 
 def admin_login(request):
-        if request.method == 'GET':
-            return render(request, 'admin-panel/pages/login_page.html')
+    if request.method == 'GET':
+        return render(request, 'admin-panel/pages/login_page.html')
+    else:
+        pwd = request.POST['password']
+        username = request.POST['username']
+        user = authenticate(username=username, password=pwd)
+        if user.is_superuser:
+            login(request, user)
+            return redirect('/form-admin')
         else:
-            pwd = request.POST['password']
-            username = request.POST['username']
-            user = authenticate(username=username, password=pwd)
-            if user.is_superuser:
-                login(request, user)
-                return redirect('/form-admin')
-            else:
-                return render(request, 'admin-panel/pages/login_page.html', {'login_error': 'Пользователя не существует'})
+            return render(request, 'admin-panel/pages/login_page.html', {
+                'login_error': 'Пользователя не существует'})
 
 
 def generate_auth_code(request):
@@ -407,17 +449,19 @@ def generate_auth_code(request):
                 link.user = email
                 link.code = code
                 link.save()
-                return render(request, 'admin-panel/pages/admin.html', {'result': f'Код для регистрации: {code}'})
+                return render(request, 'admin-panel/pages/admin.html', {
+                    'result': f'Код для регистрации: {code}'})
             else:
-                return render(request, 'admin-panel/pages/admin.html',
-                              {'result': 'Код для этого пользователя уже зарегестрирован'})
+                return render(request, 'admin-panel/pages/admin.html', {
+                    'result': 'Код для этого пользователя уже зарегестрирован'}
+                )
 
 
 def admin_signup(request):
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
-        password = request.POST['password'].replace(' ','')
+        password = request.POST['password'].replace(' ', '')
         access_code = request.POST['access-code']
         user = authenticate(username=username, password=password, email=email)
         if not user:
