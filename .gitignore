@@ -69,3 +69,8 @@ yarn-debug.log*
 /public/uploads
 
 /MusicSite/env/*
+
+*.DS_Store
+*.swp
+
+*/.idea/*

@@ -113,9 +113,9 @@
                         </div>
                         <div style="width:60%;min-width:735px!important;margin-left:30px!important; height:25px;float:right;">
                             <a @click="deleteFile(i)" class="deleteButton" style="float:right;margin-top:7px;color:white;"><b>X</b></a>
-                                <input required style="float:right;margin-top:2px; margin-right:10px;" v-bind:id="file.name + '_text'" v-model="fileData[file.name].text" placeholder="Автор текста" class="inputText">
-                                <input required style="float:right;margin-top:2px; margin-right:10px;" v-bind:id="file.name + '_music'" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" >
-                            <input required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" v-bind:id="file.name + '_artis'" placeholder="Имя артиста" class="inputText">
+                                <input required style="float:right;margin-top:2px; margin-right:10px;" v-bind:name="file.name + '_text'" v-model="fileData[file.name].text" placeholder="Автор текста" class="inputText">
+                                <input required style="float:right;margin-top:2px; margin-right:10px;" v-bind:name="file.name + '_music'" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" >
+                            <input required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" v-bind:name="file.name + '_artis'" placeholder="Имя артиста" class="inputText">
                         </div>
                     </div>
                 </div>

@@ -222,8 +222,9 @@ def form(request):
 
 @csrf_exempt
 def index(request):
-    print(request.POST)
     print(request.FILES)
+    print(request.FILES.getlist('files')[0])
+    print(request.POST[str(request.FILES.getlist('files')[0])+'_text'])
 
     APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
