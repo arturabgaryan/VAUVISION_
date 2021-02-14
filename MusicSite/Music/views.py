@@ -29,6 +29,7 @@ from django.template import RequestContext
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 
 class PathExistsError:
     pass
@@ -36,6 +37,9 @@ class PathExistsError:
 
 @csrf_exempt
 def test(request):
+    print(request.POST)
+    print(request.FILES)
+
     context={}
     context.update(csrf(request))
     context['user'] = request.user
@@ -210,30 +214,36 @@ def send_email(request):
 
 
 def form(request):
+    if request.method == "POST":
+        print(request.POST)
+        print(request.FILES)
     return render(request,'index.html')
 
 
 @csrf_exempt
 def index(request):
+    print(request.FILES)
+    print(request.FILES.getlist('files')[0])
+    print(request.POST[str(request.FILES.getlist('files')[0])+'_text'])
+
     APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
-    files = request.FILES.getlist('files')
-    songInfo = request.POST['songInfo']
-    print(request.POST)
-    print(type(files[0]))
-    releaseType = request.POST['releaseType']
+
+    files = request.FILES['releaseCover']
+    print(files)
+
+    releasetype = request.POST['releaseType']
     releaseName = request.POST['releaseName']
-    if request.POST['filthyCheck'] == 'false':
-        filthyTracks = 'без мата'
-    else:
-        filthyTracks = request.POST['filthyTracks']
+
+    filthyTracks = request.POST.get('filthyCheck', '')
+
     releaseDate = request.POST['releaseDate']
     releasePlaces = request.POST['releasePlaces']
     releaseSubInfo = request.POST['releaseSubInfo']
-    if request.POST['videoCheck'] == 'true':
-        track_url = request.POST['clips']
-    else:
-        track_url = 'нет клипов'
+
+    track_url = request.POST.get('clips', '') if int(releasetype[21]) > 0 \
+        else 'нет клипов'
+
     info_songs = {}
     for e in request.POST:
         if ('.wav' in e) or ('.mp3' in e):
@@ -252,7 +262,6 @@ def index(request):
 
     try:
         user = User.objects.get(username=email)
-
     except:
         user = None
 
@@ -285,30 +294,21 @@ def index(request):
         new_request.contact = request.POST['vk']
         new_request.release_name = releaseName
         new_request.email = email
-        new_request.vk_style = request.POST['vkDecor']
+        new_request.vk_style = ""
         new_request.release_date = releaseDate
         new_request.filthy = filthyTracks
-        new_request.release_type = releaseType
-        day = str(datetime.now().day)
-        month = str(datetime.now().month)
-        year = str(datetime.now().year)
-
-        if len(day) == 1:
-            day = f'0{day}'
-        if len(month) == 1:
-            month = f'0{month}'
-
-        number = f'{day}{month}{year}'
-        new_request.number = number
+        new_request.release_type = releasetype
+        new_request.number = datetime.now().strftime("%d%m%Y")
         new_request.cover = request.FILES["releaseCover"]
         cover_format = new_request.cover.name.split(".")[-1]
         new_request.cover.name = f'cover__{new_request.email}.{cover_format}'
-
         new_request.save()
+
         try:
             textsFiles = request.FILES['musicTexts']
         except:
             textsFiles = None
+
         try:
             tiktok = request.POST['tiktokTime']
         except:
@@ -319,7 +319,7 @@ def index(request):
         except:
             genre = 'Не указан'
 
-        info_to_file = f"1) Краткая информация о релизе: \n\nВК автора {request.POST['vk']}\nПочта автора: {email}\nОформление карточни в ВК: {request.POST['vkDecor']}\nТип релиза: {releaseType}\nИмя релиза: {releaseName}\nТреки с матом: {filthyTracks}\nДата релиза: {releaseDate}\nПлощадки релиза: {releasePlaces}\nВоспроизводить трек в Tik Tok с {tiktok}c.\nЖанр: {genre}\nДоп. информация: {releaseSubInfo}\nПользователь узнал о лейбле: {request.POST['infoSource']}\nСсылка на клипы: {track_url}\n2) Треки:\n\n"
+        info_to_file = f"1) Краткая информация о релизе: \n\nВК автора {request.POST['vk']}\nПочта автора: {email}\nОформление карточни в ВК: Тип релиза: {releasetype}\nИмя релиза: {releaseName}\nТреки с матом: {filthyTracks}\nДата релиза: {releaseDate}\nПлощадки релиза: {releasePlaces}\nВоспроизводить трек в Tik Tok с {tiktok}c.\nЖанр: {genre}\nДоп. информация: {releaseSubInfo}\nПользователь узнал о лейбле: {request.POST['infoSource']}\nСсылка на клипы: {track_url}\n2) Треки:\n\n"
         for track in info_songs:
             new_track = Track()
             new_track.name = str(track).replace('.wav', '').replace('.mp3', '')
@@ -348,16 +348,6 @@ def index(request):
         if textsFiles != None:
             y.upload(path_or_file=io.BytesIO(textsFiles.read()), dst_path=f'{folder_path}/texts.docx')
 
-        for scan in request.FILES.getlist('scans'):
-            y.upload(path_or_file=io.BytesIO(scan.read()), dst_path=f'{folder_path}/passport_scan_{page}')
-
-            new_scan = Scan()
-            new_scan.photo = scan
-            new_scan.photo.name = f'scan__{new_request.email}__{page}.{new_scan.photo.name.split(".")[-1]}'
-            new_scan.request = new_request
-            new_scan.photo_url = new_scan.photo.name.split('/')[-1]
-            new_scan.save()
-            page += 1
         y.upload(path_or_file=io.BytesIO(info_to_file.encode('utf-8')), dst_path=f'{folder_path}/brief.txt')
 
     return redirect('https://vk.com/vauvisionlabel/')
@@ -748,3 +738,13 @@ def delete_request(request):
         y.upload(path_or_file=io.BytesIO(info_to_file.encode('utf-8')), dst_path=f'{folder_path}/brief.txt')
 
     return redirect('https://vk.com/vauvisionlabel/')'''
+
+
+@require_http_methods(["POST"])
+def form_push(request):
+    if not request.user.is_authenticated:
+        return redirect('/')
+
+    form = request.POST
+
+    return HttpResponse()
