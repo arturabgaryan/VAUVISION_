@@ -347,17 +347,17 @@ def index(request):
         if textsFiles != None:
             y.upload(path_or_file=io.BytesIO(textsFiles.read()), dst_path=f'{folder_path}/texts.docx')
 
-        for scan in request.FILES.getlist('scans'):
-            y.upload(path_or_file=io.BytesIO(scan.read()), dst_path=f'{folder_path}/passport_scan_{page}')
+        # for scan in request.FILES.getlist('scans'):
+            # y.upload(path_or_file=io.BytesIO(scan.read()), dst_path=f'{folder_path}/passport_scan_{page}')
 
-            new_scan = Scan()
-            new_scan.photo = scan
-            new_scan.photo.name = f'scan__{new_request.email}__{page}.{new_scan.photo.name.split(".")[-1]}'
-            new_scan.request = new_request
-            new_scan.photo_url = new_scan.photo.name.split('/')[-1]
-            new_scan.save()
-            page += 1
-        y.upload(path_or_file=io.BytesIO(info_to_file.encode('utf-8')), dst_path=f'{folder_path}/brief.txt')
+            # new_scan = Scan()
+            # new_scan.photo = scan
+            # new_scan.photo.name = f'scan__{new_request.email}__{page}.{new_scan.photo.name.split(".")[-1]}'
+            # new_scan.request = new_request
+            # new_scan.photo_url = new_scan.photo.name.split('/')[-1]
+            # new_scan.save()
+            # page += 1
+        # y.upload(path_or_file=io.BytesIO(info_to_file.encode('utf-8')), dst_path=f'{folder_path}/brief.txt')
 
     return redirect('https://vk.com/vauvisionlabel/')
 
