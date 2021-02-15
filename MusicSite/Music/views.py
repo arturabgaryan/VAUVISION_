@@ -418,7 +418,7 @@ def index(request):
 
         payment = Payment.create({
             "amount": {
-                "value": "100.00",
+                "value": str(cost),
                 "currency": "RUB"
             },
             "confirmation": {
