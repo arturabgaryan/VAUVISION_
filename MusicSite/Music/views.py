@@ -26,6 +26,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
 from django.core import exceptions
+import uuid
+from yookassa import Configuration, Payment
 
 
 class PathExistsError:
@@ -282,12 +284,12 @@ def index(request):
             body="""Добрый день!
 Вы отправили заявку на дистрибуцию на лейбле VAUVISION.\n
 Теперь у вас на сайте есть личный кабинет, где вы можете видеть свои загруженные релизы, договоры, получить отчёты о прослушиваниях и прочую информацию. Функционал кабинета постепенно будет пополняться.\n\n
-Логин: {} \n Пароль: {} \n\n
+Логин: {} \nПароль: {} \n\n
 Пожалуйста, сохраните логин и пароль от личного кабинета.Скоро на почту придет письмо с договором и дальнейшие инструкции.\n
 По всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel""".format(
                 email, generated_pass)
         ) != 0:
-            print("EMAIL WAS NOT SENT")
+            print("EMAIL WAS SENT")
 
     APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
@@ -355,7 +357,7 @@ def index(request):
             )
             track.save()
 
-            info_to_file += f"""Имя: {f}
+            info_to_file += f"""\nИмя: {f}
 Автор мелодии: {track.melody_author}
 Автор текста: {track.text_author}
 Исполнитель: {track.singer}\n\n"""
@@ -377,6 +379,8 @@ def index(request):
 Кем выдан: {paspinfo.when_given}
 Дата рождения: {paspinfo.data_born}
 Место регистрации: {paspinfo.place_born}
+Гражданство:{request.POST.get('COUNTRY', None)}
+Серия-номер:{request.POST.get('SERIE_NUM', None)}
 """
 
         folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name}"
@@ -397,11 +401,37 @@ def index(request):
                 path_or_file=io.BytesIO(textsFiles.read()),
                 dst_path=f'{folder_path}/texts.docx')
 
+        appFiles = request.FILES.get('CaraoceMusicTexts', None)
+        if textsFiles is not None:
+            y.upload(
+                path_or_file=io.BytesIO(appFiles.read()),
+                dst_path=f'{folder_path}/texts.ttml')
+
         y.upload(path_or_file=io.BytesIO(
             info_to_file.encode('utf-8')),
             dst_path=f'{folder_path}/brief.txt')
 
-    return redirect('https://vk.com/vauvisionlabel/')
+        cost = request.POST.get('cost')
+
+        Configuration.account_id = 777380
+        Configuration.secret_key = 'live_LVF05e4VifbQannin4i6BakLHjkECd1YpIlkR2SsOTI'
+
+        payment = Payment.create({
+            "amount": {
+                "value": "100.00",
+                "currency": "RUB"
+            },
+            "confirmation": {
+                "type": "redirect",
+                "return_url": "https://vk.com/vauvisionlabel/"
+            },
+            "capture": True,
+            "description": "Заказ №1"
+        }, uuid.uuid4())
+
+        confirmation_url = payment.confirmation.confirmation_url
+
+    return redirect(confirmation_url)
 
 
 def panel(request):
