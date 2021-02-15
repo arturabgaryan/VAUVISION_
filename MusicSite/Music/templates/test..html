@@ -94,6 +94,7 @@
                 </div>
                 </div>
                 <input name="releaseType" type="hidden" v-model="final">
+                <input name="cost" type="hidden" v-model="total">
             </div>
             <div style="text-align:center;margin-bottom:170px;">
                 <div style="width:100%;">
@@ -101,7 +102,7 @@
                     <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;margin:auto">Назовите файл трека по образцу: «# трека. Артист — Название». Например «1. КРЕСТ — SHiNE (prod. by CLONNEX)»<br>Формат .wav, разрядность 16 bit</span>
                 <div class="inputDiv" style="margin-bottom:15px; margin-top:15px;">
                     <label for="first_file">ДОБАВИТЬ ТРЕК</label>
-                    <input name="files" id="first_file" type="file" multiple @change="newFiles($event)"  style="display:none;" accept=".wav">
+                    <input required name="files" id="first_file" type="file" multiple @change="newFiles($event)"  style="display:none;" accept=".wav">
                 </div>
 
                 <span v-if="tracks>0" style="font-family:main;font-size:21px;color:#eb0202;margin-bottom:10px;">Имена авторов обязательны для заполнения, без них форма не будет отправлена!</span>
@@ -126,19 +127,19 @@
                 <div style="display:flex;min-width:1122px;">
                           <div style="width:50%;">
                     <label for="track_artist" class="text">Впишите псевдоним артиста<font color="red">*</font></label><br>
-                <input name="artistName" id="track_artist" placeholder=" Например: Eminem" class="artistINP" v-model="artistName"><br>
+                <input required name="artistName" id="track_artist" placeholder=" Например: Eminem" class="artistINP" v-model="artistName"><br>
                 <label for="track_names" class="text">Впишите название релиза<font color="red">*</font></label><br>
                 <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;">Если вы выбрали несколько релизов, впишите их названия через запятую</span>
-                <input name="releaseName" id="track_names" placeholder="Например: Recovery, Lose Yourself(сингл), Encore" class="artistINP" v-model="trackName"><br>
+                <input required name="releaseName" id="track_names" placeholder="Например: Recovery, Lose Yourself(сингл), Encore" class="artistINP" v-model="trackName"><br>
                 <label for="platform" class="text">Куда загружать релиз?<font color="red">*</font></label><br>
-                <select name="releasePlaces" id="platform" v-model="selectedOption_2" class="form-control" style="outline: none; width:100%;margin-bottom:-20px;">
+                <select required name="releasePlaces" id="platform" v-model="selectedOption_2" class="form-control" style="outline: none; width:100%;margin-bottom:-20px;">
                     <option>На все площадки</option>
                     <option>На все кроме Boom</option>
                     <option>Только Boom</option>
                     <option>Другое</option>
                 </select><br><br>
                 <label v-if="selectedOption_2 == 'Другое'" for="platform" class="text" style="magrin-top:50px;magrin-bottom:10px;">Укажите свой вариант<font color="red">*</font></label><br>
-                <input name="releasePlaces"  v-if="selectedOption_2 == 'Другое'" placeholder="" class="artistINP" v-model="platf"><br>
+                <input required name="releasePlaces"  v-if="selectedOption_2 == 'Другое'" placeholder="" class="artistINP" v-model="platf"><br>
                 <label for="date" class="text">Желаемая дата выхода (если всё равно, ставьте ближайшую пятницу)<font color="red">*</font></label><br>
                         <div id="date" style="width:300%; margin-bottom:20px;">
                     <el-date-picker
@@ -151,7 +152,7 @@
                 </div>
                 <label for="track_filthy" class="text">В треках есть мат?<font color="red">*</font></label><br>
                 <div class="form-group col-md-4">
-                <select name="filthyCheck" v-model="selectedOption" id="track_filthy" class="form-control" style="margin-left:-15px;outline: none; width:340%;">
+                <select required name="filthyCheck" v-model="selectedOption" id="track_filthy" class="form-control" style="margin-left:-15px;outline: none; width:340%;">
                     <option selected>Нет</option>
 
                     <option>Да</option>
@@ -159,7 +160,7 @@
                 </div>
                 <label v-if="selectedOption == 'Да'" for="filthyNum" class="text">Если есть, укажите номера треков, где есть мат<font color="red">*</font></label><br>
                 <span v-if="selectedOption == 'Да'" style="font-family:main;font-size:16px; color:#4d4d4d;">Если загружаем 1 трек, то ставьте 1</span><br>
-                <input name="filthyTracks" id="filthyNum" v-if="selectedOption == 'Да'" placeholder="Например: 1,2,4" class="artistINP" v-model="filthy"><br>
+                <input required name="filthyTracks" id="filthyNum" v-if="selectedOption == 'Да'" placeholder="Например: 1,2,4" class="artistINP" v-model="filthy"><br>
                 </div>
                 <div style="margin:auto;margin-left:260px;">
                   <img style="width:90%;height:90%" src="/static/images/background/3.jpg">
@@ -170,11 +171,11 @@
                 <div style="min-width:1122px;display:flex;">
                           <div style="width:90%;margin-right:130px;margin-top:200px;">
                     <label for="artistScan" class="text">Прикрепите обложку релиза<font color="red">*</font></label><br>
-                <input name="releaseCover" type="file" accept="image/*" id="artistScan" class="inp" @change="newCoverFiles($event)" style="margin-bottom:50px;"><br>
+                <input required name="releaseCover" type="file" accept="image/*" id="artistScan" class="inp" @change="newCoverFiles($event)" style="margin-bottom:50px;"><br>
                 <label  for="VK" class="text">Ссылка на вашу страницу в ВК для проверки и подписания договора <font color="red">*</font></label><br>
-                <input name="vk" type="url" v-model="link" id="VK" placeholder="https://vk.com/****" class="artistINP"><br>
+                <input required name="vk" type="url" v-model="link" id="VK" placeholder="https://vk.com/****" class="artistINP"><br>
                  <label for="email" class="text">Введите вашу почту<font color="red">*</font></label><br>
-                <input name="email"  type="email" v-model="email" id="email" placeholder="example@host.com" class="artistINP"><br>
+                <input required name="email"  type="email" v-model="email" id="email" placeholder="example@host.com" class="artistINP"><br>
                 </div>
                <div style="margin-top:70px;margin-left:260px">
                     <img style="width:90%;height:90%" src="/static/images/background/44.png">
@@ -187,9 +188,9 @@
                 <div style="display:flex;min-width:1122px;">
                           <div style="width:100%;">
                 <label for="grajdanstvo" class="text">Гражданство<font color="red">*</font></label><br>
-                <input name="COUNTRY" v-model="grajdanstvo" id="grajdanstvo" placeholder=" Например: РФ / Украина / Беларусь / Казахстан " class="artistINP"><br>
+                <input required name="COUNTRY" v-model="grajdanstvo" id="grajdanstvo" placeholder=" Например: РФ / Украина / Беларусь / Казахстан " class="artistINP"><br>
                 <label  for="fio" class="text">ФИО (в именительном падеже)<font color="red">*</font></label><br>
-                <input name="FULLNAME" v-model="fio" id="fio" placeholder=" Например: Иванов Иван Иванович" class="artistINP"><br>
+                <input required name="FULLNAME" v-model="fio" id="fio" placeholder=" Например: Иванов Иван Иванович" class="artistINP"><br>
                 <div style="display:flex">
                      <div style="width:100%">
                          <label  for="seria" class="text">Серия и номер паспорта (либо удостоверения)<font color="red">*</font></label><br>
@@ -197,13 +198,13 @@
                      </div>
                 </div>
                 <label  for="given_by" class="text">Кем выдан<font color="red">*</font></label><br>
-                <input name="GIVEN_BY" v-model="given_by" id="given_by" placeholder=" Например: ГУ МВД РОССИИ ПО Г.МОСКВЕ " class="artistINP"><br>
+                <input required name="GIVEN_BY" v-model="given_by" id="given_by" placeholder=" Например: ГУ МВД РОССИИ ПО Г.МОСКВЕ " class="artistINP"><br>
                 <label for="giving_date" class="text">Дата выдачи<font color="red">*</font></label><br>
-                <input name="GIVEN_DATE" v-model="giving_date" id="giving_date" maxlength="10" placeholder="Например: 31/12/2020" class="unstyled" onkeydown="this.value=this.value.replace(/^(\d\d)(\d)$/g,'$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g,'$1/$2').replace(/[^\d\/]/g,'')"><br>
+                <input required name="GIVEN_DATE" v-model="giving_date" id="giving_date" maxlength="10" placeholder="Например: 31/12/2020" class="unstyled" onkeydown="this.value=this.value.replace(/^(\d\d)(\d)$/g,'$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g,'$1/$2').replace(/[^\d\/]/g,'')"><br>
                  <label for="birth" class="text">Дата рождения<font color="red">*</font></label><br>
-                <input name="BIRTH_DATE" v-model="birth" id="birth" maxlength="10" placeholder="Например: 31/12/2020" class="unstyled" onkeydown="this.value=this.value.replace(/^(\d\d)(\d)$/g,'$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g,'$1/$2').replace(/[^\d\/]/g,'')"><br>
+                <input required name="BIRTH_DATE" v-model="birth" id="birth" maxlength="10" placeholder="Например: 31/12/2020" class="unstyled" onkeydown="this.value=this.value.replace(/^(\d\d)(\d)$/g,'$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g,'$1/$2').replace(/[^\d\/]/g,'')"><br>
                 <label for="adress" class="text">Адрес регистрации / вашей прописки полностью, как в документе<font color="red">*</font></label><br>
-                <input name="REGISTRATION" v-model="adress" id="adress" placeholder=" Например: Ленинский проспект 63" class="artistINP"><br>
+                <input required name="REGISTRATION" v-model="adress" id="adress" placeholder=" Например: Ленинский проспект 63" class="artistINP"><br>
                 </div>
                 <div style="margin-left:130px;">
                       <img src="/static/images/background/55.png">
@@ -240,7 +241,7 @@
                 <div style="display:flex;min-width:1122px;">
                           <div style="width:100%;">
                               <label for="where" class="text">Как вы о нас узнали?<font color="red">*</font></label><br>
-                <select name="infoSource" id="where" v-model="selectedOption_3" class="form-control" style="outline: none; width:100%;margin-bottom:40px;">
+                <select required name="infoSource" id="where" v-model="selectedOption_3" class="form-control" style="outline: none; width:100%;margin-bottom:40px;">
                     <option>Увидел рекламу в Instagram</option>
                     <option>Увидел рекламу в VK</option>
                     <option>Увидел рекламу в TikTok</option>
@@ -409,21 +410,21 @@
                     }
                 })
             },
-            uploadFiles: function(){
-            let UplData = new FormData()
-            let val = document.getElementById("songInfo")
-              val.setAttribute('value', this.fileData)
-            this.files.forEach((file) => {
-            alert(file)
-             UplData.append('file1', file)
-            })
-            alert(UplData)
+<!--            uploadFiles: function(){-->
+<!--            let UplData = new FormData()-->
+<!--            let val = document.getElementById("songInfo")-->
+<!--              val.setAttribute('value', this.fileData)-->
+<!--            this.files.forEach((file) => {-->
+<!--            alert(file)-->
+<!--             UplData.append('file1', file)-->
+<!--            })-->
+<!--            alert(UplData)-->
 
-            fetch('http://194.67.112.134:8000/index', {
-            method: "POST",
-            body: UplData
-            })
-            },
+<!--            fetch('http://194.67.112.134:8000/index', {-->
+<!--            method: "POST",-->
+<!--            body: UplData-->
+<!--            })-->
+<!--            },-->
             deleteScanFile: function (idx) {
             this.counter2 -= 1
                 const {[idx]: propValue, ...rest} = this.scanfiles
