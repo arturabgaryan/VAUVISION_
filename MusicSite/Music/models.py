@@ -38,19 +38,25 @@ class Track(models.Model):
     release_date = models.DateField(default=None)
 
 
-class Scan(models.Model):
-    photo = models.ImageField(upload_to='Music/static/images/scans')
-    photo_url = models.CharField(max_length=500,default=None)
-    request = models.ForeignKey(DocsRequest, on_delete=models.CASCADE)
-
-
 class PaspInfo(models.Model):
     full_name = models.CharField(max_length=500,default=None)
     who_given = models.CharField(max_length=500,default=None)
     when_given = models.CharField(max_length=500,default=None)
     data_born = models.CharField(max_length=500,default=None)
     place_born = models.CharField(max_length=500,default=None)
+    grajdanstvo = models.CharField(max_length=500,default=None)
+    artist_name = models.CharField(max_length=1000,default=None)
+    seria_num = models.CharField(max_length=500,default=None)
     email = models.CharField(max_length=500,default=None)
+
+
+class Scan(models.Model):
+    pass
+
+
+class PromoCodes(models.Model):
+    name = models.CharField(max_length=500,default=None)
+    value = models.FloatField(default=None)
 
 
 
