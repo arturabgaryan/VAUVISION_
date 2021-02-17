@@ -77,7 +77,7 @@
                 <br>
                 <h2 style="text-decoration: underline" class="subtitle is-4">Список активных промокодов:</h2>
                 {% for code in promocodes %}
-                <p style="text-transform:none!important; font-family:mainCodes;">{{code.name}}</p>
+                <p style="text-transform:none!important; font-family:mainCodes;">{{code.name}} - {{code.value}}%</p>
                 {% endfor %}
             </div>
         </div>
