@@ -20,7 +20,7 @@
                     {% endfor %}
                     <br>
                     <label for="" class="label">Псевдоним</label>
-                    <input name="NAME" placeholder="Например: PHARAOH" required type="text" class="input"><br><br>
+                    <input name="NAME" placeholder="Например: PHARAOH" required type="text" class="input" value="{{pasp_info.artist_name}}"><br><br>
                     <label for="" class="label">ФИО</label>
                     {% if pasp_info == None %}
                     <input type="text" placeholder="Например: Иванов Иван Иванович" required name="FULLNAME"
@@ -58,7 +58,7 @@
                            type="text" value="{{pasp_info.place_born}}" class="input"><br><br>
                     {% endif %}
                     <label for="" class="label">Серия-Номер паспорта</label>
-                    <input type="number" required name="PASSPORT_SERIE" placeholder="Например: 4444"
+                    <input type="text" required name="PASSPORT_SERIE" placeholder="Например: 4444-666666"
                                    class="input" value="{{pasp_info.seria_num}}">
                     <label for="" class="label">Кем выдан</label>
                     {% if pasp_info == None %}
