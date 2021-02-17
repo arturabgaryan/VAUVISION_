@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from Music.models import AuthCodes, Counter, DocsRequest, Track, Scan, PaspInfo
+from Music.models import AuthCodes, Counter, DocsRequest, Track, PaspInfo,PromoCodes
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password
@@ -198,10 +198,8 @@ def create(request):
 def log_in(request):
     log = request.POST.get('usrnm', None)
     pwd = request.POST.get('psw', None).replace(' ', '')
-    print(len(pwd))
     if log and pwd:
         user = authenticate(request, username=log, password=pwd)
-        print(user)
         if user is not None:
             login(request, user)
             return redirect('/main')
@@ -285,8 +283,8 @@ def index(request):
 Вы отправили заявку на дистрибуцию на лейбле VAUVISION.\n
 Теперь у вас на сайте есть личный кабинет, где вы можете видеть свои загруженные релизы, договоры, получить отчёты о прослушиваниях и прочую информацию. Функционал кабинета постепенно будет пополняться.\n\n
 Логин: {} \nПароль: {} \n\n
-Пожалуйста, сохраните логин и пароль от личного кабинета.Скоро на почту придет письмо с договором и дальнейшие инструкции.\n
-По всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel""".format(
+Пожалуйста, сохраните логин и пароль от личного кабинета. Скоро на почту придет письмо с договором и дальнейшие инструкции.\n
+По всем возникающим вопросам пишите в сообщения паблика https://vk.com/vauvisionlabel, либо в телеграмм https://teleg.run/vauvision_bot""".format(
                 email, generated_pass)
         ) != 0:
             print("EMAIL WAS SENT")
@@ -369,6 +367,8 @@ def index(request):
             when_given=request.POST.get('GIVEN_DATE', None),
             data_born=request.POST.get('BIRTH_DATE', None),
             place_born=request.POST.get('REGISTRATION', None),
+            grajdanstvo=request.POST.get('COUNTRY', None),
+            seria_num=request.POST.get('SERIE_NUM', None),
             email=email
         )
         paspinfo.save()
@@ -412,7 +412,19 @@ def index(request):
             dst_path=f'{folder_path}/brief.txt')
 
         cost = request.POST.get('cost')
+        try:
+            code = request.POST.get('code')
+        except:
+            code = None
 
+        code_val = 1
+        try:
+            PromoCode = PromoCodes.objects.get(name=code)
+            code_val = PromoCode.value
+        except:
+            pass
+
+        cost = int(cost)*(1-(int(code_val)/100))
         Configuration.account_id = 777380
         Configuration.secret_key = 'live_LVF05e4VifbQannin4i6BakLHjkECd1YpIlkR2SsOTI'
 
@@ -458,9 +470,13 @@ def admin_login(request):
         pwd = request.POST['password']
         username = request.POST['username']
         user = authenticate(username=username, password=pwd)
-        if user.is_superuser:
-            login(request, user)
-            return redirect('/form-admin')
+        if user is not None:
+            if user.is_superuser:
+                login(request, user)
+                return redirect('/form-admin')
+            else:
+                return render(request, 'admin-panel/pages/login_page.html', {
+                    'login_error': 'Пользователя не существует'})
         else:
             return render(request, 'admin-panel/pages/login_page.html', {
                 'login_error': 'Пользователя не существует'})
@@ -515,7 +531,6 @@ def change_name(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
             name, id = request.GET['name'], request.GET['id']
-            print(name)
             track = Track.objects.get(pk=id)
             track.name = name
             track.save()
@@ -552,13 +567,9 @@ def submit_request(request):
                     pasp_info = PaspInfo.objects.get(email=current_request.email)
                 except:
                     pasp_info = None
-                print(pasp_info)
-                scans = Scan.objects.filter(request=current_request).all()
-                for scan in scans:
-                    scan.photo_url = scan.photo.name.split('/')[-1]
                 tracks = Track.objects.filter(request=current_request).all()
                 return render(request, 'admin-panel/pages/submit.html',
-                              {'request': current_request, 'scans': scans, 'tracks': tracks, 'pasp_info' : pasp_info})
+                              {'request': current_request, 'tracks': tracks, 'pasp_info' : pasp_info})
             else:
                 APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
                 y = yadisk.YaDisk(token=APP_TOKEN)
@@ -589,7 +600,6 @@ def submit_request(request):
                     'INITIALS': request.POST['INITIALS'],
                     'BIRTH_PLACE': request.POST['BIRTH_PLACE'],
                     'PASSPORT_SERIE': request.POST['PASSPORT_SERIE'],
-                    'PASSPORT_NUMBER': request.POST['PASSPORT_NUMBER'],
                     'GIVEN_BY': request.POST['GIVEN_BY'],
                     'GIVEN_DATE': request.POST['GIVEN_DATE'],
                     'REGISTRATION': request.POST['REGISTRATION'],
@@ -648,7 +658,7 @@ def submit_request(request):
                 server.send_message(msg)
                 server.quit()
                 current_request = DocsRequest.objects.filter(id=request_id).delete()
-                Scan.objects.filter(request=current_request).delete()
+
                 #os.rename(f'{offer_name}.pdf', f'static/documents/{offer_name}.pdf')
                 counter = Counter()
                 counter.number = sum_request.number
@@ -667,7 +677,6 @@ def delete_request(request):
             if request.method == 'GET':
                 request_id = request.GET['id']
                 current_request = DocsRequest.objects.filter(id=request_id).get()
-                Scan.objects.filter(request=current_request).delete()
                 Track.objects.filter(request=current_request).delete()
                 current_request.delete()
             return redirect('/form-admin')
@@ -675,6 +684,35 @@ def delete_request(request):
             return redirect('/form-admin/login/')
     else:
         return redirect('/form-admin/login/')
+
+
+def createcode(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            if request.method == 'POST':
+                code = PromoCodes.objects.create(
+                    name=request.POST.get('code_name',None),
+                    value=request.POST.get('value',None)
+                )
+                code.save()
+            return redirect('/form-admin')
+        else:
+            return redirect('/form-admin/login/')
+    else:
+        return redirect('/form-admin/login/')
+
+
+def deletecode(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            if request.method == 'POST':
+                PromoCodes.objects.filter(name=request.POST.get('delete_code',None)).delete()
+            return redirect('/form-admin')
+        else:
+            return redirect('/form-admin/login/')
+    else:
+        return redirect('/form-admin/login/')
+
 
 
 
