@@ -454,7 +454,8 @@ def panel(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
             scan_requests = DocsRequest.objects.all()
-            return render(request, 'admin-panel/pages/admin.html', {'scan_requests': scan_requests})
+            promocodes = PromoCodes.objects.all()
+            return render(request, 'admin-panel/pages/admin.html', {'scan_requests': scan_requests,'promocodes':promocodes})
         else:
             return redirect('/form-admin/login')
     else:
