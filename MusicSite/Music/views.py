@@ -369,6 +369,7 @@ def index(request):
             place_born=request.POST.get('REGISTRATION', None),
             grajdanstvo=request.POST.get('COUNTRY', None),
             seria_num=request.POST.get('SERIE_NUM', None),
+            artist_name=request.POST.get('artistName', None),
             email=email
         )
         paspinfo.save()
