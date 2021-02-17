@@ -424,8 +424,11 @@ def index(request):
             code_val = PromoCode.value
         except:
             pass
-
-        cost = int(cost)*(1-(int(code_val)/100))
+        print(code_val)
+        if code_val != 1:
+            cost = int(cost) * (1 - (int(code_val) / 100))
+        else:
+            pass
         Configuration.account_id = 777380
         Configuration.secret_key = 'live_LVF05e4VifbQannin4i6BakLHjkECd1YpIlkR2SsOTI'
 
