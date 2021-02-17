@@ -3,7 +3,7 @@
 {% block content %}
     <section class="content section container">
         <h1>Админ панель</h1>
-        <div class="columns">
+        <div class="columns" style="text-transform:none;">
             <div class="column is-half">
                 <h2 style="text-decoration: underline" class="subtitle is-4">Заявки</h2>
                 {% for s_request in scan_requests %}
@@ -73,6 +73,12 @@
                     <input name="delete_code" required placeholder="VAUVISION-PROMOCODE" type="text" class="input"><br><br>
                     <button type="submit" class="button">Удалить</button>
                 </form>
+                <br>
+                <br>
+                <h2 style="text-decoration: underline" class="subtitle is-4">Список активных промокодов:</h2>
+                {% for code in promocodes %}
+                <p style="text-transform:none!important; font-family:mainCodes;">{{code.name}}</p>
+                {% endfor %}
             </div>
         </div>
 
