@@ -329,6 +329,7 @@ def index(request):
             release_type=request.POST.get('releaseType', None),
             number=datetime.now().strftime("%d%m%Y"),
             cover=request.FILES.get('releaseCover', None),
+            artisi_name=request.POST.get('artistName',None)
         )
         docsrequest.cover.name = 'cover__{}.{}'.format(
             email,
@@ -341,16 +342,22 @@ def index(request):
 
         info_to_file = f"""1) Краткая информация о релизе: \n
 ВК автора {docsrequest.contact}
+Spotify:{request.POST.get('spotify',None)}
+Карточка AppleMusic:{request.POST.get('appmusic',None)}
 Почта автора: {email}
+----------------------------------------------------------------
 Оформление карточни в ВК: Тип релиза: {docsrequest.release_type}
 Имя релиза: {docsrequest.release_name}
+Имя артиста: {request.POST.get('artistName', None)}
 Треки с матом: {docsrequest.filthy}
 Дата релиза: {docsrequest.release_date}
 Площадки релиза: {request.POST.get('releasePlaces', None)}
 Воспроизводить трек в Tik Tok с {tiktok}c.
 Жанр: {genre}
 Доп. информация: {request.POST.get('releaseSubInfo', None)}
-Пользователь узнал о лейбле: {request.POST.get('infoSource', None)}"""
+Промо-план: {request.POST.get('promo-plan',None)}
+Пользователь узнал о лейбле: {request.POST.get('infoSource', None)}
+----------------------------------------------------------------"""
 
         files = [key for key, value in request.POST.items() if 'text' in key]
         files = [i.split("_")[0] for i in files]
@@ -380,9 +387,13 @@ def index(request):
 
 
         info_to_file += f"""
+
+\n\n
+-----------------------------------------------
 Паспортные данные:
 ФИО: {paspinfo.full_name}
-Кем выдан: {paspinfo.when_given}
+Даиа выдачт: {paspinfo.when_given}
+Кем выдан: {paspinfo.who_given}
 Дата рождения: {paspinfo.data_born}
 Место регистрации: {paspinfo.place_born}
 Гражданство:{request.POST.get('COUNTRY', None)}
@@ -447,7 +458,8 @@ def index(request):
                 "return_url": "https://vk.com/vauvisionlabel/"
             },
             "capture": True,
-            "description": "Заказ №1"
+            "description": "Заказ {} - {}".format(request.POST.get('releaseName', None).replace(
+                    " ", "__"),request.POST.get('artistName', None))
         }, uuid.uuid4())
 
         confirmation_url = payment.confirmation.confirmation_url
@@ -607,11 +619,10 @@ def submit_request(request):
                     'BIRTH_DATE': request.POST['BIRTH_DATE'],
                     'NUMBER': f'{sum_request.number}-{count}',
                     'INITIALS': request.POST['INITIALS'],
-                    'BIRTH_PLACE': request.POST['BIRTH_PLACE'],
                     'PASSPORT_SERIE': request.POST['PASSPORT_SERIE'],
                     'GIVEN_BY': request.POST['GIVEN_BY'],
                     'GIVEN_DATE': request.POST['GIVEN_DATE'],
-                    'REGISTRATION': request.POST['REGISTRATION'],
+                    'REGISTRATION': request.POST['BIRTH_PLACE'],
                     'VK': sum_request.contact,
                     'MONTH': f'{months[datetime.now().month]} ',
                     'IMAGE': InlineImage(doc, image_descriptor=f'{sum_request.cover}', width=Mm(100)),
