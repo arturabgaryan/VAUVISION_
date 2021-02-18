@@ -502,7 +502,23 @@
         },
         computed: {
             total: function () {
-                return this.singles * 1300 + this.albumns * 1800 + this.thousands * 1300 + this.hundreds * 490
+            var cost = 0
+            if(this.singles == 1 && this.hundreds == 1 && this.thousands == 0 && this.albumns == 0){
+            cost += 1790
+            }
+            else if(this.singles == 0 && this.hundreds == 1 && this.thousands == 0 && this.albumns == 1){
+            cost += 2290
+            }
+            else if(this.singles == 3 && this.hundreds == 0 && this.thousands == 0 && this.albumns == 0){
+            cost += 3290
+            }
+            else if(this.singles >= 5 ){
+            cost += this.singles * 1000 + this.albumns * 1800 + this.thousands * 1300 + this.hundreds * 600
+            }
+            else{
+                cost += this.singles * 1300 + this.albumns * 1800 + this.thousands * 1300 + this.hundreds * 600
+                }
+            return cost
             },
             final: function () {
                 return "Синглы - " + this.singles + ";Альбомы - " + this.albumns + ";Клипы - " + this.thousands + ";Карточка - " + this.hundreds
