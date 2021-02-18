@@ -361,21 +361,21 @@ def index(request):
 Исполнитель: {track.singer}\n\n"""
 
 
-       try:
-           pasp_info = PaspInfo.objects.get(email=email)
-       except:
-           paspinfo = PaspInfo.objects.create(
-               full_name=request.POST.get('FULLNAME', None),
-               who_given=request.POST.get('GIVEN_BY', None),
-               when_given=request.POST.get('GIVEN_DATE', None),
-               data_born=request.POST.get('BIRTH_DATE', None),
-               place_born=request.POST.get('REGISTRATION', None),
-               grajdanstvo=request.POST.get('COUNTRY', None),
-               seria_num=request.POST.get('SERIE_NUM', None),
-               artist_name=request.POST.get('artistName', None),
-               email=email
-           )
-           paspinfo.save()
+            try:
+                pasp_info = PaspInfo.objects.get(email=email)
+            except:
+                paspinfo = PaspInfo.objects.create(
+                    full_name=request.POST.get('FULLNAME', None),
+                    who_given=request.POST.get('GIVEN_BY', None),
+                    when_given=request.POST.get('GIVEN_DATE', None),
+                    data_born=request.POST.get('BIRTH_DATE', None),
+                    place_born=request.POST.get('REGISTRATION', None),
+                    grajdanstvo=request.POST.get('COUNTRY', None),
+                    seria_num=request.POST.get('SERIE_NUM', None),
+                    artist_name=request.POST.get('artistName', None),
+                    email=email
+                )
+                paspinfo.save()
 
         info_to_file += f"""
 Паспортные данные:
