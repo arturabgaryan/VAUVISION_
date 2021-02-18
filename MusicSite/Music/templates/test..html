@@ -254,7 +254,7 @@
                 <input name="infoSource" v-model="adv" v-if="selectedOption_3 == 'Другое'" placeholder="" class="artistINP"><br>
                 <label for="tictoc" class="text">Дополнительные комментарии</label><br>
                 <textarea name="releaseSubInfo" placeholder="Пишите всё, что хотите нам сказать о вашем релизе. Все пожелания и уточнения" style="margin-bottom:50px;"></textarea>
-                <label for="tictoc" class="text">Промо-план релиза для редкаторов площадок</label><br>
+                <label for="tictoc" class="text">Промо-план релиза для редакторов площадок</label><br>
                 <textarea name="promo-plan" placeholder="Добавьте кратко информацию об артисте, готовящемся релизе (1-2 предложения), где и с каким бюджетом будет делаться реклама (если планируется). Эта информация повысит шансы на получение поддержки от площадок" style="margin-bottom:5but0px;"></textarea><br>
                 <label for="promocode" class="text">Промокод</label>
                 <input type="text" class="artistINP" id="promocode" name="code">
@@ -508,6 +508,12 @@
             }
             else if(this.singles == 0 && this.hundreds == 1 && this.thousands == 0 && this.albumns == 1){
             cost += 2290
+            }
+            else if(this.singles == 1 && this.hundreds == 0 && this.thousands == 0 && this.albumns == 1){
+            cost += 2890
+            }
+             else if(this.singles == 1 && this.hundreds == 1 && this.thousands == 0 && this.albumns == 1){
+            cost += 3380
             }
             else if(this.singles == 3 && this.hundreds == 0 && this.thousands == 0 && this.albumns == 0){
             cost += 3290
