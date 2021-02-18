@@ -572,6 +572,7 @@ def submit_request(request):
                     pasp_info = PaspInfo.objects.get(email=current_request.email)
                 except:
                     pasp_info = None
+                print(pasp_info)
                 tracks = Track.objects.filter(request=current_request).all()
                 return render(request, 'admin-panel/pages/submit.html',
                               {'request': current_request, 'tracks': tracks, 'pasp_info' : pasp_info})
