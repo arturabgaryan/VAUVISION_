@@ -23,7 +23,7 @@ class DocsRequest(models.Model):
     number = models.CharField(max_length=100)
     cover = models.ImageField(upload_to='Music/static/images/covers')
     release_type = models.CharField(max_length=150)
-    artisi_name = models.CharField(max_length=500)
+    artisi_name = models.CharField(max_length=500,default=None)
     vk_style = models.CharField(max_length=5)
 
 
