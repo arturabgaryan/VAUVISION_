@@ -403,7 +403,7 @@ def index(request):
                 dst_path=f'{folder_path}/texts.docx')
 
         appFiles = request.FILES.get('CaraoceMusicTexts', None)
-        if textsFiles is not None:
+        if appFiles is not None:
             y.upload(
                 path_or_file=io.BytesIO(appFiles.read()),
                 dst_path=f'{folder_path}/texts.ttml')
@@ -418,15 +418,15 @@ def index(request):
         except:
             code = None
 
-        code_val = 1
+        code_val = 0
         try:
             PromoCode = PromoCodes.objects.get(name=code)
             code_val = PromoCode.value
         except:
             pass
         print(code_val)
-        if code_val != 1:
-            cost = int(cost) * (1 - (int(code_val) / 100))
+        if code_val != 0:
+            cost = int(cost) - int(code_val)
         else:
             pass
         Configuration.account_id = 777380
