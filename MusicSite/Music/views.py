@@ -570,7 +570,7 @@ def submit_request(request):
                 request_id = request.GET['id']
                 current_request = DocsRequest.objects.get(pk=request_id)
 
-                pasp_info = PaspInfo.objects.get(email=current_request.email)
+                pasp_info = PaspInfo.objects.get(email=current_request.release_name)
 
                 print(pasp_info)
                 tracks = Track.objects.filter(request=current_request).all()
