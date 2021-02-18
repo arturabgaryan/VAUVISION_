@@ -294,9 +294,9 @@ def index(request):
 
     name = request.POST.get('releaseName', None).replace(
                     " ", "__"),
-    
+
     try:
-        pasp_info = PaspInfo.objects.get(email=email)
+        paspinfo = PaspInfo.objects.get(email=email)
     except:
         paspinfo = PaspInfo.objects.create(
             full_name=request.POST.get('FULLNAME', None),
