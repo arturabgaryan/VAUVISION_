@@ -568,10 +568,8 @@ def submit_request(request):
             if request.method == 'GET':
                 request_id = request.GET['id']
                 current_request = DocsRequest.objects.get(pk=request_id)
-                try:
-                    pasp_info = PaspInfo.objects.get(email=current_request.email)
-                except:
-                    pasp_info = None
+
+                pasp_info = PaspInfo.objects.get(email=current_request.email)
                 print(pasp_info)
                 tracks = Track.objects.filter(request=current_request).all()
                 return render(request, 'admin-panel/pages/submit.html',
