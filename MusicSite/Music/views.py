@@ -370,7 +370,8 @@ def index(request):
             grajdanstvo=request.POST.get('COUNTRY', None),
             seria_num=request.POST.get('SERIE_NUM', None),
             artist_name=request.POST.get('artistName', None),
-            email=email
+            email=request.POST.get('releaseName',None).replace(
+                    " ", "__")
         )
         paspinfo.save()
 
@@ -570,6 +571,7 @@ def submit_request(request):
                 current_request = DocsRequest.objects.get(pk=request_id)
 
                 pasp_info = PaspInfo.objects.get(email=current_request.email)
+
                 print(pasp_info)
                 tracks = Track.objects.filter(request=current_request).all()
                 return render(request, 'admin-panel/pages/submit.html',
