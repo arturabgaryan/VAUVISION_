@@ -1,0 +1,170 @@
+@font-face {
+    font-family: main;
+    src: url("/static/fonts/bebasneue/bebasneueregular.ttf");
+}
+
+@font-face {
+    font-family: forTitles;
+    src: url("/static/fonts/bebasneue/bebasneueregular.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: buttons;
+    src: url("/static/fonts/oswald/Oswald-Regular.ttf");
+}
+@font-face {
+    font-family: mainCodes;
+    src: url("/static/fonts/montserrat/Montserrat-Medium.ttf");
+}
+
+
+body {
+    background: url("../images/background/background.jpeg");
+    background-size: cover;
+    padding-bottom: 8%;
+    min-height: 100vh;
+    color: white;
+    font-family: main;
+    font-size: 18px;
+}
+
+.content h1, h2.title, h2.subtitle {
+    color: white;
+}
+
+.subtitle {
+    color: white;
+}
+
+label.label {
+    color: white;
+    font-size: 20px;
+}
+
+.container {
+    margin-top: 9%;
+    padding: 5%;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.navbar-brand {
+    padding-left: 4%;
+}
+
+.column, th {
+    color: white;
+}
+
+.section-title span {
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.section-title {
+    text-align: center;
+    font-family: forTitles;
+}
+
+.section-title h2.title {
+    font-size: 35px;
+    margin-bottom: 5%;
+}
+
+.button {
+    text-transform: uppercase;
+    background: none;
+    border-radius: 10px;
+    font-family: buttons;
+    color: white;
+}
+
+input, textarea {
+    font-family: buttons;
+}
+
+.button:hover {
+    transition: 0.3s;
+    background: white;
+    color: black;
+}
+
+.card .card-content .content {
+    color: black;
+}
+
+.card {
+    border-radius: 10px;
+    border: 0
+}
+
+.card .card-content time {
+    color: black;
+}
+
+span.highlighting {
+    background-color: #C48F2D;
+    padding: 3px;
+    padding-top: 5px;
+    font-weight: bold;
+}
+
+span.subinfo {
+    color: grey !important;
+    font-size: 15px;
+}
+
+.content table thead td, .content table thead th {
+    color: white;
+}
+
+
+.card-header-title {
+    word-break: break-word;
+}
+
+/* preloader */
+
+.loading-screen {
+    transition: 0.2s;
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+.loading-bar {
+    width: auto;
+    height: 2px;
+    background: #cfcfcf;
+    margin-top: 22px;
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-bar::before {
+    content: '';
+    width: 40%;
+    height: 2px;
+    background: #0073b1;
+    position: absolute;
+    left: -34px;
+    animation: bluebar 1.5s infinite ease;
+}
+
+@keyframes bluebar {
+    50% {
+        left: 60%;
+    }
+}

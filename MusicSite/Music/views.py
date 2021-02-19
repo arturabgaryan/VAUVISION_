@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from Music.models import AuthCodes, Counter, DocsRequest, Track, Scan, PaspInfo
+from Music.models import AuthCodes, Counter, DocsRequest, Track, PaspInfo,PromoCodes
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password
@@ -26,6 +26,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponse
 from django.core import exceptions
+import uuid
+from yookassa import Configuration, Payment
+from django.template.loader import render_to_string
 
 
 class PathExistsError:
@@ -196,10 +199,8 @@ def create(request):
 def log_in(request):
     log = request.POST.get('usrnm', None)
     pwd = request.POST.get('psw', None).replace(' ', '')
-    print(len(pwd))
     if log and pwd:
         user = authenticate(request, username=log, password=pwd)
-        print(user)
         if user is not None:
             login(request, user)
             return redirect('/main')
@@ -282,18 +283,34 @@ def index(request):
             body="""Добрый день!
 Вы отправили заявку на дистрибуцию на лейбле VAUVISION.\n
 Теперь у вас на сайте есть личный кабинет, где вы можете видеть свои загруженные релизы, договоры, получить отчёты о прослушиваниях и прочую информацию. Функционал кабинета постепенно будет пополняться.\n\n
-Логин: {} \n Пароль: {} \n\n
-Пожалуйста, сохраните логин и пароль от личного кабинета.Скоро на почту придет письмо с договором и дальнейшие инструкции.\n
-По всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel""".format(
+Логин: {} \nПароль: {} \n\n
+Пожалуйста, сохраните логин и пароль от личного кабинета. Скоро на почту придет письмо с договором и дальнейшие инструкции.\n
+По всем возникающим вопросам пишите в сообщения паблика https://vk.com/vauvisionlabel, либо в телеграмм https://teleg.run/vauvision_bot""".format(
                 email, generated_pass)
         ) != 0:
-            print("EMAIL WAS NOT SENT")
+            print("EMAIL WAS SENT")
 
-    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     name = request.POST.get('releaseName', None).replace(
-                    " ", "__"),
+                    " ", "__")
+
+    try:
+        paspinfo = PaspInfo.objects.get(email=email)
+    except:
+        paspinfo = PaspInfo.objects.create(
+            full_name=request.POST.get('FULLNAME', None),
+            who_given=request.POST.get('GIVEN_BY', None),
+            when_given=request.POST.get('GIVEN_DATE', None),
+            data_born=request.POST.get('BIRTH_DATE', None),
+            place_born=request.POST.get('REGISTRATION', None),
+            grajdanstvo=request.POST.get('COUNTRY', None),
+            seria_num=request.POST.get('SERIE_NUM', None),
+            artist_name=request.POST.get('artistName', None),
+            email=email
+        )
+        paspinfo.save()
 
     if name not in [directory.name for directory in list(
         y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
@@ -313,6 +330,7 @@ def index(request):
             release_type=request.POST.get('releaseType', None),
             number=datetime.now().strftime("%d%m%Y"),
             cover=request.FILES.get('releaseCover', None),
+            artisi_name=request.POST.get('artistName',None)
         )
         docsrequest.cover.name = 'cover__{}.{}'.format(
             email,
@@ -323,22 +341,11 @@ def index(request):
         tiktok = request.POST.get('tiktokTime', None)
         genre = request.POST.get('releaseGenre', 'Не указан')
 
-        info_to_file = f"""1) Краткая информация о релизе: \n
-ВК автора {docsrequest.contact}
-Почта автора: {email}
-Оформление карточни в ВК: Тип релиза: {docsrequest.release_type}
-Имя релиза: {docsrequest.release_name}
-Треки с матом: {docsrequest.filthy}
-Дата релиза: {docsrequest.release_date}
-Площадки релиза: {request.POST.get('releasePlaces', None)}
-Воспроизводить трек в Tik Tok с {tiktok}c.
-Жанр: {genre}
-Доп. информация: {request.POST.get('releaseSubInfo', None)}
-Пользователь узнал о лейбле: {request.POST.get('infoSource', None)}"""
 
         files = [key for key, value in request.POST.items() if 'text' in key]
         files = [i.split("_")[0] for i in files]
 
+        info_to_file = ""
         for f in files:
             track = Track.objects.create(
                 name=".".join(f.split(".")[:-1]),
@@ -354,32 +361,13 @@ def index(request):
                     request.POST.get('releaseDate', None), "%Y-%m-%d")
             )
             track.save()
-
-            info_to_file += f"""Имя: {f}
+            info_to_file += f"""\nИмя: {f}
 Автор мелодии: {track.melody_author}
 Автор текста: {track.text_author}
 Исполнитель: {track.singer}\n\n"""
 
-
-        paspinfo = PaspInfo.objects.create(
-            full_name=request.POST.get('FULLNAME', None),
-            who_given=request.POST.get('GIVEN_BY', None),
-            when_given=request.POST.get('GIVEN_DATE', None),
-            data_born=request.POST.get('BIRTH_DATE', None),
-            place_born=request.POST.get('REGISTRATION', None),
-            email=email
-        )
-        paspinfo.save()
-
-        info_to_file += f"""
-Паспортные данные:
-ФИО: {paspinfo.full_name}
-Кем выдан: {paspinfo.when_given}
-Дата рождения: {paspinfo.data_born}
-Место регистрации: {paspinfo.place_born}
-"""
-
-        folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name}"
+        folder = docsrequest.artisi_name+' - '+name
+        folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder}"
 
         y.mkdir(folder_path)
         for track in request.FILES.getlist('files'):
@@ -397,18 +385,86 @@ def index(request):
                 path_or_file=io.BytesIO(textsFiles.read()),
                 dst_path=f'{folder_path}/texts.docx')
 
+        appFiles = request.FILES.get('CaraoceMusicTexts', None)
+        if appFiles is not None:
+            y.upload(
+                path_or_file=io.BytesIO(appFiles.read()),
+                dst_path=f'{folder_path}/texts.ttml')
+
+        info_to_file = render_to_string('breif.txt', {
+            'docsrequest_contact': docsrequest.contact,
+            'spotify': request.POST.get('spotify', 'Нет'),
+            'applemusic': request.POST.get('appmusic', 'Нет'),
+            'email': email,
+            'docsrequest_release_type': docsrequest.release_type,
+            'docsrequest_release_name': docsrequest.release_name,
+            'docsrequest_filthy': docsrequest.filthy,
+            'docsrequest_release_date': docsrequest.release_date,
+            'releasePlaces': request.POST.get('releasePlaces', 'Нет данных'),
+            'tiktok': tiktok,
+            'genre': genre,
+            'releaseSubInfo': request.POST.get('releaseSubInfo', 'Нет данных'),
+            'promo_plan': request.POST.get('promo-plan', 'Нет данных'),
+            'infoSource': request.POST.get('infoSource', 'Нет данных'),
+            'f': f,
+            'tracks': info_to_file,
+            'paspinfo_full_name': paspinfo.full_name,
+            'paspinfo_when_given': paspinfo.when_given,
+            'paspinfo_who_given': paspinfo.who_given,
+            'paspinfo_data_born': paspinfo.data_born,
+            'paspinfo_place_born': paspinfo.place_born,
+            'COUNTRY': request.POST.get('COUNTRY', 'Нет данных'),
+            'SERIE_NUM': request.POST.get('SERIE_NUM', 'Нет данных'),
+        })
         y.upload(path_or_file=io.BytesIO(
             info_to_file.encode('utf-8')),
             dst_path=f'{folder_path}/brief.txt')
 
-    return redirect('https://vk.com/vauvisionlabel/')
+        cost = request.POST.get('cost', 0)
+        code = request.POST.get('code', None)
+
+        code_val = 0
+        try:
+            PromoCode = PromoCodes.objects.get(name=code)
+            code_val = PromoCode.value
+        except:
+            pass
+        print(code_val)
+        if code_val != 0:
+            cost = int(cost) - int(code_val)
+        else:
+            pass
+        Configuration.account_id = 777380
+        Configuration.secret_key = 'live_LVF05e4VifbQannin4i6BakLHjkECd1YpIlkR2SsOTI'
+
+        payment = Payment.create({
+            "amount": {
+                "value": str(cost),
+                "currency": "RUB"
+            },
+            "confirmation": {
+                "type": "redirect",
+                "return_url": "https://vk.com/vauvisionlabel/"
+            },
+            "capture": True,
+            "description": "Заказ {} - {}".format(request.POST.get('releaseName', None).replace(
+                    " ", "__"),request.POST.get('artistName', None))
+        }, uuid.uuid4())
+
+        confirmation_url = payment.confirmation.confirmation_url
+
+    return redirect(confirmation_url)
 
 
 def panel(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
             scan_requests = DocsRequest.objects.all()
-            return render(request, 'admin-panel/pages/admin.html', {'scan_requests': scan_requests})
+            promocodes = PromoCodes.objects.all()
+            return render(request, 'admin-panel/pages/admin.html', {
+                'scan_requests': scan_requests,
+                'promocodes': promocodes
+            })
         else:
             return redirect('/form-admin/login')
     else:
@@ -428,9 +484,13 @@ def admin_login(request):
         pwd = request.POST['password']
         username = request.POST['username']
         user = authenticate(username=username, password=pwd)
-        if user.is_superuser:
-            login(request, user)
-            return redirect('/form-admin')
+        if user is not None:
+            if user.is_superuser:
+                login(request, user)
+                return redirect('/form-admin')
+            else:
+                return render(request, 'admin-panel/pages/login_page.html', {
+                    'login_error': 'Пользователя не существует'})
         else:
             return render(request, 'admin-panel/pages/login_page.html', {
                 'login_error': 'Пользователя не существует'})
@@ -485,7 +545,6 @@ def change_name(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
             name, id = request.GET['name'], request.GET['id']
-            print(name)
             track = Track.objects.get(pk=id)
             track.name = name
             track.save()
@@ -518,19 +577,14 @@ def submit_request(request):
             if request.method == 'GET':
                 request_id = request.GET['id']
                 current_request = DocsRequest.objects.get(pk=request_id)
-                try:
-                    pasp_info = PaspInfo.objects.get(email=current_request.email)
-                except:
-                    pasp_info = None
+
+                pasp_info = PaspInfo.objects.get(email=current_request.email)
                 print(pasp_info)
-                scans = Scan.objects.filter(request=current_request).all()
-                for scan in scans:
-                    scan.photo_url = scan.photo.name.split('/')[-1]
                 tracks = Track.objects.filter(request=current_request).all()
                 return render(request, 'admin-panel/pages/submit.html',
-                              {'request': current_request, 'scans': scans, 'tracks': tracks, 'pasp_info' : pasp_info})
+                              {'request': current_request, 'tracks': tracks, 'pasp_info' : pasp_info})
             else:
-                APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+                APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
                 y = yadisk.YaDisk(token=APP_TOKEN)
                 doc = DocxTemplate("Music/static/documents/template1.docx")
                 request_id = request.GET['id']
@@ -557,12 +611,10 @@ def submit_request(request):
                     'BIRTH_DATE': request.POST['BIRTH_DATE'],
                     'NUMBER': f'{sum_request.number}-{count}',
                     'INITIALS': request.POST['INITIALS'],
-                    'BIRTH_PLACE': request.POST['BIRTH_PLACE'],
                     'PASSPORT_SERIE': request.POST['PASSPORT_SERIE'],
-                    'PASSPORT_NUMBER': request.POST['PASSPORT_NUMBER'],
                     'GIVEN_BY': request.POST['GIVEN_BY'],
                     'GIVEN_DATE': request.POST['GIVEN_DATE'],
-                    'REGISTRATION': request.POST['REGISTRATION'],
+                    'REGISTRATION': request.POST['BIRTH_PLACE'],
                     'VK': sum_request.contact,
                     'MONTH': f'{months[datetime.now().month]} ',
                     'IMAGE': InlineImage(doc, image_descriptor=f'{sum_request.cover}', width=Mm(100)),
@@ -572,7 +624,9 @@ def submit_request(request):
                     'track_num': [i for i in range(len(list(Track.objects.filter(request=sum_request).all())))]
                 }
                 name = sum_request.release_name
-                folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name.replace(' ', '__')}"
+
+                folder = sum_request.artisi_name+' - '+name
+                folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder}"
                 offer_name = f'offer__vauvision__{context["NUMBER"]}'
                 try:
                     doc.render(context)
@@ -581,9 +635,12 @@ def submit_request(request):
                 doc.save(f"Music/static/documents/{offer_name}.docx")
                 y.upload(path_or_file=f"Music/static/documents/{offer_name}.docx",
                          dst_path=f'{folder_path}/{offer_name}.docx/')
-                path = '{}/Music/static/documents/{}.docx'.format(str(os.path.abspath('')),offer_name)
-                filepath = '{}/Music/static/documents/{}.pdf'.format(str(os.path.abspath('')),offer_name)
-                output = subprocess.check_output(['libreoffice', '--convert-to', 'pdf', path])
+                path = '{}/Music/static/documents/{}.docx'.format(
+                    str(os.path.abspath('')), offer_name)
+                filepath = '{}/Music/static/documents/{}.pdf'.format(
+                    str(os.path.abspath('')), offer_name)
+                _ = subprocess.check_output(
+                    ['libreoffice', '--convert-to', 'pdf', path])
                 time.sleep(5)
                 os.rename('{}/{}.pdf'.format(str(os.path.abspath('')),offer_name), '{}/Music/static/documents/{}.pdf'.format(str(os.path.abspath('')),offer_name))
                 y.upload(path_or_file=f"Music/static/documents/{offer_name}.pdf",
@@ -598,8 +655,9 @@ def submit_request(request):
                 msg['To'] = addr_to  # Получатель
                 msg['Subject'] = "{}. Договор на дистрибуцию VAUVISION.".format(request.POST['FULLNAME'])  # Тема сообщения
 
-                body = "Добрый день, {}. \n \nЭто договор для дистрибуции. Если все данные верны, то файл нужно:\n1) Скачать\n2) Распечатать все листы\n3) Подписать две последние страницы (в табличках) синей ручкой\n4) Сфотографировать все листы\n5) Сделать из них один PDF файл\n6) Загрузить получившийся файл в личном кабинете на сайте vauvision.com \n\n\nПо всем возникающим вопросам пишите в личные сообщения https://vk.com/vauvision или https://vk.com/vauvisionlabel \n".format(
-                    request.POST['FULLNAME'])  # Текст сообщения
+                body = render_to_string('email.txt', {
+                    'full_name': request.POST['FULLNAME']})
+
                 msg.attach(MIMEText(body, 'plain'))  # Добавляем в сообщение текст
 
                 ctype, encoding = mimetypes.guess_type(filepath)
@@ -618,7 +676,7 @@ def submit_request(request):
                 server.send_message(msg)
                 server.quit()
                 current_request = DocsRequest.objects.filter(id=request_id).delete()
-                Scan.objects.filter(request=current_request).delete()
+
                 #os.rename(f'{offer_name}.pdf', f'static/documents/{offer_name}.pdf')
                 counter = Counter()
                 counter.number = sum_request.number
@@ -637,7 +695,6 @@ def delete_request(request):
             if request.method == 'GET':
                 request_id = request.GET['id']
                 current_request = DocsRequest.objects.filter(id=request_id).get()
-                Scan.objects.filter(request=current_request).delete()
                 Track.objects.filter(request=current_request).delete()
                 current_request.delete()
             return redirect('/form-admin')
@@ -645,6 +702,35 @@ def delete_request(request):
             return redirect('/form-admin/login/')
     else:
         return redirect('/form-admin/login/')
+
+
+def createcode(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            if request.method == 'POST':
+                code = PromoCodes.objects.create(
+                    name=request.POST.get('code_name',None),
+                    value=request.POST.get('value',None)
+                )
+                code.save()
+            return redirect('/form-admin')
+        else:
+            return redirect('/form-admin/login/')
+    else:
+        return redirect('/form-admin/login/')
+
+
+def deletecode(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            if request.method == 'POST':
+                PromoCodes.objects.filter(name=request.POST.get('delete_code',None)).delete()
+            return redirect('/form-admin')
+        else:
+            return redirect('/form-admin/login/')
+    else:
+        return redirect('/form-admin/login/')
+
 
 
 

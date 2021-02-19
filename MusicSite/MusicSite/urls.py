@@ -34,6 +34,8 @@ urlpatterns = [
     path('form-admin/signup/', admin_signup),
     path('form-admin/submit-request/', submit_request),
     path('form-admin/delete-request/', delete_request),
+    path('form-admin/create-promocode/', createcode),
+    path('form-admin/delete-promocode/', deletecode),
     path('form-admin/change-track-name/', change_name),
     path('authorization',authorization),
     path('main',main),

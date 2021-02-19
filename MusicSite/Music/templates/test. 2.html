@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://github.com/t1m0n/air-datepicker/blob/master/dist/css/datepicker.min.css"></script>
+    <link rel="stylesheet" href="https://github.com/t1m0n/air-datepicker/blob/master/dist/css/datepicker.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+<link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Vauvision form</title>
+</head>
+<body>
+ {% csrf_token %}
+{%verbatim%}
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/element-ui/lib/umd/locale/en.js"></script>
+<script type="application/javascript">
+    ELEMENT.locale(ELEMENT.lang.en)
+</script>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            <img src="/static/images/background/logowhite.png" alt="">
+        </a>
+    </div>
+</nav>
+<div id="app" class="maindiv">
+    <form method="post" enctype='multipart/form-data' action="/index">
+
+        <section>
+            <div style="text-align:center;margin-bottom:170px;">
+                <h1 style="text-align:center;color:black;margin-bottom:20px;font-size:40px; font-family:forTitles;">ФОРМА РАЗМЕЩЕНИЯ ТРЕКОВ VAUVISION</h1>
+                <span class="text">Пожалуйста, <span style="color:#bf7900;">заполните все пункты максимально подробно</span> – это позволит<br>  нам сделать нашу работу качественно</span>
+                <h2 style="text-align:center;color:black;margin-bottom:20px;font-size:30px; font-family:forTitles; padding-top:20px;">ВНИМАНИЕ!</h2>
+                <span class="text">Рекомендуется закладывать минимум <span style="color:#bf7900;">3 рабочих дня</span> на загрузку релиза</span><br>
+                <span class="text">Треки выходят на площадках в <span style="color:#bf7900;">00:00 выбранной даты (по Москве)</span></span>
+               <div style="margin-top:20px; margin-bottom:20px;">
+                    <span class="text">Для редактирования размера обложек используйте сайт <a target="_blank" class="link" href="http://pixlr.com/">pixlr.com</a></span><br>
+                    <span class="text">Для редактирования формата треков используйте конвертер <a target="_blank" class="link" href="https://online-audio-converter.com">online-audio-converter.com</a></span>
+               </div>
+                <div style="margin:20px 0px;">
+                    <span class="text"><span style="color:#bf7900;">ПОСЛЕ ЗАПОЛНЕНИЯ ЭТОЙ ФОРМЫ</span>, пожалуйста, напишите "ДИСТРИБУЦИЯ"<br> в сообщения паблика <a target="_blank" class="link" href="https://vk.com/vauvisionlabel">vk.com/vauvisionlabel</a>, либо телеграмм <a target="_blank"  href="https://teleg.run/vauvision_bot" class="link">@vauvision_bot</a></span>
+                </div>
+            </div>
+            <div style="margin:auto;width:90%;margin-bottom:170px;" >
+                <h1 style="text-align:center;color:black;margin-bottom:30px;font-size:30px; font-family:forTitles;">ЧТО ВЫ ХОТИТЕ ЗАГРУЗИТЬ?<font color="red">*</font> <p class="question" data-title="Выберите нужные вам пункты кликнув по ним один раз. Если какой-то пункт необходимо выбрать больше одного раза, кликните на него нужное количество раз"><img style="margin-top:-13px;" width="50%" height="50%" src="/static/icons/questmark.png"></p></h1>
+                <p style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;text-align:center;">Соберите тот комплект, который хотите заказать. Общая цена будет меняться автоматически</p>
+                <div style="display:flex;">
+                    <div style="border:2px solid white; border-radius:10px; padding:30px; background-color:#3d3d3d; margin:auto;width:376px;height:297px;">
+                    <div style="width:224px; margin:auto; display:block">
+                        <a type="button" class="button_is-light" @click="addSingle" style="margin-right:10px; margin-top:10px;"><b>Сингл</b></a>
+                        <a type="button" class="button_is-light" @click="addAlbumn" style="margin-right:10px;"><b>Альбом</b></a>
+                        <a type="button" class="button_is-light"  @click="addThousand" style="margin-right:10px;"><b>Клип</b></a>
+                        <a type="button" class="button_is-light"  @click="addHundred" ><b>Оформление карточки</b></a>
+                    </div>
+                </div>
+                <div class="firstpagediv">
+                    <div v-if="singles>0" style="display:flex;margin-bottom:10px;">
+                    <p>Сингл - {{singles}}</p>
+                    <button type="button" @click="deleteSingle" class="deleteButton"><b>x</b></button>
+                </div>
+                <div v-if="albumns>0" style="display:flex;margin-bottom:10px;">
+                    <p>Альбом - {{albumns}}</p>
+                    <button type="button" @click="deleteAlbumn" class="deleteButton"><b>x</b></button>
+                </div>
+                <div v-if="thousands>0" style="display:flex;margin-bottom:10px;">
+                    <p>Клип - {{thousands}}</p>
+                    <button type="button" @click="deleteThousand" class="deleteButton"><b>x</b></button>
+                </div>
+                <div v-if="hundreds>0" style="display:flex;margin-bottom:10px;">
+                    <p>Оформление карточки артиста - {{hundreds}}</p>
+                    <button type="button" @click="deleteHundred" class="deleteButton"><b>x</b></button>
+                </div>
+                    <p v-if="total>0" style="color:white;margin:auto;width:500px;">________________________________________________</p>
+                    <p v-if="total>0" style="color:white;text-align:center">Цена: {{total}}руб.</p>
+                </div>
+                </div>
+                <input name="releaseType" type="hidden" v-model="final">
+                <input name="cost" type="hidden" v-model="total">
+            </div>
+            <div style="text-align:center;margin-bottom:170px;">
+                <div style="width:100%;">
+                    <label for="track_names" class="text">Выделите и выберите все нужные треки <font color="red">*</font> <p class="question" data-title="Выберите нужные вам треки и загрузите их. Обязательно заполните все поля, прилагающиеся к появившемуся названию трека"><img style="margin-top:-13px;" width="50%" height="50%" src="/static/icons/questmark.png"></p></label><br>
+                    <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;margin:auto">Назовите файл трека по образцу: «# трека. Артист — Название». Например «1. КРЕСТ — SHiNE (prod. by CLONNEX)»<br>Формат .wav, разрядность 16 bit</span>
+                <div class="inputDiv" style="margin-bottom:15px; margin-top:15px;">
+                    <label for="first_file">ДОБАВИТЬ ТРЕК</label>
+                    <input required name="files" id="first_file" type="file" multiple @change="newFiles($event)"  style="display:none;" accept=".wav">
+                </div>
+
+                <span v-if="tracks>0" style="font-family:main;font-size:21px;color:#eb0202;margin-bottom:10px;">Имена авторов обязательны для заполнения, без них форма не будет отправлена!</span>
+             <div class="trackField">
+                    <div v-for="(file,i) in files" style="min-width:1114px;">
+                    <div style="display:flex; width:100%; padding:20px 0px;margin:auto;">
+                        <div style="float:left!important;padding-left:25px;height:27px;width:415px;">
+                            <span style="color:white; float:right;">{{file.name}}</span>
+                        </div>
+                        <div style="width:60%;min-width:735px!important;margin-left:30px!important; height:25px;float:right;">
+                                <input required style="float:right;margin-top:2px; margin-right:10px;" v-bind:name="file.name + '_text'" v-model="fileData[file.name].text" placeholder="Автор текста" class="inputText">
+                                <input required style="float:right;margin-top:2px; margin-right:10px;" v-bind:name="file.name + '_music'" v-model="fileData[file.name].music" placeholder="Автор музыки" class="inputText" >
+                            <input required style="float:right;margin-top:2px; margin-right:10px;" v-model="fileData[file.name].singer" v-bind:name="file.name + '_artis'" placeholder="Имя артиста" class="inputText">
+                        </div>
+                    </div>
+                </div>
+             </div></div>
+
+            </div>
+            <div  style="margin:auto;width:90%;;margin-bottom:170px;" >
+                <div style="display:flex;min-width:1122px;">
+                          <div style="width:50%;">
+                    <label for="track_artist" class="text">Впишите псевдоним артиста<font color="red">*</font></label><br>
+                <input required name="artistName" id="track_artist" placeholder=" Например: Eminem" class="artistINP" v-model="artistName"><br>
+                <label for="track_names" class="text">Впишите название релиза<font color="red">*</font></label><br>
+                <span style="font-family:main;font-size:16px;color:#4d4d4d;margin-bottom:10px;">Если вы выбрали несколько релизов, впишите их названия через запятую</span>
+                <input required name="releaseName" id="track_names" placeholder="Например: Recovery, Lose Yourself(сингл), Encore" class="artistINP" v-model="trackName"><br>
+                <label for="platform" class="text">Куда загружать релиз?<font color="red">*</font></label><br>
+                <select required name="releasePlaces" id="platform" v-model="selectedOption_2" class="form-control" style="outline: none; width:100%;margin-bottom:-20px;">
+                    <option>На все площадки</option>
+                    <option>На все, кроме VK/Boom</option>
+                    <option>Только в VK/Boom</option>
+                    <option>Другое</option>
+                </select><br><br>
+                <label v-if="selectedOption_2 == 'Другое'" for="platform" class="text" style="magrin-top:50px;magrin-bottom:10px;">Укажите свой вариант<font color="red">*</font></label><br>
+                <input required name="releasePlaces"  v-if="selectedOption_2 == 'Другое'" placeholder="" class="artistINP" v-model="platf"><br>
+                <label for="date" class="text">Желаемая дата выхода (если всё равно, ставьте ближайшую пятницу)<font color="red">*</font></label><br>
+                        <div id="date" style="width:300%; margin-bottom:20px;">
+                    <el-date-picker
+                            v-model="value1"
+                            type="date"
+                            name="releaseDate"
+                            required="required"
+                            placeholder="Выберите дату выхода">
+                    </el-date-picker>
+                </div>
+                <label for="track_filthy" class="text">В треках есть мат?<font color="red">*</font></label><br>
+                <div class="form-group col-md-4">
+                <select required name="filthyCheck" v-model="selectedOption" id="track_filthy" class="form-control" style="margin-left:-15px;outline: none; width:340%;">
+                    <option selected>Нет</option>
+
+                    <option>Да</option>
+                </select><br>
+                </div>
+                <label v-if="selectedOption == 'Да'" for="filthyNum" class="text">Если есть, укажите номера треков, где есть мат<font color="red">*</font></label><br>
+                <span v-if="selectedOption == 'Да'" style="font-family:main;font-size:16px; color:#4d4d4d;">Если загружаем 1 трек, то ставьте 1</span><br>
+                <input required name="filthyTracks" id="filthyNum" v-if="selectedOption == 'Да'" placeholder="Например: 1,2,4" class="artistINP" v-model="filthy"><br>
+                </div>
+                <div style="margin:auto;margin-left:260px;">
+                  <img style="width:90%;height:90%" src="/static/images/background/3.jpg">
+                </div>
+                </div>
+            </div>
+            <div style="margin-bottom:170px; width:90%;margin:auto;">
+                <div style="min-width:1122px;display:flex;">
+                          <div style="width:90%;margin-right:130px;margin-top:200px;">
+                    <label for="artistScan" class="text">Прикрепите обложку релиза<font color="red">*</font></label><br>
+                <input required name="releaseCover" type="file" accept="image/*" id="artistScan" class="inp" @change="newCoverFiles($event)" style="margin-bottom:50px;"><br>
+                <label  for="VK" class="text">Ссылка на вашу страницу в ВК для проверки и подписания договора <font color="red">*</font></label><br>
+                <input required name="vk" type="url" v-model="link" id="VK" placeholder="https://vk.com/****" class="artistINP"><br>
+                 <label for="email" class="text">Введите вашу почту<font color="red">*</font></label><br>
+                <input required name="email"  type="email" v-model="email" id="email" placeholder="example@host.com" class="artistINP"><br>
+                </div>
+               <div style="margin-top:70px;margin-left:260px">
+                    <img style="width:90%;height:90%" src="/static/images/background/44.png">
+                </div>
+                </div>
+
+            </div>
+            <div style="margin:auto;width:90%;margin-bottom:170px;">
+                 <h1 style="text-align:center;color:black;margin-bottom:20px;font-size:40px; font-family:forTitles;">Данные паспорта</h1>
+                <div style="display:flex;min-width:1122px;">
+                          <div style="width:100%;">
+                <label for="grajdanstvo" class="text">Гражданство<font color="red">*</font></label><br>
+                <input required name="COUNTRY" v-model="grajdanstvo" id="grajdanstvo" placeholder=" Например: РФ / Украина / Беларусь / Казахстан " class="artistINP"><br>
+                <label  for="fio" class="text">ФИО (в именительном падеже)<font color="red">*</font></label><br>
+                <input required name="FULLNAME" v-model="fio" id="fio" placeholder=" Например: Иванов Иван Иванович" class="artistINP"><br>
+                <div style="display:flex">
+                     <div style="width:100%">
+                         <label  for="seria" class="text">Серия и номер паспорта (либо удостоверения)<font color="red">*</font></label><br>
+                     <input name="SERIE_NUM" title="Серия-номер" v-model="seria" style="width:100%;" id="seria" placeholder="Например: 4545-63646" class="artistINP"><br>
+                     </div>
+                </div>
+                <label  for="given_by" class="text">Кем выдан<font color="red">*</font></label><br>
+                <input required name="GIVEN_BY" v-model="given_by" id="given_by" placeholder=" Например: ГУ МВД РОССИИ ПО Г.МОСКВЕ " class="artistINP"><br>
+                <label for="giving_date" class="text">Дата выдачи<font color="red">*</font></label><br>
+                <input required name="GIVEN_DATE" v-model="giving_date" id="giving_date" maxlength="10" placeholder="Например: 31/12/2020" class="unstyled" onkeydown="this.value=this.value.replace(/^(\d\d)(\d)$/g,'$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g,'$1/$2').replace(/[^\d\/]/g,'')"><br>
+                 <label for="birth" class="text">Дата рождения<font color="red">*</font></label><br>
+                <input required name="BIRTH_DATE" v-model="birth" id="birth" maxlength="10" placeholder="Например: 31/12/2020" class="unstyled" onkeydown="this.value=this.value.replace(/^(\d\d)(\d)$/g,'$1/$2').replace(/^(\d\d\/\d\d)(\d+)$/g,'$1/$2').replace(/[^\d\/]/g,'')"><br>
+                <label for="adress" class="text">Адрес регистрации / вашей прописки полностью, как в документе<font color="red">*</font></label><br>
+                <input required name="REGISTRATION" v-model="adress" id="adress" placeholder=" Например: Ленинский проспект 63" class="artistINP"><br>
+                </div>
+                <div style="margin-left:130px;">
+                      <img src="/static/images/background/55.png">
+                </div>
+            </div>
+            </div>
+            <div style="margin:auto;width:90%;margin-bottom:170px;">
+                <div style="display:flex;min-width:1122px;">
+                          <div style="width:100%;">
+                    <label for="genre" class="text">Какой жанр указать?</label><br>
+                <input name="releaseGenre" id="genre" placeholder="Например: Рэп, Поп, Рок и проч." class="artistINP"><br>
+                <label for="tictoc" class="text">С какой секунды воспроизводить трек в Tik Tok?</label><br>
+                <span style="font-family:main;font-size:12px;color:#4d4d4d;">Укажите секунды через запятую в порядке загруженных ранее треков</span><br>
+                <input name="tiktokTime" id="tictoc" placeholder="Например:1,5,34" class="artistINP"><br>
+                <label for="Appletext" class="text">Текст для Apple Music</label><br>
+                <span style="font-family:main;font-size:12px; color:#4d4d4d;">Куплеты и припевы должны быть разделены пробелом, каждая строчка с большой буквы, в конце строчек без знаков препинания. В тексте должно быть только то, что произносится в песне. Все тексты поместите в один файл формата docx.</span><br>
+                <input name="musicTexts" type="file" accept=".docx" id="Appletext" class="inp" style="margin-bottom:20px;"><br>
+                <label for="apptext" class="text">Караоке текст для Apple Music</label><br>
+                <span style="font-family:main;font-size:12px;color:#4d4d4d;">Чтобы сделать караоке файл, зайдите на сайт <a href="https://lyric.maggregator.com" target="_blank">https://lyric.maggregator.com </a>, следуйте инструкции на сайте и создайте необходимые файлы. Обязательно подпишите их по названию треков, к которым они относятся</span><br>
+                <input name="CaraoceMusicTexts" id="apptext" type="file" class="inp" accept=".ttml" style="padding-bottom:20px;" multiple><br>
+                <label for="appmusic" class="text">Ссылки на карточки артистов в Apple Music</label><br>
+                <span style="font-family:main;font-size:12px;color:#4d4d4d;">Укажите через запятую ссылки на карточки в Apple Music всех артистов, указанных в загружаемом релизе. Если карточек нет, укажите "Нужны новые карточки"</span><br>
+                <input name="appmusic" id="appmusic" placeholder=" Например: https://music.apple.com/ru/artist/eminem/111051" class="artistINP"><br>
+                <label for="spotify" class="text">Ссылки на карточки артистов в Spotify</label><br>
+                <span style="font-family:main;font-size:12px;color:#4d4d4d;">Укажите через запятую ссылки на карточки в Spotify всех артистов, указанных в загружаемом релизе. Если карточек нет, укажите "Нужны новые карточки"</span><br>
+                <input name="spotify" id="spotify" placeholder=" Например: https://open.spotify.com/artist/7dGJo4pcD2V6oG8kP0tJRR" class="artistINP"><br>
+                </div>
+                <div style="margin-left:170px;">
+                <img width="90%" height="90%" src="/static/images/background/6_1.png">
+                </div>
+            </div>
+            </div>
+            <div style="margin-bottom:170px; width:90%;margin:auto;">
+                <div style="display:flex;min-width:1122px;">
+                          <div style="width:100%;">
+                              <label for="where" class="text">Как вы о нас узнали?<font color="red">*</font></label><br>
+                <select required name="infoSource" id="where" v-model="selectedOption_3" class="form-control" style="outline: none; width:100%;margin-bottom:40px;">
+                    <option>Увидел рекламу в Instagram</option>
+                    <option>Увидел рекламу в VK</option>
+                    <option>Увидел рекламу в TikTok</option>
+                    <option>Увидел рекламу на YouTube</option>
+                    <option>Обратился по рекомендации</option>
+                    <option>Нашёл в поиске</option>
+                    <option>Другое</option>
+                </select>
+                <label v-if="selectedOption_3 == 'Другое'" for="platform" class="text" style="margin-top:28px;">Укажте свой вариант<font color="red">*</font></label><br>
+                <input name="infoSource" v-model="adv" v-if="selectedOption_3 == 'Другое'" placeholder="" class="artistINP"><br>
+                <label for="tictoc" class="text">Дополнительные комментарии</label><br>
+                <textarea name="releaseSubInfo" placeholder="Пишите всё, что хотите нам сказать о вашем релизе. Все пожелания и уточнения" style="margin-bottom:50px;"></textarea>
+                <label for="tictoc" class="text">Промо-план релиза для редакторов площадок</label><br>
+                <textarea name="promo-plan" placeholder="Добавьте кратко информацию об артисте, готовящемся релизе (1-2 предложения), где и с каким бюджетом будет делаться реклама (если планируется). Эта информация повысит шансы на получение поддержки от площадок" style="margin-bottom:5but0px;"></textarea><br>
+                <label for="promocode" class="text">Промокод</label>
+                <input type="text" class="artistINP" id="promocode" name="code">
+                <label class="check" style="font-size:16px;">
+                    <input v-model="check" required type="checkbox">
+                    Я подтверждаю, что мои треки не нарушают права других авторов музыки и текста<font color="red">*</font>
+                </label>
+                </div>
+                <div style="margin-left:170px">
+                <img width="90%" height="90%" src="/static/images/background/7_1.png">
+                </div>
+                    <input id="songInfo" type="hidden" v-model="fileData" value="">
+                </div>
+                    <button onclick="start_preloader()" v-if="check != ''" class="button_upload">Загрузить</button>
+                    <button disabled v-else class="button_unclick_upload">Заполните все поля</button>
+            </div>
+        </section>
+        </form>
+</div>
+
+ <div class="loading-screen">
+     <h2 style="text-align:center;text-align:center;color:black;margin-bottom:20px;font-size:40px; font-family:forTitles; margin-top:100px;" >Ваши файлы загружаются на сервер, не закрывайте это окно. Скоро вы увидите окно оплаты.</h2>
+    <div class="wrap">
+  <div class="loading">
+    <div class="bounceball"></div>
+    <div class="text_bounce">NOW LOADING</div>
+  </div>
+</div>
+</div>
+ <script>
+     function start_preloader() {
+        document.querySelector('.loading-screen').style.display = 'flex'
+        document.querySelector('.maindiv').style.display = 'none'
+    }
+ </script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: function () {
+            return {
+                adv:'',
+                page: 0,
+                check:false,
+                singles: 0,
+                albumns: 0,
+                thousands: 0,
+                hundreds: 0,
+                files: new Array(),
+                scanfiles: new Array(),
+                fileData: {},
+                coverfiles: new Array(),
+                coverfileData: {},
+                scanfileData: {},
+                textfiles:new Array(),
+                textfileData:{},
+                savedFiles: [],
+                selectedOption: '',
+                selectedOption_2: '',
+                selectedOption_3:'',
+                artistName: '',
+                trackName:'',
+                platf:'',
+                filthy:'',
+                link:'',
+                email: '',
+                grajdanstvo:'',
+                fio:'',
+                birth:'',
+                seria:'',
+                num:'',
+                given_by:'',
+                giving_date:'',
+                adress:'',
+                counter:0,
+                counter2:0,
+                counter3:0,
+                signed_counter:0,
+                pickerOptions: {
+            disabledDate(time) {
+                return time.getTime() > Date.now();
+            },
+            shortcuts: [{
+                text: 'Today',
+                onClick(picker) {
+                    picker.$emit('pick', new Date());
+                }
+            }]
+        },
+        value1: '',
+            }
+
+        },
+        methods: {
+
+            addSingle: function () {
+                this.singles += 1
+
+            },
+            addAlbumn: function () {
+                this.albumns += 1
+            },
+            addThousand: function () {
+                this.thousands += 1
+
+            },
+            addHundred: function () {
+                this.hundreds += 1
+
+            },
+            deleteSingle: function () {
+                if (this.singles > 0) {
+                    this.singles -= 1
+                }
+            }
+            , deleteThousand: function () {
+                if (this.thousands > 0) {
+                    this.thousands -= 1
+                }
+            },
+            deleteHundred: function () {
+                if (this.hundreds > 0) {
+                    this.hundreds -= 1
+                }
+
+            },
+            deleteAlbumn: function () {
+                if (this.albumns > 0) {
+                    this.albumns -= 1
+                }
+            },
+            newFiles: function (evt) {
+                let  cFiles = document.getElementById("first_file").files.length;
+                this.files = new Array()
+                Array.prototype.slice.call(evt.target.files).forEach((file) => {
+                     if (!this.files.includes(file)) {
+                        this.files.push(file)
+
+                    }
+                })
+                this.files.forEach((file) => {
+                    let flag = false
+                    for (data in this.fileData) {
+                        if (data == file.name) {
+                            flag = true
+                        }
+                    }
+                    if (!flag) {
+                this.fileData[file.name] = {singer: '', music: '', text: ''}
+                    }
+
+                })
+                this.counter += cFiles
+
+            },
+            deleteFile: function (idx) {
+                this.counter -= 1
+                const {[idx]: propValue, ...rest} = this.files
+                this.files = rest
+                if (Object.keys(this.files).length == 0) {
+                    this.files = []
+                }
+
+
+            },
+            newScanFiles: function (evt) {
+                this.counter2 += this.scanfiles.length
+                this.scanfiles = Object.keys(this.scanfiles).map(key => this.scanfiles[key])
+                Array.prototype.slice.call(evt.target.files).forEach((file) => {
+                    if (!this.scanfiles.includes(file)) {
+                        this.scanfiles.push(file)
+                    }
+                })
+            },
+<!--            uploadFiles: function(){-->
+<!--            let UplData = new FormData()-->
+<!--            let val = document.getElementById("songInfo")-->
+<!--              val.setAttribute('value', this.fileData)-->
+<!--            this.files.forEach((file) => {-->
+<!--            alert(file)-->
+<!--             UplData.append('file1', file)-->
+<!--            })-->
+<!--            alert(UplData)-->
+
+<!--            fetch('http://194.67.112.134:8000/index', {-->
+<!--            method: "POST",-->
+<!--            body: UplData-->
+<!--            })-->
+<!--            },-->
+            deleteScanFile: function (idx) {
+            this.counter2 -= 1
+                const {[idx]: propValue, ...rest} = this.scanfiles
+                this.scanfiles = rest
+                if (Object.keys(this.scanfiles).length == 0) {
+                    this.scanfiles = []
+                }
+            },
+            newCoverFiles: function (evt) {
+                this.counter2 += 1
+                this.coverfiles = Object.keys(this.coverfiles).map(key => this.coverfiles[key])
+                Array.prototype.slice.call(evt.target.files).forEach((file) => {
+                    if (!this.coverfiles.includes(file)) {
+                        this.coverfiles.push(file)
+                    }
+                })
+            },
+            deleteCoverFile: function (idx) {
+            this.counter2 -= 1
+                const {[idx]: propValue, ...rest} = this.coverfiles
+                this.coverfiles = rest
+                if (Object.keys(this.coverfiles).length == 0) {
+                    this.coverfiles = []
+                }
+            },
+            newAppleTextFiles: function (evt) {
+                this.textfiles = Object.keys(this.textfiles).map(key => this.textfiles[key])
+                Array.prototype.slice.call(evt.target.files).forEach((file) => {
+                    if (!this.textfiles.includes(file)) {
+                        this.textfiles.push(file)
+                    }
+                })
+            },
+            deleteAppleTextFile: function (idx) {
+                const {[idx]: propValue, ...rest} = this.textfiles
+                this.textfiles = rest
+                if (Object.keys(this.textfiles).length == 0) {
+                    this.textfiles = []
+                }
+            },
+            uploaded: function(){
+               this.counter2 += 1
+            },
+
+
+            test: function (evt) {
+            if(evt.target.value != '' && evt.target.id == ''){
+               evt.target.id = true
+               this.signed_counter += 1
+            }
+            if(evt.target.value == '')
+            {
+               evt.target.id = ''
+               this.signed_counter -= 1
+            }
+            }
+        },
+        computed: {
+            total: function () {
+            var cost = 0
+            if(this.singles == 1 && this.hundreds == 1 && this.thousands == 0 && this.albumns == 0){
+            cost += 1790
+            }
+            else if(this.singles == 0 && this.hundreds == 1 && this.thousands == 0 && this.albumns == 1){
+            cost += 2290
+            }
+            else if(this.singles == 1 && this.hundreds == 0 && this.thousands == 0 && this.albumns == 1){
+            cost += 2890
+            }
+             else if(this.singles == 1 && this.hundreds == 1 && this.thousands == 0 && this.albumns == 1){
+            cost += 3380
+            }
+            else if(this.singles == 3 && this.hundreds == 0 && this.thousands == 0 && this.albumns == 0){
+            cost += 3290
+            }
+            else if(this.singles >= 5 ){
+            cost += this.singles * 1000 + this.albumns * 1800 + this.thousands * 1300 + this.hundreds * 600
+            }
+            else{
+                cost += this.singles * 1300 + this.albumns * 1800 + this.thousands * 1300 + this.hundreds * 600
+                }
+            return cost
+            },
+            final: function () {
+                return "Синглы - " + this.singles + ";Альбомы - " + this.albumns + ";Клипы - " + this.thousands + ";Карточка - " + this.hundreds
+
+            },
+            tracks: function () {
+                return Object.keys(this.files).length
+            },
+            scans: function () {
+                return this.counter2
+            },
+            tracks_2: function(){
+                let flag_2 = true
+                var filesss
+                for (filesss in this.fileData){
+                  if (this.fileData[filesss].text == ''){
+                  flag_2 = false
+                  }
+
+                }
+                return flag_2
+            },
+
+        }
+    })
+</script>
+{%endverbatim%}
+</body>
+<style>
+body{
+  background:white;
+    background-size: cover;
+    min-height: 100vh;
+    min-width:1333px;
+}
+.wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text_bounce {
+  color: #fbae17;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.bounceball {
+  position: relative;
+  display: inline-block;
+  height: 37px;
+  width: 15px;
+}
+.bounceball:before {
+  position: absolute;
+  content: "";
+  display: block;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #fbae17;
+  transform-origin: 50%;
+  -webkit-animation: bounce 500ms alternate infinite ease;
+          animation: bounce 500ms alternate infinite ease;
+}
+
+@-webkit-keyframes bounce {
+  0% {
+    top: 30px;
+    height: 5px;
+    border-radius: 60px 60px 20px 20px;
+    transform: scaleX(2);
+  }
+  35% {
+    height: 15px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    top: 30px;
+    height: 5px;
+    border-radius: 60px 60px 20px 20px;
+    transform: scaleX(2);
+  }
+  35% {
+    height: 15px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+  100% {
+    top: 0;
+  }
+}
+@font-face {
+    font-family: forTitles;
+    src: url("/static/fonts/montserrat/Montserrat-Bold.ttf");
+    font-weight: bold;
+}
+@font-face {
+    font-family: main;
+    src: url("/static/fonts/montserrat/Montserrat-Medium.ttf");
+}
+.link{
+color:#0060bf;
+text-decoration:underline;
+}
+.loading-screen{
+display:none;
+}
+textarea {
+  resize: none;
+  overflow: auto;
+  height:150px;
+  width:100%;
+  border-radius:5px;
+  padding:10px;
+}
+.check{
+color:black;
+font-family:main;
+font-size:23px;
+}
+.check:hover{
+color:#3d3d3d;
+}
+
+.artistINP{
+border: 0;
+border-bottom: 2px solid black;
+width:100%;
+height:40px;
+font-size:16px;
+padding: 15px 22px;
+margin-bottom:20px;
+}
+
+.artistINP:focus{
+outline: none;
+}
+
+.link:hover{
+transition:0.3s;
+color:#4d4d4d!important;
+}
+
+.deleteButton{
+height:27px;
+border:2px solid white;
+border-radius:5px;
+color:white;
+background:#3d3d3d;
+font-size:15px;
+padding:0px 7px;
+margin-left:10px;
+margin-top:0px;
+}
+.question {
+    font-family: 'East Sea Dokdo', cursive;
+    font-size:18px;
+    margin-top:-20px;
+    margin-left:-20px;
+    display: inline-block; /* Строчно-блочный элемент */
+    position: relative; /* Относительное позиционирование */
+   }
+.question:hover::after {
+ content: attr(data-title); /* Выводим текст */
+ width:250px;
+ color:black;
+    position: absolute; /* Абсолютное позиционирование */
+    left: 70%; top: 70%; /* Положение подсказки */
+    z-index: 1; /* Отображаем подсказку поверх других элементов */
+    background: rgba(177, 208, 227,0.9); /* Полупрозрачный цвет фона */
+    font-family: main; /* Гарнитура шрифта */
+    font-size: 18px; /* Размер текста подсказки */
+    padding: 5px 10px; /* Поля */
+    border: 1px solid #333;
+}
+
+.text{
+color:black;
+font-family:main;
+font-size:20px;
+}
+.unstyled::-webkit-inner-spin-button,
+.unstyled::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+.unstyled::-webkit-datetime-edit-fields-wrapper {
+}
+.unstyled::-webkit-datetime-edit-text {
+display:inline;
+}
+.unstyled::-webkit-datetime-edit-month-field,
+.unstyled::-webkit-datetime-edit-day-field,
+.unstyled::-webkit-datetime-edit-year-field {
+font-family:main;
+font-size:20px;
+color:gray;
+}
+.unstyled{
+border: 0;
+border-bottom: 2px solid black;
+width:100%;
+height:40px;
+font-size:16px;
+padding: 15px 22px;
+margin-bottom:20px;
+}
+.maindiv{
+margin-top:75px!important;
+margin:auto;
+border-radius:20px;
+width:95%;
+padding-top:60px;
+padding-bottom:60px;
+}
+    nav.navbar {
+        background-color: black;
+        padding: 1%;
+    }
+
+    nav.navbar h1.title {
+        color: white;
+    }
+@font-face {
+    font-family: buttons;
+    src: url("/static/fonts/oswald/Oswald-Regular.ttf");
+}
+.firstpagediv{
+padding:30px;
+border:2px solid white;
+border-radius:10px;
+background-color:#3d3d3d;
+margin:auto;
+width:80%;
+color:white;
+font-size:18px;
+height:297px;
+min-width:800px;
+overflow:auto;
+}
+.button_is-light{
+    text-transform: uppercase;
+    font-size:17px;
+    background: white;
+    border-radius: 20px;
+    font-family: buttons;
+    padding:8px 17px;
+    margin-top:5px;
+    margin-bottom:10px;
+    width:224px;
+    text-align:center;
+}
+.button_is-light:hover{
+text-decoration:underline;
+background:white!important;
+}
+.button_unclick{
+  border-radius: 15px;
+  background-color: gray;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 20px!important;
+  padding:10px 27px;
+  width: 110px;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family:buttons;
+  margin:7px;
+
+}
+.button_unclick_upload{
+  border-radius: 15px;
+  background-color: gray;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 20px!important;
+  padding:10px 27px;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family:buttons;
+  margin:7px;
+
+}
+.button_upload {
+  border-radius: 15px;
+  background-color: black;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 20px!important;
+  padding:10px 27px;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family:buttons;
+  margin:7px;
+}
+.button {
+  border-radius: 15px;
+  background-color: black;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 20px!important;
+  padding:10px 27px;
+  width: 110px;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family:buttons;
+  margin:7px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover{
+    transition: 0.3s;
+    color:white;
+    }
+
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.inputText{
+ padding:5px;
+ border:2px solid black;
+ border-radius:5px;
+}
+.inputDiv{
+width:200px;
+color:white;
+margin:auto;
+border: 2px solid white;
+border-radius:10px;
+background:#3d3d3d;
+text-align:center;
+padding:5px;
+padding-top:15px;
+font-family:buttons;
+font-size:18px;
+}
+.inputDiv2{
+border: 2px solid white;
+border-radius:10px;
+background:#3d3d3d;
+margin-bottom: 30px;
+padding:15px;
+padding-top:15px;
+font-family:buttons;
+font-size:18px;
+}
+.inp{
+border:1px solid white;
+border-radius:5px;
+padding:3px 8px;
+background-color:white;
+font-family:main;
+color:#3d3d3d;
+font-size:18px;
+width:100%;
+}
+
+.trackField{
+border:2px solid white;
+border-radius:10px;
+max-height:400px!important;
+overflow:auto;
+padding:15px;
+background-color:#3d3d3d;
+min-height:200px;
+margin:auto;
+width:100%;
+}
+.trackField2{
+border:2px solid white;
+border-radius:10px;
+max-height:400px!important;
+overflow:auto;
+padding:5px;
+background-color:#3d3d3d;
+min-height:160px;
+max-width:
+}
+
+
+    .buttons {
+        clear: both;
+        display: flex;
+        flex-direction: row;
+        margin:auto;
+        width:240px;
+        padding-top:30px;
+    }
+    .buttons_upload {
+        margin:auto;
+        width:280px;
+    }
+    .buttons_one {
+        margin:auto;
+        width:110px;
+        padding-top:30px;
+
+    }
+
+    .slide-fade-enter-active {
+        transition: all 0.8s ease;
+
+
+    }
+    .slide-fade-leave-active {
+        transition: all 0.4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+
+
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+        /* .slide-fade-leave-active до версии 2.1.8 */ {
+        transform: translateX(10px);
+        opacity: 0;
+
+    }
+    .no-mode-translate-fade-enter-active, .no-mode-translate-fade-leave-active {
+        transition: all 1s;
+    }
+    .no-mode-translate-fade-enter, .no-mode-translate-fade-leave-active {
+        opacity: 0;
+    }
+    .no-mode-translate-fade-enter {
+        transform: translateX(31px);
+    }
+    .no-mode-translate-fade-leave-active {
+        transform: translateX(-31px);
+    }
+    .section{
+
+    }
+</style>
+<style>
+    .button2 {
+  border-radius: 15px;
+  background-color: black;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 20px!important;
+  padding:10px 27px;
+  width: 110px;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family:buttons;
+}
+
+.button2 span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button2 span:after {
+  content: '\00ab';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -15px;
+  transition: 0.5s;
+}
+
+.button2:hover span {
+  padding-left: 10px;
+}
+
+.button2:hover span:after {
+  opacity: 1;
+  left: -1;
+}
+.button2:hover{
+    transition: 0.3s;
+    background-color: #bdbdbd;
+    }
+</style>
+</html>

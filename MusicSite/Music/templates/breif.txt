@@ -1,0 +1,35 @@
+Краткая информация о релизе:
+
+ВК автора {{ docsrequest_contact }}
+Spotify: {{ spotify }}
+Карточка Apple Music: {{ applemusic }}
+Почта автора: {{ email }}
+
+----------------------------------------------------------------
+
+Оформление карточни в ВК:
+Тип релиза: {{ docsrequest_release_type }}
+Имя релиза: {{ docsrequest_release_name }}
+Треки с матом: {{ docsrequest_filthy }}
+Дата релиза: {{ docsrequest_release_date }}
+Площадки релиза: {{ releasePlaces }}
+Воспроизводить трек в Tik Tok с {{ tiktok }} сек.
+Жанр: {{ genre }}
+Доп. информация: {{ releaseSubInfo }}
+Промо-план: {{ promo_plan }}
+Пользователь узнал о лейбле: {{ infoSource }}
+
+----------------------------------------------------------------
+
+{{ tracks }}
+
+-----------------------------------------------
+
+Паспортные данные:
+ФИО: {{ paspinfo_full_name }}
+Дата выдачи: {{ paspinfo_when_given }}
+Кем выдан: {{ paspinfo.who_given }}
+Дата рождения: {{ paspinfo_data_born }}
+Место регистрации: {{ paspinfo_place_born }}
+Гражданство: {{ COUNTRY }}
+Серия-номер: {{ SERIE_NUM }}
