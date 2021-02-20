@@ -1,4 +1,4 @@
-{% extends '../../wrapper.html' %} 
+{% extends '../../wrapper.html' %}
 {% block content %}
     <section class="content section container">
         <h1>Админ панель</h1>
@@ -79,44 +79,7 @@
                 <p style="text-transform:none!important; font-family:mainCodes;">{{code.name}} - {{code.value}}p.</p>
                 {% endfor %}
             </div>
->>>>>>> da3b0a82ffea9c9fca014f0e88edfcf092486942
-        </div>
-        <footer class="card-footer">
-          <a
-            href="submit-request?id={{ s_request.id }}"
-            class="card-footer-item"
-            >Заполнить паспортные данные</a
-          >
-          <a
-            class="card-footer-item"
-            href="delete-request?id={{ s_request.id }}"
-            >Удалить заявку</a
-          >
-        </footer>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="column">
-      <h2 style="text-decoration: underline;" class="subtitle is-4">
-        Сгенерировать код для регистрации
-      </h2>
-      <form method="post" action="/form-admin/generate_code/" class="form">
-        {% csrf_token %}
-        <label for="" class="label">Email пользователя</label>
-        <input
-          name="email"
-          required
-          placeholder="email@host.com"
-          type="email"
-          class="input"
-        /><br /><br />
-        {% if result %}
-        <span><b>{{ result }}</b></span
-        ><br /><br />
-        {% endif %}
-        <button type="submit" class="button">Сгенерировать</button>
-      </form>
-    </div>
+
   </div>
 </section>
 {% endblock %}
