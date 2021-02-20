@@ -621,7 +621,7 @@ def submit_request(request):
             else:
                 APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
                 y = yadisk.YaDisk(token=APP_TOKEN)
-                doc = DocxTemplate("Music/static/documents/template2.docx")
+                doc = DocxTemplate("Music/static/documents/template1.docx")
                 request_id = request.GET['id']
                 sum_request = DocsRequest.objects.get(pk=request_id)
                 try:
