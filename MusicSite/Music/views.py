@@ -621,7 +621,7 @@ def submit_request(request):
             else:
                 APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
                 y = yadisk.YaDisk(token=APP_TOKEN)
-                doc = DocxTemplate("Music/static/documents/template1.docx")
+                doc = DocxTemplate("Music/static/documents/template2.docx")
                 request_id = request.GET['id']
                 sum_request = DocsRequest.objects.get(pk=request_id)
                 try:
@@ -652,7 +652,7 @@ def submit_request(request):
                     'REGISTRATION': request.POST['BIRTH_PLACE'],
                     'VK': sum_request.contact,
                     'MONTH': f'{months[datetime.now().month]} ',
-                    'IMAGE': InlineImage(doc, image_descriptor=f'{sum_request.cover}', width=Mm(100)),
+                    # 'IMAGE': InlineImage(doc, image_descriptor=f'{sum_request.cover}', width=Mm(100)),
                     "DAY": datetime.now().day,
                     'YEAR': datetime.now().year,
                     'TRACKS': Track.objects.filter(request=sum_request).all(),
@@ -662,11 +662,11 @@ def submit_request(request):
 
                 folder = sum_request.artisi_name+' - '+name
                 folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder}"
-                offer_name = f'offer__vauvision__{context["NUMBER"]}'
-                try:
-                    doc.render(context)
-                except:
-                    context['IMAGE'] = 'Вставьте обложку релиза'
+                offer_name = f'offer__vauvision__{sum_request.number}-{count}'
+                # try:
+                doc.render(context)
+                # except:
+                    # context['IMAGE'] = 'Вставьте обложку релиза'
                 doc.save(f"Music/static/documents/{offer_name}.docx")
                 y.upload(path_or_file=f"Music/static/documents/{offer_name}.docx",
                          dst_path=f'{folder_path}/{offer_name}.docx/')
