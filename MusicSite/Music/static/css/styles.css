@@ -13,6 +13,10 @@
     font-family: buttons;
     src: url("/static/fonts/oswald/Oswald-Regular.ttf");
 }
+@font-face {
+    font-family: mainCodes;
+    src: url("/static/fonts/montserrat/Montserrat-Medium.ttf");
+}
 
 
 body {

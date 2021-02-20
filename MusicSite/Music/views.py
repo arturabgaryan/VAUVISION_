@@ -312,6 +312,22 @@ def index(request):
         )
         paspinfo.save()
 
+    try:
+        paspinfo = PaspInfo.objects.get(email=email)
+    except:
+        paspinfo = PaspInfo.objects.create(
+            full_name=request.POST.get('FULLNAME', None),
+            who_given=request.POST.get('GIVEN_BY', None),
+            when_given=request.POST.get('GIVEN_DATE', None),
+            data_born=request.POST.get('BIRTH_DATE', None),
+            place_born=request.POST.get('REGISTRATION', None),
+            grajdanstvo=request.POST.get('COUNTRY', None),
+            seria_num=request.POST.get('SERIE_NUM', None),
+            artist_name=request.POST.get('artistName', None),
+            email=email
+        )
+        paspinfo.save()
+
     if name not in [directory.name for directory in list(
         y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
     )]:
@@ -341,6 +357,24 @@ def index(request):
         tiktok = request.POST.get('tiktokTime', None)
         genre = request.POST.get('releaseGenre', 'Не указан')
 
+        info_to_file = f"""1) Краткая информация о релизе: \n
+ВК автора {docsrequest.contact}
+Spotify:{request.POST.get('spotify',None)}
+Карточка AppleMusic:{request.POST.get('appmusic',None)}
+Почта автора: {email}
+----------------------------------------------------------------
+Оформление карточни в ВК: Тип релиза: {docsrequest.release_type}
+Имя релиза: {docsrequest.release_name}
+Имя артиста: {request.POST.get('artistName', None)}
+Треки с матом: {docsrequest.filthy}
+Дата релиза: {docsrequest.release_date}
+Площадки релиза: {request.POST.get('releasePlaces', None)}
+Воспроизводить трек в Tik Tok с {tiktok}c.
+Жанр: {genre}
+Доп. информация: {request.POST.get('releaseSubInfo', None)}
+Промо-план: {request.POST.get('promo-plan',None)}
+Пользователь узнал о лейбле: {request.POST.get('infoSource', None)}
+----------------------------------------------------------------"""
 
         files = [key for key, value in request.POST.items() if 'text' in key]
         files = [i.split("_")[0] for i in files]
@@ -361,6 +395,7 @@ def index(request):
                     request.POST.get('releaseDate', None), "%Y-%m-%d")
             )
             track.save()
+
             info_to_file += f"""\nИмя: {f}
 Автор мелодии: {track.melody_author}
 Автор текста: {track.text_author}
