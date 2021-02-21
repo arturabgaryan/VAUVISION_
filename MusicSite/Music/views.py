@@ -350,9 +350,9 @@ def index(request):
             cover=request.FILES.get('releaseCover', None),
             artisi_name=request.POST.get('artistName',None)
         )
-        docsrequest.cover.name = 'cover__{}.{}'.format(
-            email,
-            request.FILES.get('releaseCover', None).name.split(".")[-1])
+        # docsrequest.cover.name = 'cover__{}.{}'.format(
+            # email,
+            # request.FILES.get('releaseCover', None).name.split(".")[-1])
         docsrequest.save()
 
 
