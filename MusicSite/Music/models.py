@@ -25,7 +25,6 @@ class DocsRequest(models.Model):
     release_type = models.CharField(max_length=150)
     artisi_name = models.CharField(max_length=500,default=None)
     vk_style = models.CharField(max_length=5)
-    cover_filename = models.CharField(max_length=255, null=True, default=None)
 
 
 class Track(models.Model):
