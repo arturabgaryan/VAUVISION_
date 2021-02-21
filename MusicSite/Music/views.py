@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from Music.models import AuthCodes, Counter, DocsRequest, Track, PaspInfo,PromoCodes
+from Music.models import AuthCodes, Counter, DocsRequest, Track, PaspInfo, \
+    PromoCodes
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password
@@ -52,6 +53,7 @@ def send_email_util(
     server.send_message(msg)
     server.quit()
     return 1
+
 
 @csrf_exempt
 def test(request):
@@ -659,6 +661,7 @@ def submit_request(request):
                     'TRACKS': Track.objects.filter(request=sum_request).all(),
                     'track_num': [i for i in range(len(list(Track.objects.filter(request=sum_request).all())))]
                 }
+                print("Cover path:", sum_request.cover.path)
                 name = sum_request.release_name
 
                 folder = sum_request.artisi_name+' - '+name
@@ -668,6 +671,7 @@ def submit_request(request):
                     doc.render(context)
                 except:
                     context['IMAGE'] = 'Вставьте обложку релиза'
+                    doc.render(context)
                 doc.save(f"Music/static/documents/{offer_name}.docx")
                 y.upload(path_or_file=f"Music/static/documents/{offer_name}.docx",
                          dst_path=f'{folder_path}/{offer_name}.docx/')
