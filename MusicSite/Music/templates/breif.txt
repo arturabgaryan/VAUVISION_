@@ -1,7 +1,7 @@
 Краткая информация о релизе:
 
 ВК автора {{ docsrequest_contact }}
-Spotify: {{ spotify }}
+Карточка Spotify: {{ spotify }}
 Карточка Apple Music: {{ applemusic }}
 Почта автора: {{ email }}
 
@@ -9,6 +9,7 @@ Spotify: {{ spotify }}
 
 Оформление карточни в ВК:
 Тип релиза: {{ docsrequest_release_type }}
+Имя артиста: {{  }}
 Имя релиза: {{ docsrequest_release_name }}
 Треки с матом: {{ docsrequest_filthy }}
 Дата релиза: {{ docsrequest_release_date }}
@@ -28,7 +29,7 @@ Spotify: {{ spotify }}
 Паспортные данные:
 ФИО: {{ paspinfo_full_name }}
 Дата выдачи: {{ paspinfo_when_given }}
-Кем выдан: {{ paspinfo.who_given }}
+Кем выдан: {{ paspinfo_who_given }}
 Дата рождения: {{ paspinfo_data_born }}
 Место регистрации: {{ paspinfo_place_born }}
 Гражданство: {{ COUNTRY }}
