@@ -651,7 +651,7 @@ def submit_request(request):
                     'BIRTH_DATE': request.POST['BIRTH_DATE'],
                     'NUMBER': f'{sum_request.number}-{count}',
                     'INITIALS': request.POST['INITIALS'],
-                    'PASSPORT_SERIE': pasp_info.serie_num,
+                    'PASPORT_SERIE': request.POST.get('PASSPORT_SERIE', 'Нет'),
                     'GIVEN_BY': request.POST['GIVEN_BY'],
                     'GIVEN_DATE': request.POST['GIVEN_DATE'],
                     'REGISTRATION': request.POST['BIRTH_PLACE'],

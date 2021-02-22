@@ -20,6 +20,7 @@ class DocsRequest(models.Model):
         ext = filename.split('.')[-1]
         filename = "%s.%s" % (uuid.uuid4(), ext)
         return os.path.join(instance.directory_string_var, filename)
+    directory_string_var = "covers"
 
     contact = models.CharField(max_length=500)
     release_name = models.CharField(max_length=500)
