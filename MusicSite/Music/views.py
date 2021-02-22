@@ -348,13 +348,12 @@ def index(request):
             release_type=request.POST.get('releaseType', None),
             number=datetime.now().strftime("%d%m%Y"),
             cover=request.FILES.get('releaseCover', None),
-            artisi_name=request.POST.get('artistName',None)
+            artisi_name=request.POST.get('artistName', None),
+            cover_name='cover__{}.{}'.format(
+                email,
+                request.FILES.get('releaseCover', None).name.split(".")[-1])
         )
-        # docsrequest.cover.name = 'cover__{}.{}'.format(
-            # email,
-            # request.FILES.get('releaseCover', None).name.split(".")[-1])
         docsrequest.save()
-
 
         tiktok = request.POST.get('tiktokTime', None)
         genre = request.POST.get('releaseGenre', 'Не указан')
@@ -619,8 +618,11 @@ def submit_request(request):
                 pasp_info = PaspInfo.objects.get(email=current_request.email)
                 print(pasp_info)
                 tracks = Track.objects.filter(request=current_request).all()
-                return render(request, 'admin-panel/pages/submit.html',
-                              {'request': current_request, 'tracks': tracks, 'pasp_info' : pasp_info})
+                return render(
+                    request, 'admin-panel/pages/submit.html', {
+                        'request': current_request,
+                        'tracks': tracks,
+                        'pasp_info': pasp_info})
             else:
                 APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
                 y = yadisk.YaDisk(token=APP_TOKEN)
@@ -649,17 +651,19 @@ def submit_request(request):
                     'BIRTH_DATE': request.POST['BIRTH_DATE'],
                     'NUMBER': f'{sum_request.number}-{count}',
                     'INITIALS': request.POST['INITIALS'],
-                    'PASSPORT_SERIE': request.POST['PASSPORT_SERIE'],
+                    'PASSPORT_SERIE': pasp_info.serie_num,
                     'GIVEN_BY': request.POST['GIVEN_BY'],
                     'GIVEN_DATE': request.POST['GIVEN_DATE'],
                     'REGISTRATION': request.POST['BIRTH_PLACE'],
                     'VK': sum_request.contact,
                     'MONTH': f'{months[datetime.now().month]} ',
-                    'IMAGE': InlineImage(doc, sum_request.cover.path, width=Mm(100)),
+                    'IMAGE': InlineImage(
+                        doc, sum_request.cover.path, width=Mm(100)),
                     "DAY": datetime.now().day,
                     'YEAR': datetime.now().year,
                     'TRACKS': Track.objects.filter(request=sum_request).all(),
-                    'track_num': [i for i in range(len(list(Track.objects.filter(request=sum_request).all())))]
+                    'track_num': [i for i in range(len(list(
+                        Track.objects.filter(request=sum_request).all())))]
                 }
                 print("Cover path:", sum_request.cover.path)
                 name = sum_request.release_name
@@ -672,6 +676,7 @@ def submit_request(request):
                 except:
                     context['IMAGE'] = 'Вставьте обложку релиза'
                     doc.render(context)
+
                 doc.save(f"Music/static/documents/{offer_name}.docx")
                 y.upload(path_or_file=f"Music/static/documents/{offer_name}.docx",
                          dst_path=f'{folder_path}/{offer_name}.docx/')
