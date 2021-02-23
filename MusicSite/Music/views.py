@@ -655,7 +655,7 @@ def submit_request(request):
                     'VK': sum_request.contact,
                     'MONTH': f'{months[datetime.now().month]} ',
                     'IMAGE': InlineImage(
-                        doc, sum_request.cover.path, width=Mm(50)),
+                        doc, sum_request.cover.path, width=Mm(50),height=Mm(50)),
                     "DAY": datetime.now().day,
                     'YEAR': datetime.now().year,
                     'TRACKS': Track.objects.filter(request=sum_request).all(),
