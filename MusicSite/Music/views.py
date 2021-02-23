@@ -60,10 +60,8 @@ def test(request):
     context = {}
     context.update(csrf(request))
     context['user'] = request.user
-    if request.user.is_authenticated:
-        return render(request, 'test..html', context)
-    else:
-        return render(request, 'test..html', context)
+    return render(request, 'test..html', context)
+    
 
 
 def enter(request):
