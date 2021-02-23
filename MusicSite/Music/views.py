@@ -79,22 +79,19 @@ def upload(request):
     APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id', None)
-    print(name)
     name = name[:-2]
-    full_name = name.split('_')[0]
-    print(full_name.split('-').join(' - '))
-
-    folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{full_name}"
+    print(name)
+    folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name}"
     _ = request.FILES.get(name+"_name")
     y.upload(
         path_or_file=io.BytesIO(
             request.FILES.get(name + "_name").read()),
-        dst_path=f'{folder_path}/Signed-{full_name}.pdf',
+        dst_path=f'{folder_path}/Signed-{name}.pdf',
         overwrite=True
     )
     y.download(
-        f"{folder_path}/Signed-{full_name}.pdf",
-        f"Music/static/documents/Signed-{full_name}_offer.pdf"
+        f"{folder_path}/Signed-{name}.pdf",
+        f"Music/static/documents/Signed-{name}_offer.pdf"
     )
     return redirect('/account')
 
