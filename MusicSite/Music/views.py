@@ -57,9 +57,6 @@ def send_email_util(
 
 @csrf_exempt
 def test(request):
-    print(request.POST)
-    print(request.FILES)
-
     context = {}
     context.update(csrf(request))
     context['user'] = request.user
