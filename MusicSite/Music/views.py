@@ -115,7 +115,7 @@ def account(request):
         tracks = Track.objects.filter(artist=request.user.username)
         signed_tracks = []
         for track in tracks:
-            if os.path.isfile(path.replace(')(', track.full_name)):
+            if os.path.isfile(path.replace(')(',track.artist_name + ' - ' + track.full_name)):
                 signed_tracks.append(track.full_name)
                 print("Yes:", track.full_name)
             else:
