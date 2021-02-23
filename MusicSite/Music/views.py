@@ -61,7 +61,7 @@ def test(request):
     context.update(csrf(request))
     context['user'] = request.user
     return render(request, 'test..html', context)
-    
+
 
 
 def enter(request):
