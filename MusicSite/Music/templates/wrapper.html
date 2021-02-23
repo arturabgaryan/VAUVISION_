@@ -41,6 +41,27 @@
             <img src="/static/images/background/logowhite.png" alt="">
         </a>
     </div>
+    {% if user.is_authenticated %}
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-end">
+                <a style="color: white; background: none" class="navbar-item" href="/form-admin/login">Перейти в админ
+                    панель</a>
+            <div class="navbar-item">
+                    <span style="color: white" class="is-light">Пользователь: {{ user.username }} <span>
+            </div>
+            <div class="navbar-item">
+
+                <div class="buttons">
+
+                        <a href="/form-admin/logout/" class="button is-light">
+                            Выйти
+                        </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</nav>
 
 <div id="app">
     {% block content %}
