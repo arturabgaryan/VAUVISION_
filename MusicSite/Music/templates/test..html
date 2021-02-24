@@ -503,36 +503,46 @@
         computed: {
             total: function () {
             var cost = 0
-            if(this.singles == 1 && this.hundreds == 1 && this.thousands == 0 && this.albumns == 0){
-            cost += 1790
+            var singles = this.singles
+            var albumns = this.albumns
+            var clips = this.thousands
+            var cards = this.hundreds
+            if(Math.min(singles,albumns,cards) != 0){
+            cost += 3380 * Math.min(singles,albumns,cards)
+            var raz1 = Math.min(singles,albumns,cards)
+            singles -= raz1
+            albumns -= raz1
+            cards -= raz1
             }
-            else if(this.singles == 0 && this.hundreds == 1 && this.thousands == 0 && this.albumns == 1){
-            cost += 2290
+            else if(Math.min(singles,cards) != 0){
+            alert(Math.min(singles,cards))
+            cost += 1790 * Math.min(singles,cards)
+            var raz2 = Math.min(singles,cards)
+            singles -= raz2
+            cards -= raz2
             }
-            else if(this.singles == 1 && this.hundreds == 0 && this.thousands == 0 && this.albumns == 1){
-            cost += 2890
+            else if(Math.min(albumns,cards) != 0){
+            cost += 2290 * Math.min(albumns,cards)
+            var raz3 = Math.min(albumns,cards)
+            albumns -= raz3
+            cards -= raz3
             }
-             else if(this.singles == 1 && this.hundreds == 1 && this.thousands == 0 && this.albumns == 1){
-            cost += 3380
+            else if(Math.min(albumns,singles) != 0){
+            cost += 2890 * Math.min(albumns,singles)
+            var raz4 = Math.min(albumns,singles)
+            albumns -= raz4
+            singles -= raz4
             }
-            else if(this.singles == 1 && this.hundreds == 1 && this.thousands == 1 && this.albumns == 1){
-            cost += 3380 + 1300
+            if (singles == 3){
+            cost += 3290 + albumns * 1800 + clips * 1300 + cards * 600
             }
-            else if (this.singles == 1 && this.hundreds == 1 && this.thousands == 1 && this.albumns == 0){
-            cost += 1790 + 1300
-            }
-            else if(this.singles == 0 && this.hundreds == 1 && this.thousands == 1 && this.albumns == 1){
-            cost += 2290 + 1300
-            }
-            else if(this.singles == 3 && this.hundreds == 0 && this.thousands == 0 && this.albumns == 0){
-            cost += 3290
-            }
-            else if(this.singles >= 5 ){
-            cost += this.singles * 1000 + this.albumns * 1800 + this.thousands * 1300 + this.hundreds * 600
+            else if(singles > 3){
+            cost += singles * 1000 + albumns * 1800 + clips * 1300 + cards * 600
             }
             else{
-                cost += this.singles * 1300 + this.albumns * 1800 + this.thousands * 1300 + this.hundreds * 600
-                }
+            cost += singles * 1300 + albumns * 1800 + clips * 1300 + cards * 600
+            }
+
             return cost
             },
             final: function () {
