@@ -26,7 +26,7 @@ urlpatterns = [
     path('log_in',log_in),
     path('log_out',log_out),
     path('main',main),
-    path('form/', form),
+    path('form/', test),
     path('form-admin/', panel),
     path('form-admin/logout/', admin_logout),
     path('form-admin/login/', admin_login),
@@ -47,5 +47,4 @@ urlpatterns = [
     path('send_email',send_email),
     path('index',index),
     path('upload',upload),
-    path('test',test)
 ]
