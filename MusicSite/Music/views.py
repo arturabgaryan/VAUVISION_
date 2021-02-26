@@ -510,7 +510,7 @@ def admin_logout(request):
         logout(request)
     return redirect('/')
 
-@csrf_exempt
+
 def admin_login(request):
     if request.method == 'GET':
         return render(request, 'admin-panel/pages/login_page.html')
@@ -529,7 +529,7 @@ def admin_login(request):
             return render(request, 'admin-panel/pages/login_page.html', {
                 'login_error': 'Пользователя не существует'})
 
-@csrf_exempt
+
 def generate_auth_code(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
@@ -550,7 +550,7 @@ def generate_auth_code(request):
                     'result': 'Код для этого пользователя уже зарегестрирован'}
                 )
 
-@csrf_exempt
+
 def admin_signup(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -574,7 +574,7 @@ def admin_signup(request):
     else:
         return redirect('/form-admin/login/')
 
-@csrf_exempt
+
 def change_name(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
@@ -588,7 +588,7 @@ def change_name(request):
     else:
         return redirect('/form-admin/login/')
 
-@csrf_exempt
+
 def submit_request(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
@@ -730,7 +730,7 @@ def submit_request(request):
     else:
         return redirect('/form-admin/login/')
 
-@csrf_exempt
+
 def delete_request(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
@@ -745,7 +745,7 @@ def delete_request(request):
     else:
         return redirect('/form-admin/login/')
 
-@csrf_exempt
+
 def createcode(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
@@ -761,7 +761,7 @@ def createcode(request):
     else:
         return redirect('/form-admin/login/')
 
-@csrf_exempt
+
 def deletecode(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
