@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from Music.models import AuthCodes, Counter, DocsRequest, Track, PaspInfo, \
-    PromoCodes
+    PromoCodes,Requests
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password
@@ -112,7 +112,7 @@ def account(request):
     if request.user.is_authenticated:
         path = '{}/Music/static/documents/Signed-)(_offer.pdf'.format(
             str(os.path.abspath('')))
-        tracks = Track.objects.filter(artist=request.user.username)
+        tracks = Requests.objects.filter(artist=request.user.username)
         signed_tracks = []
         for track in tracks:
             if os.path.isfile(path.replace(')(',track.artist_name + ' - ' + track.full_name)):
@@ -351,6 +351,18 @@ def index(request):
                 request.FILES.get('releaseCover', None).name.split(".")[-1])
         )
         docsrequest.save()
+        req = Requests.objects.create(
+            artist_name=request.POST.get('artistName', None),
+            artist=email,
+            name=request.POST.get('releaseName', None).replace(
+                " ", "__"),
+            full_name=request.POST.get('releaseName', None).replace(
+                " ", "__"),
+            release_date=datetime.strptime(
+                request.POST.get('releaseDate', None), "%Y-%m-%d")
+
+        )
+        req.save()
 
         tiktok = request.POST.get('tiktokTime', None)
         genre = request.POST.get('releaseGenre', 'Не указан')
@@ -393,6 +405,8 @@ Spotify:{request.POST.get('spotify',None)}
                     request.POST.get('releaseDate', None), "%Y-%m-%d")
             )
             track.save()
+
+
 
             info_to_file += f"""\nИмя: {f}
 Автор мелодии: {track.melody_author}
