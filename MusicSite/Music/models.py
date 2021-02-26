@@ -65,6 +65,13 @@ class Scan(models.Model):
     pass
 
 
+class Requests(models.Model):
+    artist_name = models.CharField(max_length=500, default=None)
+    artist = models.CharField(max_length=250, default=None)
+    name = models.CharField(max_length=500, default=None)
+    release_date = models.DateField(default=None)
+    full_name = models.CharField(max_length=500, default=None)
+
 class PromoCodes(models.Model):
     name = models.CharField(max_length=500, default=None)
     value = models.FloatField(default=None)
