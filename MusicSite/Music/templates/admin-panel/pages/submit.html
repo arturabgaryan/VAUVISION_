@@ -6,7 +6,7 @@
 
             <div style="height: 90vh; overflow-y: scroll;" >
                 <h2 style="text-decoration: underline" class="subtitle is-4">Паспортные данные</h2>
-                <form method="post" action="/form-admin/submit-request/?id={{ request.id }}" id="form_to_submit">
+                <form method="post" action="/form-admin/submit-request/" id="form_to_submit">
                     {% csrf_token %}
                     <label class="label" for="">Имя релиза: <b>{{ request.release_name }}</b></label>
                     <label class="label" for="">VK автора: <b><a target="_blank"
@@ -22,6 +22,7 @@
                     <label for="" class="label">Псевдоним</label>
                     <input name="NAME" placeholder="Например: PHARAOH" required type="text" class="input" value="{{pasp_info.artist_name}}"><br><br>
                     <label for="" class="label">ФИО</label>
+                    <input type="hidden" name="ID" value="{{request.id}}">
                     {% if pasp_info == None %}
                     <input type="text" placeholder="Например: Иванов Иван Иванович" required name="FULLNAME"
                            class="input"><br><br>
