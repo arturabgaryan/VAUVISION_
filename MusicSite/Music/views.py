@@ -632,7 +632,7 @@ def submit_request(request):
 
             }
             if request.method == 'GET':
-                request_id = request.POST.get('ID',None)
+                request_id = request.GET['id']
                 current_request = DocsRequest.objects.get(pk=request_id)
 
                 pasp_info = PaspInfo.objects.get(email=current_request.email)
@@ -647,7 +647,7 @@ def submit_request(request):
                 APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
                 y = yadisk.YaDisk(token=APP_TOKEN)
                 doc = DocxTemplate("Music/static/documents/template2.docx")
-                request_id = request.GET['id']
+                request_id = request.POST.get('ID',None)
                 sum_request = DocsRequest.objects.get(pk=request_id)
                 try:
                     pasp_info = PaspInfo.objects.get(email=sum_request.email)
