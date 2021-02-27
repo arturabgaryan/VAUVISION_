@@ -596,7 +596,15 @@ def change_name(request):
             track = Track.objects.get(pk=id)
             track.name = request.POST.get('new_track_name_{}'.format(id),None)
             track.save()
-            return JsonResponse({'content': 'ok'})
+            current_request = DocsRequest.objects.get(pk=name)
+
+            pasp_info = PaspInfo.objects.get(email=current_request.email)
+            print(pasp_info)
+            tracks = Track.objects.filter(request=current_request).all()
+            return render(request, 'admin-panel/pages/submit.html', {
+                        'request': current_request,
+                        'tracks': tracks,
+                        'pasp_info': pasp_info})
         else:
             return redirect('/form-admin/login/')
     else:
