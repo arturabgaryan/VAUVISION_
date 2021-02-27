@@ -15,7 +15,7 @@
                     {% for track in tracks %}
                     <form method="post" action="/form-admin/change-track-name/?id={{ track.id }}&name={{ request.id }}">
                         <input name="new_track_name_{{ track.id }}" type="text" value="{{ track.name }}" class="input"><br>
-                        <span @click="changeTrack({{ track.id }})" style="cursor: pointer;">Изменить</span><br><br>
+                        <button type="submit" style="cursor: pointer;">Изменить</button><br><br>
                     </form>
                     {% endfor %}
                     <br>
