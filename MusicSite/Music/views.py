@@ -649,6 +649,12 @@ def submit_request(request):
                 doc = DocxTemplate("Music/static/documents/template2.docx")
                 request_id = request.POST.get('ID',None)
                 sum_request = DocsRequest.objects.get(pk=request_id)
+                for track in Track.objects.filter(request=sum_request).all():
+                    if request.POST.get('new_track_name_{}'.format(track.name)) == request.POST.get('old_track_name_{}'.format(track.name)):
+                        pass
+                    else:
+                        track.name = request.POST.get('new_track_name_{}'.format(track.name))
+                        track.save()
                 try:
                     pasp_info = PaspInfo.objects.get(email=sum_request.email)
                 except:
