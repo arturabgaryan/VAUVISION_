@@ -601,10 +601,7 @@ def change_name(request):
             pasp_info = PaspInfo.objects.get(email=current_request.email)
             print(pasp_info)
             tracks = Track.objects.filter(request=current_request).all()
-            return render(request, 'admin-panel/pages/submit.html', {
-                        'request': current_request,
-                        'tracks': tracks,
-                        'pasp_info': pasp_info})
+            return redirect('/form-admin/')
         else:
             return redirect('/form-admin/login/')
     else:
