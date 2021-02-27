@@ -6,7 +6,7 @@
 
             <div style="height: 90vh; overflow-y: scroll;" >
                 <h2 style="text-decoration: underline" class="subtitle is-4">Паспортные данные</h2>
-                <form method="post" action="/form-admin/submit-request/">
+                <form method="post" action="/form-admin/submit-request/" id="form_to_submit">
                     {% csrf_token %}
                     <label class="label" for="">Имя релиза: <b>{{ request.release_name }}</b></label>
                     <label class="label" for="">VK автора: <b><a target="_blank"
@@ -76,7 +76,7 @@
                     <input type="text" required name="GIVEN_DATE" placeholder="Например: 13.05.2004" value="{{pasp_info.when_given}}"
                            class="input"><br><br>
                     {% endif %}
-                    <button formaction="/form-admin/submit-request/?id={{ request.id }}" type="submit" class="button">Создать документ</button>
+                    <button form="form_to_submit" formaction="/form-admin/submit-request/?id={{ request.id }}" type="submit" class="button">Создать документ</button>
                 </form>
             </div>
 
