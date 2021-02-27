@@ -594,7 +594,7 @@ def change_name(request):
         if request.user.is_superuser:
             name, id = request.GET['name'], request.GET['id']
             track = Track.objects.get(pk=id)
-            track.name = name
+            track.name = request.POST.get('new_track_name_{}'.format(id),None)
             track.save()
             return JsonResponse({'content': 'ok'})
         else:
