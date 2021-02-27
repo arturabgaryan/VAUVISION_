@@ -13,9 +13,9 @@
                                                                  href="{{ request.contact }}">{{ request.contact }}</a></b></label>
                     <label for="" class="label">Названия треков</label>
                     {% for track in tracks %}
-                    <form action="/form-admin/change-track-name/?id={{ track.id }}&name={{ request.id }}">
+                    <form id="form_{{ track.id }}" action="/form-admin/change-track-name/?id={{ track.id }}&name={{ request.id }}">
                         <input name="new_track_name_{{ track.id }}" type="text" value="{{ track.name }}" class="input"><br>
-                        <button type="submit" style="cursor: pointer;">Изменить</button><br><br>
+                        <span id="{{track.id}}" onclick="Sub()" style="cursor: pointer;">Изменить</span><br><br>
                     </form>
                     {% endfor %}
                     <br>
@@ -82,4 +82,16 @@
 
 
     </section>
+<script>
+    function Sub() {
+
+    var contentPanelId = event.target.id;
+    var user_id = $("#form_"+contentPanelId).attr("id");
+
+    $("#"+contentPanelId).change(function(){
+  $("#form_"+contentPanelId).submit();
+  });
+
+    }
+</script>
 {% endblock %}
