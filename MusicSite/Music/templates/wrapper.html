@@ -98,6 +98,18 @@
 </script>
 <script src="/static/js/myVue.js"></script>
 <script>
+    function Sub() {
+
+    var contentPanelId = event.target.id;
+    var user_id = $("#form_"+contentPanelId).attr("id");
+
+    $("#"+contentPanelId).change(function(){
+  $("#form_"+contentPanelId).submit();
+  });
+
+    }
+</script>
+<script>
     function start_preloader() {
         document.querySelector('.loading-screen').style.display = 'flex'
     }
