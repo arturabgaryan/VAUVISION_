@@ -6,7 +6,7 @@
 
             <div style="height: 90vh; overflow-y: scroll;" >
                 <h2 style="text-decoration: underline" class="subtitle is-4">Паспортные данные</h2>
-                <form method="post" action="/form-admin/submit-request/" id="form_to_submit">
+                <form method="post" action="/form-admin/submit-request/?id={{ request.id }}" id="form_to_submit">
                     {% csrf_token %}
                     <label class="label" for="">Имя релиза: <b>{{ request.release_name }}</b></label>
                     <label class="label" for="">VK автора: <b><a target="_blank"
