@@ -13,7 +13,7 @@
                                                                  href="{{ request.contact }}">{{ request.contact }}</a></b></label>
                     <label for="" class="label">Названия треков</label>
                     {% for track in tracks %}
-                    <form id="form_{{ track.id }}" action="/form-admin/change-track-name/?id={{ track.id }}&name={{ request.id }}">
+                    <form method="post" id="form_{{ track.id }}" action="/form-admin/change-track-name/?id={{ track.id }}&name={{ request.id }}">
                         <input name="new_track_name_{{ track.id }}" type="text" value="{{ track.name }}" class="input"><br>
                         <button type="submit" formaction="/form-admin/change-track-name/?id={{ track.id }}&name={{ request.id }}" style="cursor: pointer;">Изменить</button><br><br>
                     </form>
