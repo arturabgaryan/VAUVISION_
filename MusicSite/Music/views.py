@@ -632,7 +632,7 @@ def submit_request(request):
 
             }
             if request.method == 'GET':
-                request_id = request.GET['id']
+                request_id = request.POST.get('ID',None)
                 current_request = DocsRequest.objects.get(pk=request_id)
 
                 pasp_info = PaspInfo.objects.get(email=current_request.email)
