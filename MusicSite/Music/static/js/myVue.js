@@ -60,7 +60,7 @@ var app = new Vue({
         changeTrack: function (id) {
             let text = document.querySelector(`#new_track_name_${id}`).value
             axios
-                .get('http://vauvision.com/form-admin/change-track-name/?id=${id}&name=${text}')
+                .get('https://vauvision.com/form-admin/change-track-name/?id=${id}&name=${text}')
                 .then(location.reload())
         }
 
