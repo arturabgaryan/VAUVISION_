@@ -81,7 +81,7 @@ def upload(request):
     name = request.GET.get('id', None)
     name = name[:-2]
     print(name)
-    folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name}"
+    folder_path = f"/КАТАЛОГ VAUVISION/{name}"
     _ = request.FILES.get(name+"_name")
     y.upload(
         path_or_file=io.BytesIO(
