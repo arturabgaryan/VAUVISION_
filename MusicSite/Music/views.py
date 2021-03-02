@@ -292,8 +292,7 @@ def index(request):
     APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
-    name = request.POST.get('releaseName', None).replace(
-                    " ", "__")
+    name = request.POST.get('releaseName', None)
 
     try:
         paspinfo = PaspInfo.objects.get(email=email)
@@ -348,16 +347,15 @@ def index(request):
             artisi_name=request.POST.get('artistName', None),
             cover_name='cover__{}.{}'.format(
                 email,
-                request.FILES.get('releaseCover', None).name.split(".")[-1])
+                request.FILES.get('releaseCover', None).name.split(".")[-1]),
+            create_time=datetime.strftime(datetime.now(), "%Y.%m.%d %H:%M")
         )
         docsrequest.save()
         req = Requests.objects.create(
             artist_name=request.POST.get('artistName', None),
             artist=email,
-            name=request.POST.get('releaseName', None).replace(
-                " ", "__"),
-            full_name=request.POST.get('releaseName', None).replace(
-                " ", "__"),
+            name=request.POST.get('releaseName', None),
+            full_name=request.POST.get('releaseName', None),
             release_date=datetime.strptime(
                 request.POST.get('releaseDate', None), "%Y-%m-%d")
 
@@ -399,8 +397,7 @@ Spotify:{request.POST.get('spotify',None)}
                 request=docsrequest,
                 artist=email,
                 artist_name=request.POST.get('artistName', None),
-                full_name=request.POST.get('releaseName', None).replace(
-                    " ", "__"),
+                full_name=request.POST.get('releaseName', None),
                 release_date=datetime.strptime(
                     request.POST.get('releaseDate', None), "%Y-%m-%d")
             )
@@ -507,7 +504,7 @@ Spotify:{request.POST.get('spotify',None)}
 def panel(request):
     if request.user.is_authenticated:
         if request.user.is_superuser:
-            scan_requests = DocsRequest.objects.all()
+            scan_requests = DocsRequest.objects.all().order_by('-create_time')
             promocodes = PromoCodes.objects.all()
             return render(request, 'admin-panel/pages/admin.html', {
                 'scan_requests': scan_requests,
