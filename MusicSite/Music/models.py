@@ -25,7 +25,7 @@ class DocsRequest(models.Model):
 
     contact = models.CharField(max_length=500)
     release_name = models.CharField(max_length=500)
-    create_time = models.DateTimeField(auto_now_add=True, blank=True)
+    create_time = models.DateTimeField(default=None)
     email = models.EmailField()
     release_date = models.DateField(default=None)
     filthy = models.CharField(max_length=170)
