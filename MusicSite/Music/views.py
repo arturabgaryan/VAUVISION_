@@ -365,8 +365,8 @@ def index(request):
             name=request.POST.get('releaseName', None),
             full_name=request.POST.get('releaseName', None),
             release_date=datetime.strptime(
-                request.POST.get('releaseDate', None), "%Y-%m-%d")
-
+                request.POST.get('releaseDate', None), "%Y-%m-%d"),
+            create_time=datetime.strptime(datetime.now(),"%Y-%m-%d %H:%M")
         )
         req.save()
 
