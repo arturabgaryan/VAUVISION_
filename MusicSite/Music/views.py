@@ -82,13 +82,22 @@ def upload(request):
     name = name[:-2]
     print(name)
     folder_path = f"/КАТАЛОГ VAUVISION/{name}"
+    folder_path2 = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name}"
     _ = request.FILES.get(name+"_name")
-    y.upload(
-        path_or_file=io.BytesIO(
-            request.FILES.get(name + "_name").read()),
-        dst_path=f'{folder_path}/Signed-{name}.pdf',
-        overwrite=True
-    )
+    try:
+        y.upload(
+            path_or_file=io.BytesIO(
+                request.FILES.get(name + "_name").read()),
+            dst_path=f'{folder_path}/Signed-{name}.pdf',
+            overwrite=True
+        )
+    except:
+        y.upload(
+            path_or_file=io.BytesIO(
+                request.FILES.get(name + "_name").read()),
+            dst_path=f'{folder_path2}/Signed-{name}.pdf',
+            overwrite=True
+        )
     y.download(
         f"{folder_path}/Signed-{name}.pdf",
         f"Music/static/documents/Signed-{name}_offer.pdf"
@@ -348,7 +357,6 @@ def index(request):
             cover_name='cover__{}.{}'.format(
                 email,
                 request.FILES.get('releaseCover', None).name.split(".")[-1]),
-            create_time=datetime.strftime(datetime.now(), "%Y.%m.%d %H:%M")
         )
         docsrequest.save()
         req = Requests.objects.create(
