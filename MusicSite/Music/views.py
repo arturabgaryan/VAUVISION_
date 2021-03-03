@@ -110,7 +110,7 @@ def upload(request):
             f"Music/static/documents/Signed-{name}_offer.pdf"
         )
 
-    os.rename('{}/\'Signed-{}_offer.pdf\''.format(str(os.path.abspath('')),name),'{}/Signed-{}_offer.pdf'.format(str(os.path.abspath('')),name.replace(' ','_')))
+    os.rename('{}/\'Signed-{}_offer.pdf\''.format(str(os.path.abspath(''))+'/Music/static/documents',name),'{}/Signed-{}_offer.pdf'.format(str(os.path.abspath(''))+'/Music/static/documents',name.replace(' ','_')))
 
 
 
