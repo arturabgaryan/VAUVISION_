@@ -110,6 +110,10 @@ def upload(request):
             f"Music/static/documents/Signed-{name}_offer.pdf"
         )
 
+    os.rename('{}/\'Signed-{}_offer.pdf\''.format(str(os.path.abspath('')),name),'{}/Signed-{}_offer.pdf'.format(str(os.path.abspath('')),name.replace(' ','_')))
+
+
+
     return redirect('/account')
 
 
