@@ -1,6 +1,7 @@
 from django.db import models
 import os
 import uuid
+from django.utils import timezone
 
 
 paths = os.path.abspath('')
@@ -24,7 +25,7 @@ class DocsRequest(models.Model):
 
     contact = models.CharField(max_length=500)
     release_name = models.CharField(max_length=500)
-    create_time = models.DateTimeField(auto_now_add=True, blank=True)
+    create_time = models.DateTimeField(default=timezone.now(), blank=True)
     email = models.EmailField()
     release_date = models.DateField(default=None)
     filthy = models.CharField(max_length=170)
