@@ -102,16 +102,13 @@ def upload(request):
     try:
         y.download(
             f"{folder_path}/Signed-{name}.pdf",
-            f"Music/static/documents/Signed-{name}_offer.pdf"
+            f"Music/static/documents/Signed-{name.replace(' ','_')}_offer.pdf"
         )
     except:
         y.download(
             f"{folder_path2}/Signed-{name}.pdf",
-            f"Music/static/documents/Signed-{name}_offer.pdf"
+            f"Music/static/documents/Signed-{name.replace(' ','_')}_offer.pdf"
         )
-
-    os.rename('{}/\'Signed-{}_offer.pdf\''.format(str(os.path.abspath(''))+'/Music/static/documents',name),'{}/Signed-{}_offer.pdf'.format(str(os.path.abspath(''))+'/Music/static/documents',name.replace(' ','_')))
-
 
 
     return redirect('/account')
