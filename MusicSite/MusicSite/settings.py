@@ -124,4 +124,4 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 3145728024356789
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'Music/static/')
