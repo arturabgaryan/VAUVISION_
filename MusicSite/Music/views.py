@@ -407,9 +407,9 @@ Spotify:{request.POST.get('spotify',None)}
         for f in files:
             track = Track.objects.create(
                 name=".".join(f.split(".")[:-1]),
-                melody_author=request.POST.get(f+'_music', None),
-                text_author=request.POST.get(f+'_text', None),
-                singer=request.POST.get(f+'_artis', None),
+                melody_author=request.POST.get(str(f)+'_music', None),
+                text_author=request.POST.get(str(f)+'_text', None),
+                singer=request.POST.get(str(f)+'_artis', None),
                 request=docsrequest,
                 artist=email,
                 artist_name=request.POST.get('artistName', None),
