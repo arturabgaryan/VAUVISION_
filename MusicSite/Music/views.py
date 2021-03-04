@@ -344,6 +344,11 @@ def index(request):
         )
         paspinfo.save()
 
+    if name in [directory.name for directory in list(
+            y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
+    )]:
+        y.remove('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{}'.format(name))
+
     if name not in [directory.name for directory in list(
         y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
     )]:
