@@ -40,9 +40,9 @@ class DocsRequest(models.Model):
 class Track(models.Model):
     full_name = models.CharField(max_length=500, default=None)
     name = models.CharField(max_length=250)
-    melody_author = models.CharField(max_length=250)
-    text_author = models.CharField(max_length=250)
-    singer = models.CharField(max_length=250)
+    melody_author = models.CharField(max_length=250,null=True)
+    text_author = models.CharField(max_length=250,null=True)
+    singer = models.CharField(max_length=250,null=True)
     request = models.ForeignKey(
         DocsRequest, on_delete=models.SET_NULL, null=True)
     artist = models.CharField(max_length=250, default=None)
