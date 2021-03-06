@@ -516,31 +516,31 @@
             }
             else if(Math.min(singles,cards) != 0){
             alert(Math.min(singles,cards))
-            cost += 1790 * Math.min(singles,cards)
+            cost += 1880 * Math.min(singles,cards)
             var raz2 = Math.min(singles,cards)
             singles -= raz2
             cards -= raz2
             }
             else if(Math.min(albumns,cards) != 0){
-            cost += 2290 * Math.min(albumns,cards)
+            cost += 2380 * Math.min(albumns,cards)
             var raz3 = Math.min(albumns,cards)
             albumns -= raz3
             cards -= raz3
             }
             else if(Math.min(albumns,singles) != 0){
-            cost += 2890 * Math.min(albumns,singles)
+            cost += 3190 * Math.min(albumns,singles)
             var raz4 = Math.min(albumns,singles)
             albumns -= raz4
             singles -= raz4
             }
             if (singles == 3){
-            cost += 3290 + albumns * 1800 + clips * 1300 + cards * 600
+            cost += 3570 + albumns * 1800 + clips * 1300 + cards * 600
             }
             else if(singles > 3){
-            cost += singles * 1000 + albumns * 1800 + clips * 1300 + cards * 600
+            cost += singles * 1090 + albumns * 1800 + clips * 1300 + cards * 600
             }
             else{
-            cost += singles * 1300 + albumns * 1800 + clips * 1300 + cards * 600
+            cost += singles * 1390 + albumns * 1890 + clips * 1390 + cards * 600
             }
 
             return cost
