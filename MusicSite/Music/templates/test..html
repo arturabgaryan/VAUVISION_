@@ -515,7 +515,7 @@
             cards -= raz1
             }
             else if(Math.min(singles,cards) != 0){
-            alert(Math.min(singles,cards))
+
             cost += 1880 * Math.min(singles,cards)
             var raz2 = Math.min(singles,cards)
             singles -= raz2
@@ -536,7 +536,10 @@
             if (singles == 3){
             cost += 3570 + albumns * 1800 + clips * 1300 + cards * 600
             }
-            else if(singles > 3){
+            else if (singles == 4){
+            cost += 4760 + albumns * 1800 + clips * 1300 + cards * 600
+            }
+            else if(singles > 4){
             cost += singles * 1090 + albumns * 1800 + clips * 1300 + cards * 600
             }
             else{
