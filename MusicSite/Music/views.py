@@ -80,20 +80,21 @@ def upload(request):
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id', None)
     name = name[:-2]
+    name2 = str(name + "_name")
 
     folder_path = f"/КАТАЛОГ VAUVISION/{name}"
     folder_path2 = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name}"
     _ = request.FILES.get(name+"_name")
     try:
         y.upload(
-            path_or_file=io.BytesIO(request.FILES.get(name + "_name").read()),
+            path_or_file=io.BytesIO(request.FILES.get(name2).read()),
             dst_path=f"{folder_path}/Signed-{name}.pdf",
             overwrite=True
         )
     except:
         y.upload(
             path_or_file=io.BytesIO(
-                request.FILES.get(name + "_name").read()),
+                request.FILES.get(name2).read()),
             dst_path=f"{folder_path2}/Signed-{name}.pdf",
             overwrite=True
         )
