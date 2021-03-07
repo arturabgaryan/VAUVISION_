@@ -76,7 +76,7 @@ def back(request):
 
 @ensure_csrf_cookie
 def upload(request):
-    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id', None)
     name = name[:-2]
@@ -94,7 +94,7 @@ def upload(request):
     except:
         y.upload(
             path_or_file=io.BytesIO(
-                request.FILES.get(name2).read()),
+                request.FILES.get(name2)),
             dst_path=f"{folder_path2}/Signed-{name}.pdf",
             overwrite=True
         )
