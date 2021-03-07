@@ -86,8 +86,7 @@ def upload(request):
     _ = request.FILES.get(name+"_name")
     try:
         y.upload(
-            path_or_file=io.BytesIO(
-                request.FILES.get(name + "_name").read()),
+            path_or_file=io.BytesIO(request.FILES.get(name + "_name").read()),
             dst_path=f"{folder_path}/Signed-{name}.pdf",
             overwrite=True
         )
