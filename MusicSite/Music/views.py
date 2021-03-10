@@ -284,6 +284,8 @@ def index(request):
     print("request files list tracks:\n", request.FILES.getlist('files'))
 
     email = request.POST.get('email', None)
+    files = request.FILES.get('file1',None)
+
     try:
         user = User.objects.get(username=email)
     except exceptions.ObjectDoesNotExist:
@@ -307,7 +309,7 @@ def index(request):
         ) != 0:
             print("EMAIL WAS SENT")
 
-    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     name = request.POST.get('releaseName', None)
@@ -444,6 +446,9 @@ Spotify:{request.POST.get('spotify',None)}
 
         y.upload(
             path_or_file=io.BytesIO(request.FILES.get('releaseCover').read()),
+            dst_path=f'{folder_path}/cover.jpeg')
+        y.upload(
+            path_or_file=io.BytesIO(files),
             dst_path=f'{folder_path}/cover.jpeg')
 
         textsFiles = request.FILES.get('musicTexts', None)
