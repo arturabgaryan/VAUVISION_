@@ -33,6 +33,7 @@
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="https://unpkg.com/element-ui/lib/umd/locale/en.js"></script>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 <script type="application/javascript">
     ELEMENT.locale(ELEMENT.lang.en)
 </script>
@@ -428,25 +429,21 @@
                     }
                 })
             },
-            uploadFiles: function(){
-            document.querySelector('.loading-screen').style.display = 'flex'
-            document.querySelector('.maindiv').style.display = 'none'
-            let UplData = new FormData()
-            this.files.forEach((file) => {
-            alert(file)
-             UplData.append('file1', file)
-            })
-            alert(UplData)
+<!--            uploadFiles: function(){-->
+<!--            document.querySelector('.loading-screen').style.display = 'flex'-->
+<!--            document.querySelector('.maindiv').style.display = 'none'-->
+<!--            let UplData = new FormData()-->
+<!--            this.files.forEach((file) => {-->
 
-            $.ajax({
-        url: '/index',
-        type: 'POST',
-        data: UplData,
-        processData: false,
-        contentType: false,
-        success: alert('success!')
-    })
-            },
+<!--             UplData.append('file1', file)-->
+<!--            })-->
+
+
+<!--            fetch('/index', {-->
+<!--                      method: 'POST',-->
+<!--                      body: UplData-->
+<!--                    })-->
+<!--            },-->
             deleteScanFile: function (idx) {
             this.counter2 -= 1
                 const {[idx]: propValue, ...rest} = this.scanfiles
