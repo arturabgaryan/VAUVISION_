@@ -309,7 +309,7 @@ def index(request):
         ) != 0:
             print("EMAIL WAS SENT")
 
-    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     name = request.POST.get('releaseName', None)
