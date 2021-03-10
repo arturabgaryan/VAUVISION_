@@ -284,7 +284,7 @@ def index(request):
     print("request files list tracks:\n", request.FILES.getlist('files'))
 
     email = request.POST.get('email', None)
-    files = request.FILES.get('file1',None)
+    filess = request.FILES.get('file1',None)
 
     try:
         user = User.objects.get(username=email)
@@ -448,7 +448,7 @@ Spotify:{request.POST.get('spotify',None)}
             path_or_file=io.BytesIO(request.FILES.get('releaseCover').read()),
             dst_path=f'{folder_path}/cover.jpeg')
 
-        for file in files:
+        for file in filess:
             y.upload(
                 path_or_file=io.BytesIO(file),
                 dst_path=f'{folder_path}/cover.jpeg')
