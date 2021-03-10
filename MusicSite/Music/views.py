@@ -439,19 +439,19 @@ Spotify:{request.POST.get('spotify',None)}
         folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder}"
 
         y.mkdir(folder_path)
-        # for track in request.FILES.getlist('files'):
-        #     y.upload(
-        #         path_or_file=io.BytesIO(track.read()),
-        #         dst_path=f'{folder_path}/{track}')
+        for track in request.FILES.getlist('files'):
+            y.upload(
+                path_or_file=io.BytesIO(track.read()),
+                dst_path=f'{folder_path}/{track}')
 
         y.upload(
             path_or_file=io.BytesIO(request.FILES.get('releaseCover').read()),
             dst_path=f'{folder_path}/cover.jpeg')
 
-        for file in filess:
-            y.upload(
-                path_or_file=io.BytesIO(file),
-                dst_path=f'{folder_path}/cover.jpeg')
+        # for file in filess:
+        #     y.upload(
+        #         path_or_file=io.BytesIO(file),
+        #         dst_path=f'{folder_path}/cover.jpeg')
 
 
         textsFiles = request.FILES.get('musicTexts', None)
