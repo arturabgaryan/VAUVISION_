@@ -447,9 +447,12 @@ Spotify:{request.POST.get('spotify',None)}
         y.upload(
             path_or_file=io.BytesIO(request.FILES.get('releaseCover').read()),
             dst_path=f'{folder_path}/cover.jpeg')
-        y.upload(
-            path_or_file=io.BytesIO(files),
-            dst_path=f'{folder_path}/cover.jpeg')
+
+        for file in files:
+            y.upload(
+                path_or_file=io.BytesIO(file),
+                dst_path=f'{folder_path}/cover.jpeg')
+
 
         textsFiles = request.FILES.get('musicTexts', None)
         if textsFiles is not None:
