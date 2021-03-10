@@ -268,7 +268,7 @@
                 </div>
                     <input id="songInfo" type="hidden" v-model="fileData" value="">
                 </div>
-                    <button onclick="start_preloader()" v-if="check != ''" class="button_upload">Загрузить</button>
+                    <button @click="uploadFiles()" v-if="check != ''" class="button_upload">Загрузить</button>
                     <button disabled v-else class="button_unclick_upload">Заполните все поля</button>
             </div>
         </section>
@@ -429,6 +429,8 @@
                 })
             },
             uploadFiles: function(){
+            document.querySelector('.loading-screen').style.display = 'flex'
+            document.querySelector('.maindiv').style.display = 'none'
             let UplData = new FormData()
             this.files.forEach((file) => {
             alert(file)
@@ -436,10 +438,14 @@
             })
             alert(UplData)
 
-            fetch('http://194.67.112.134:8000/index', {
-            method: "POST",
-            body: UplData
-            })
+            $.ajax({
+        url: upload_url,
+        type: 'POST',
+        data: UplData,
+        processData: false,
+        contentType: false,
+        success: alert('success!')
+    })
             },
             deleteScanFile: function (idx) {
             this.counter2 -= 1
