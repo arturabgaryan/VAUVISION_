@@ -269,7 +269,7 @@
                 </div>
                     <input id="songInfo" type="hidden" v-model="fileData" value="">
                 </div>
-                    <button @click="uploadFiles()" v-if="check != ''" class="button_upload">Загрузить</button>
+                    <button @click="start_preloader()" v-if="check != ''" class="button_upload">Загрузить</button>
                     <button disabled v-else class="button_unclick_upload">Заполните все поля</button>
             </div>
         </section>
