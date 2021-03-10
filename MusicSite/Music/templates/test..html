@@ -429,10 +429,10 @@
                     }
                 })
             },
-<!--            uploadFiles: function(){-->
-<!--            document.querySelector('.loading-screen').style.display = 'flex'-->
-<!--            document.querySelector('.maindiv').style.display = 'none'-->
-<!--            let UplData = new FormData()-->
+            uploadFiles: function(){
+            document.querySelector('.loading-screen').style.display = 'flex'
+            document.querySelector('.maindiv').style.display = 'none'
+            let UplData = new FormData()
 <!--            this.files.forEach((file) => {-->
 
 <!--             UplData.append('file1', file)-->
@@ -443,7 +443,7 @@
 <!--                      method: 'POST',-->
 <!--                      body: UplData-->
 <!--                    })-->
-<!--            },-->
+            },
             deleteScanFile: function (idx) {
             this.counter2 -= 1
                 const {[idx]: propValue, ...rest} = this.scanfiles
