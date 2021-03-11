@@ -332,26 +332,10 @@ def index(request):
         )
         paspinfo.save()
 
-    try:
-        paspinfo = PaspInfo.objects.get(email=email)
-    except:
-        paspinfo = PaspInfo.objects.create(
-            full_name=request.POST.get('FULLNAME', None),
-            who_given=request.POST.get('GIVEN_BY', None),
-            when_given=request.POST.get('GIVEN_DATE', None),
-            data_born=request.POST.get('BIRTH_DATE', None),
-            place_born=request.POST.get('REGISTRATION', None),
-            grajdanstvo=request.POST.get('COUNTRY', None),
-            seria_num=request.POST.get('SERIE_NUM', None),
-            artist_name=request.POST.get('artistName', None),
-            email=email
-        )
-        paspinfo.save()
-
     if folder_name in [directory.name for directory in list(
             y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
     )]:
-        y.remove('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{}'.format(name))
+        y.remove('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{}'.format(folder_name))
 
     if folder_name not in [directory.name for directory in list(
         y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
