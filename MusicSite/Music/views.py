@@ -295,17 +295,17 @@ def index(request):
         user.save()
 
         if send_email_util(
-            addr_from="vau@vauvision.com",
-            password="20052005Vauvision!",
-            addr_to=email,
-            subject="Аккаунт VAUVISION успешно создан!",
-            body="""Добрый день!
-Вы отправили заявку на дистрибуцию на лейбле VAUVISION.\n
-Теперь у вас на сайте есть личный кабинет, где вы можете видеть свои загруженные релизы, договоры, получить отчёты о прослушиваниях и прочую информацию. Функционал кабинета постепенно будет пополняться.\n\n
-Логин: {} \nПароль: {} \n\n
-Пожалуйста, сохраните логин и пароль от личного кабинета. Скоро на почту придет письмо с договором и дальнейшие инструкции.\n
-По всем возникающим вопросам пишите в сообщения паблика https://vk.com/vauvisionlabel, либо в телеграмм https://teleg.run/vauvision_bot""".format(
-                email, generated_pass)
+                addr_from="vau@vauvision.com",
+                password="20052005Vauvision!",
+                addr_to=email,
+                subject="Аккаунт VAUVISION успешно создан!",
+                body="""Добрый день!
+        Вы отправили заявку на дистрибуцию на лейбле VAUVISION.\n
+        Теперь у вас на сайте есть личный кабинет, где вы можете видеть свои загруженные релизы, договоры, получить отчёты о прослушиваниях и прочую информацию. Функционал кабинета постепенно будет пополняться.\n\n
+        Логин: {} \nПароль: {} \n\n
+        Пожалуйста, сохраните логин и пароль от личного кабинета. Скоро на почту придет письмо с договором и дальнейшие инструкции.\n
+        По всем возникающим вопросам пишите в сообщения паблика https://vk.com/vauvisionlabel, либо в телеграмм https://teleg.run/vauvision_bot""".format(
+                    email, generated_pass)
         ) != 0:
             print("EMAIL WAS SENT")
 
@@ -337,181 +337,175 @@ def index(request):
     )]:
         y.remove('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{}'.format(folder_name))
 
-    if folder_name not in [directory.name for directory in list(
-        y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
-    )]:
-        if request.POST.get('filthyCheck', None) == 'Да':
-            filthy = request.POST.get('filthyTracks', None)
-        else:
-            filthy = 'Нет'
+    if request.POST.get('filthyCheck', None) == 'Да':
+        filthy = request.POST.get('filthyTracks', None)
+    else:
+        filthy = 'Нет'
 
-        docsrequest = DocsRequest.objects.create(
-            contact=request.POST.get('vk', None),
-            release_name=name,
-            email=email,
-            release_date=datetime.strptime(
-                request.POST.get('releaseDate', None), "%Y-%m-%d"),
-            filthy=filthy,
-            release_type=request.POST.get('releaseType', None),
-            number=datetime.now().strftime("%d%m%Y"),
-            cover=request.FILES.get('releaseCover', None),
-            artisi_name=request.POST.get('artistName', None),
-            cover_name='cover__{}.{}'.format(
-                email,
-                request.FILES.get('releaseCover', None).name.split(".")[-1]),
-        )
-        docsrequest.save()
-        req = Requests.objects.create(
-            artist_name=request.POST.get('artistName', None),
+    docsrequest = DocsRequest.objects.create(
+        contact=request.POST.get('vk', None),
+        release_name=name,
+        email=email,
+        release_date=datetime.strptime(
+            request.POST.get('releaseDate', None), "%Y-%m-%d"),
+        filthy=filthy,
+        release_type=request.POST.get('releaseType', None),
+        number=datetime.now().strftime("%d%m%Y"),
+        cover=request.FILES.get('releaseCover', None),
+        artisi_name=request.POST.get('artistName', None),
+        cover_name='cover__{}.{}'.format(
+            email,
+            request.FILES.get('releaseCover', None).name.split(".")[-1]),
+    )
+    docsrequest.save()
+    req = Requests.objects.create(
+        artist_name=request.POST.get('artistName', None),
+        artist=email,
+        name=request.POST.get('releaseName', None),
+        full_name=request.POST.get('releaseName', None),
+        release_date=datetime.strptime(
+            request.POST.get('releaseDate', None), "%Y-%m-%d"),
+    )
+    req.save()
+
+    tiktok = request.POST.get('tiktokTime', None)
+    genre = request.POST.get('releaseGenre', 'Не указан')
+
+    info_to_file = f"""1) Краткая информация о релизе: \n
+    ВК автора {docsrequest.contact}
+    Spotify:{request.POST.get('spotify', None)}
+    Карточка AppleMusic:{request.POST.get('appmusic', None)}
+    Почта автора: {email}
+    ----------------------------------------------------------------
+    Оформление карточни в ВК: Тип релиза: {docsrequest.release_type}
+    Имя релиза: {docsrequest.release_name}
+    Имя артиста: {request.POST.get('artistName', None)}
+    Треки с матом: {docsrequest.filthy}
+    Дата релиза: {docsrequest.release_date}
+    Площадки релиза: {request.POST.get('releasePlaces', None)}
+    Воспроизводить трек в Tik Tok с {tiktok}c.
+    Жанр: {genre}
+    Доп. информация: {request.POST.get('releaseSubInfo', None)}
+    Промо-план: {request.POST.get('promo-plan', None)}
+    Пользователь узнал о лейбле: {request.POST.get('infoSource', None)}
+    ----------------------------------------------------------------"""
+
+    files = [key for key, value in request.POST.items() if 'text' in key]
+    files = [i.split("_")[0] for i in files]
+
+    info_to_file = ""
+    for f in files:
+        track = Track.objects.create(
+            name=".".join(f.split(".")[:-1]),
+            melody_author=request.POST.get(str(f) + '_music', None),
+            text_author=request.POST.get(str(f) + '_text', None),
+            singer=request.POST.get(str(f) + '_artis', None),
+            request=docsrequest,
             artist=email,
-            name=request.POST.get('releaseName', None),
+            artist_name=request.POST.get('artistName', None),
             full_name=request.POST.get('releaseName', None),
             release_date=datetime.strptime(
-                request.POST.get('releaseDate', None), "%Y-%m-%d"),
+                request.POST.get('releaseDate', None), "%Y-%m-%d")
         )
-        req.save()
+        track.save()
 
-        tiktok = request.POST.get('tiktokTime', None)
-        genre = request.POST.get('releaseGenre', 'Не указан')
+        info_to_file += f"""\nИмя: {f}
+    Автор мелодии: {track.melody_author}
+    Автор текста: {track.text_author}
+    Исполнитель: {track.singer}\n\n"""
 
-        info_to_file = f"""1) Краткая информация о релизе: \n
-ВК автора {docsrequest.contact}
-Spotify:{request.POST.get('spotify',None)}
-Карточка AppleMusic:{request.POST.get('appmusic',None)}
-Почта автора: {email}
-----------------------------------------------------------------
-Оформление карточни в ВК: Тип релиза: {docsrequest.release_type}
-Имя релиза: {docsrequest.release_name}
-Имя артиста: {request.POST.get('artistName', None)}
-Треки с матом: {docsrequest.filthy}
-Дата релиза: {docsrequest.release_date}
-Площадки релиза: {request.POST.get('releasePlaces', None)}
-Воспроизводить трек в Tik Tok с {tiktok}c.
-Жанр: {genre}
-Доп. информация: {request.POST.get('releaseSubInfo', None)}
-Промо-план: {request.POST.get('promo-plan',None)}
-Пользователь узнал о лейбле: {request.POST.get('infoSource', None)}
-----------------------------------------------------------------"""
+    folder = docsrequest.artisi_name + ' - ' + name
+    folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder}"
 
-        files = [key for key, value in request.POST.items() if 'text' in key]
-        files = [i.split("_")[0] for i in files]
-
-        info_to_file = ""
-        for f in files:
-            track = Track.objects.create(
-                name=".".join(f.split(".")[:-1]),
-                melody_author=request.POST.get(str(f)+'_music', None),
-                text_author=request.POST.get(str(f)+'_text', None),
-                singer=request.POST.get(str(f)+'_artis', None),
-                request=docsrequest,
-                artist=email,
-                artist_name=request.POST.get('artistName', None),
-                full_name=request.POST.get('releaseName', None),
-                release_date=datetime.strptime(
-                    request.POST.get('releaseDate', None), "%Y-%m-%d")
-            )
-            track.save()
-
-
-
-            info_to_file += f"""\nИмя: {f}
-Автор мелодии: {track.melody_author}
-Автор текста: {track.text_author}
-Исполнитель: {track.singer}\n\n"""
-
-        folder = docsrequest.artisi_name+' - '+name
-        folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder}"
-
-        y.mkdir(folder_path)
-        for track in request.FILES.getlist('files'):
-            y.upload(
-                path_or_file=io.BytesIO(track.read()),
-                dst_path=f'{folder_path}/{track}')
-
+    y.mkdir(folder_path)
+    for track in request.FILES.getlist('files'):
         y.upload(
-            path_or_file=io.BytesIO(request.FILES.get('releaseCover').read()),
-            dst_path=f'{folder_path}/cover.jpeg')
+            path_or_file=io.BytesIO(track.read()),
+            dst_path=f'{folder_path}/{track}')
 
-        # for file in filess:
-        #     y.upload(
-        #         path_or_file=io.BytesIO(file),
-        #         dst_path=f'{folder_path}/cover.jpeg')
+    y.upload(
+        path_or_file=io.BytesIO(request.FILES.get('releaseCover').read()),
+        dst_path=f'{folder_path}/cover.jpeg')
 
+    # for file in filess:
+    #     y.upload(
+    #         path_or_file=io.BytesIO(file),
+    #         dst_path=f'{folder_path}/cover.jpeg')
 
-        textsFiles = request.FILES.get('musicTexts', None)
-        if textsFiles is not None:
-            y.upload(
-                path_or_file=io.BytesIO(textsFiles.read()),
-                dst_path=f'{folder_path}/texts.docx')
+    textsFiles = request.FILES.get('musicTexts', None)
+    if textsFiles is not None:
+        y.upload(
+            path_or_file=io.BytesIO(textsFiles.read()),
+            dst_path=f'{folder_path}/texts.docx')
 
-        appFiles = request.FILES.get('CaraoceMusicTexts', None)
-        if appFiles is not None:
-            y.upload(
-                path_or_file=io.BytesIO(appFiles.read()),
-                dst_path=f'{folder_path}/texts.ttml')
+    appFiles = request.FILES.get('CaraoceMusicTexts', None)
+    if appFiles is not None:
+        y.upload(
+            path_or_file=io.BytesIO(appFiles.read()),
+            dst_path=f'{folder_path}/texts.ttml')
 
-        info_to_file = render_to_string('breif.txt', {
-            'docsrequest_contact': docsrequest.contact,
-            'spotify': request.POST.get('spotify', 'Нет'),
-            'applemusic': request.POST.get('appmusic', 'Нет'),
-            'email': email,
-            'artist_name': request.POST.get('artistName', None),
-            'docsrequest_release_type': docsrequest.release_type,
-            'docsrequest_release_name': docsrequest.release_name,
-            'docsrequest_filthy': docsrequest.filthy,
-            'docsrequest_release_date': docsrequest.release_date,
-            'releasePlaces': request.POST.get('releasePlaces', 'Нет данных'),
-            'tiktok': tiktok,
-            'genre': genre,
-            'releaseSubInfo': request.POST.get('releaseSubInfo', 'Нет данных'),
-            'promo_plan': request.POST.get('promo-plan', 'Нет данных'),
-            'infoSource': request.POST.get('infoSource', 'Нет данных'),
-            'f': f,
-            'tracks': info_to_file,
-            'paspinfo_full_name': paspinfo.full_name,
-            'paspinfo_when_given': paspinfo.when_given,
-            'paspinfo_who_given': paspinfo.who_given,
-            'paspinfo_data_born': paspinfo.data_born,
-            'paspinfo_place_born': paspinfo.place_born,
-            'COUNTRY': request.POST.get('COUNTRY', 'Нет данных'),
-            'SERIE_NUM': request.POST.get('SERIE_NUM', 'Нет данных'),
-        })
-        y.upload(path_or_file=io.BytesIO(
-            info_to_file.encode('utf-8')),
-            dst_path=f'{folder_path}/brief.txt')
+    info_to_file = render_to_string('breif.txt', {
+        'docsrequest_contact': docsrequest.contact,
+        'spotify': request.POST.get('spotify', 'Нет'),
+        'applemusic': request.POST.get('appmusic', 'Нет'),
+        'email': email,
+        'artist_name': request.POST.get('artistName', None),
+        'docsrequest_release_type': docsrequest.release_type,
+        'docsrequest_release_name': docsrequest.release_name,
+        'docsrequest_filthy': docsrequest.filthy,
+        'docsrequest_release_date': docsrequest.release_date,
+        'releasePlaces': request.POST.get('releasePlaces', 'Нет данных'),
+        'tiktok': tiktok,
+        'genre': genre,
+        'releaseSubInfo': request.POST.get('releaseSubInfo', 'Нет данных'),
+        'promo_plan': request.POST.get('promo-plan', 'Нет данных'),
+        'infoSource': request.POST.get('infoSource', 'Нет данных'),
+        'f': f,
+        'tracks': info_to_file,
+        'paspinfo_full_name': paspinfo.full_name,
+        'paspinfo_when_given': paspinfo.when_given,
+        'paspinfo_who_given': paspinfo.who_given,
+        'paspinfo_data_born': paspinfo.data_born,
+        'paspinfo_place_born': paspinfo.place_born,
+        'COUNTRY': request.POST.get('COUNTRY', 'Нет данных'),
+        'SERIE_NUM': request.POST.get('SERIE_NUM', 'Нет данных'),
+    })
+    y.upload(path_or_file=io.BytesIO(
+        info_to_file.encode('utf-8')),
+        dst_path=f'{folder_path}/brief.txt')
 
-        cost = request.POST.get('cost', 0)
-        code = request.POST.get('code', None)
+    cost = request.POST.get('cost', 0)
+    code = request.POST.get('code', None)
 
-        code_val = 0
-        try:
-            PromoCode = PromoCodes.objects.get(name=code)
-            code_val = PromoCode.value
-        except:
-            pass
-        print(code_val)
-        if code_val != 0:
-            cost = int(cost) - int(code_val)
-        else:
-            pass
-        Configuration.account_id = 777380
-        Configuration.secret_key = 'live_LVF05e4VifbQannin4i6BakLHjkECd1YpIlkR2SsOTI'
+    code_val = 0
+    try:
+        PromoCode = PromoCodes.objects.get(name=code)
+        code_val = PromoCode.value
+    except:
+        pass
+    print(code_val)
+    if code_val != 0:
+        cost = int(cost) - int(code_val)
+    else:
+        pass
+    Configuration.account_id = 777380
+    Configuration.secret_key = 'live_LVF05e4VifbQannin4i6BakLHjkECd1YpIlkR2SsOTI'
 
-        payment = Payment.create({
-            "amount": {
-                "value": str(cost),
-                "currency": "RUB"
-            },
-            "confirmation": {
-                "type": "redirect",
-                "return_url": "https://vk.com/vauvisionlabel/"
-            },
-            "capture": True,
-            "description": "Заказ {} - {}".format(request.POST.get('releaseName', None).replace(
-                    " ", "__"),request.POST.get('artistName', None))
-        }, uuid.uuid4())
+    payment = Payment.create({
+        "amount": {
+            "value": str(cost),
+            "currency": "RUB"
+        },
+        "confirmation": {
+            "type": "redirect",
+            "return_url": "https://vk.com/vauvisionlabel/"
+        },
+        "capture": True,
+        "description": "Заказ {} - {}".format(request.POST.get('releaseName', None).replace(
+            " ", "__"), request.POST.get('artistName', None))
+    }, uuid.uuid4())
 
-        confirmation_url = payment.confirmation.confirmation_url
+    confirmation_url = payment.confirmation.confirmation_url
 
     return redirect(confirmation_url)
 
