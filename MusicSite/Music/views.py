@@ -315,7 +315,7 @@ def index(request):
     name = request.POST.get('releaseName', None)
 
     art_name = request.POST.get('artistName', None)
-    folder_name = art_name + ' - ' + name
+    folder_name = art_name + ' - ' + name + '(1)'
     try:
         paspinfo = PaspInfo.objects.get(email=email)
     except:
@@ -332,10 +332,14 @@ def index(request):
         )
         paspinfo.save()
 
-    if folder_name in [directory.name for directory in list(
+    for i in range(1000):
+        if folder_name in [directory.name for directory in list(
             y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
-    )]:
-        y.remove('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{}'.format(folder_name))
+        )]:
+            folder_name = folder_name[:-2] + str(i) + ')'
+        else:
+            break
+            
 
     if request.POST.get('filthyCheck', None) == 'Да':
         filthy = request.POST.get('filthyTracks', None)
