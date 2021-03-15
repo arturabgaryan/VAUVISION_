@@ -339,7 +339,7 @@ def index(request):
             folder_name = folder_name[:-2] + str(i) + ')'
         else:
             break
-            
+
 
     if request.POST.get('filthyCheck', None) == 'Да':
         filthy = request.POST.get('filthyTracks', None)
@@ -418,8 +418,7 @@ def index(request):
     Автор текста: {track.text_author}
     Исполнитель: {track.singer}\n\n"""
 
-    folder = docsrequest.artisi_name + ' - ' + name
-    folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder}"
+    folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder_name}"
 
     y.mkdir(folder_path)
     for track in request.FILES.getlist('files'):
