@@ -102,12 +102,12 @@ def upload(request):
     try:
         y.download(
             f"{folder_path}/Signed-{name}.pdf",
-            f"Music/static/documents/Signed-{name.replace(' ','_')}_offer.pdf"
+            f"Music/static/documents/Signed-{name}_offer.pdf"
         )
     except:
         y.download(
             f"{folder_path2}/Signed-{name}.pdf",
-            f"Music/static/documents/Signed-{name.replace(' ','_')}_offer.pdf"
+            f"Music/static/documents/Signed-{name}_offer.pdf"
         )
 
 
