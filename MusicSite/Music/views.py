@@ -95,7 +95,7 @@ def upload(request):
         y.upload(
             path_or_file=io.BytesIO(
                 request.FILES.get(name2).read()),
-            dst_path=f"{folder_path}/Signed-{name}.pdf",
+            dst_path=f"{folder_path2}/Signed-{name}.pdf",
             overwrite=True
         )
 
@@ -106,7 +106,7 @@ def upload(request):
         )
     except:
         y.download(
-            f"{folder_path}/Signed-{name}.pdf",
+            f"{folder_path2}/Signed-{name}.pdf",
             f"Music/static/documents/Signed-{name.replace(' ','_')}_offer.pdf"
         )
 
