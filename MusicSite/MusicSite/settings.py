@@ -25,7 +25,7 @@ SECRET_KEY = '=gsbn7zng7js+#48fr)er+_$@@ghxcyy+!1k3&^bs9a)05o^(e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['eaab10857dc5.ngrok.io','127.0.0.1','194.67.112.134']
+ALLOWED_HOSTS = ['vauvision.com','www.vauvision.com','127.0.0.1','194.67.112.134']
 
 
 # Application definition
@@ -37,9 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Music',
-    'vau_form',
-    'vau_page',
+    'Music'
 ]
 
 MIDDLEWARE = [
