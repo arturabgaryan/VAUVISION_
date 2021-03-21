@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <link rel="stylesheet" href="/static/styles/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/styles/css/card.css">
+    <link rel="stylesheet" href="/static/styles/css/media.css">
+    <title>{{ card.author }} – {{ card.release }}</title>
+    <style>
+        body {
+            background: url("/{{ cover.cover }}");
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            min-width: 100vw;
+            overflow: hidden;
+        }
+
+        #wrapper {
+            background-color: rgba(0, 0, 0, 0.8);
+            min-height: 100vh;
+            min-width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <section class="section container">
+
+        <div class="card in_production">
+            <div class="card-image">
+                <figure class="image">
+                    <img src="/{{ cover.cover }}" width="auto" alt="Placeholder image">
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-content">
+                        <p class="title is-4">{{ card.release }}</p>
+                        <p style="color: grey" class="subtitle is-5">{{ card.author }}</p>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <div class="music">
+                        <div class="media-container">
+                            {% for social in socials %}
+
+                                <a href="{{ social.link }}" target="_blank" class="columns is-mobile">
+
+
+                                    <div class="column is-one-fifth-desktop is-one-fifth-mobile link_logo">
+
+                                        <img src="{{ social.logo }}" class="music_logo" alt="">
+
+
+                                    </div>
+                                    <div class="column  is-three-fifth-desktop is-two-fifth-mobile">
+                                        <span class="card-social-name">{{ social.name }}</span>
+                                    </div>
+
+                                    <div class="column is-one-fifth-desktop is-two-fifth-mobile open_link">
+                                        <span>Открыть</span>
+                                    </div>
+
+
+                                </a>
+
+
+                            {% endfor %}
+
+                            {% for social in networks %}
+                                <a href="{{ social.link }}" target="_blank" class="columns is-mobile">
+                                    <div class="column is-one-fifth-desktop is-one-fifth-mobile link_logo">
+
+                                        <img src="{{ social.logo }}" class="music_logo" alt="">
+
+
+                                    </div>
+                                    <div class="column is-three-fifth-desktop is-two-fifth-mobile ">
+                                        <span class="card-social-name" style="text-transform: capitalize">{{ social.name }}</span>
+                                    </div>
+
+                                    <div class="column is-one-fifth-desktop is-two-fifth-mobile open_link">
+                                        <span>Подписаться</span>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div id="cardLogo">
+                    <a target="_blank" href="https://vk.com/vauvisionlabel">
+                        <img src="/static/media/images/vauvision_logo_white_column.png" width="80%" style="height: 100%" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+</body>
+</html>

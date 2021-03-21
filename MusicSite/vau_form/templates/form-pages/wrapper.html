@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <link rel="stylesheet" href="/static/styles/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/styles/css/styles.css">
+    <link rel="stylesheet" href="/static/styles/css/card.css">
+    <link rel="stylesheet" href="/static/styles/css/media.css">
+    <title>VAU.PROMO – сервис общих ссылок для ваших релизов</title>
+</head>
+<body>
+<header>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <img src="/static/media/images/vauvision_white.png" alt="">
+            </a>
+
+        </div>
+    </nav>
+
+</header>
+<section class="section container">
+    {% block content %}
+    {% endblock %}
+</section>
+
+</body>
+</html>

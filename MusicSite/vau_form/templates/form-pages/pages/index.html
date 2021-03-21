@@ -1,0 +1,603 @@
+{% extends '../wrapper.html' %}
+
+{% block content %}
+
+    <section class="screen section__form">
+
+        {% verbatim %}
+        <div class="section__title">
+            <h1 class="subtitle">Создай общую ссылку на свой релиз со всеми площадками и соц. сетями бесплатно!</h1>
+            <p>Тут ты можешь бесплатно сделать себе лендинг со ссылками на все площадки и соц. сети. Введи нужные
+                ссылки, поставь их в любом порядке и жми "Создать". Откроется новое окно с лендингом – скопируй ссылку
+                из браузерной строки и пользуйся!</p>
+        </div>
+
+        <div id="app" class="columns is-desktop">
+            <div class="column is-three-fifth-desktop is-full-mobile">
+
+                <form enctype="multipart/form-data" action="" method="post" class="form">
+                    {% endverbatim %}
+                    {% csrf_token %}
+                    {% verbatim %}
+                    <div class="section__title">
+                        <h1 class="subtitle is-4">Данные об исполнителе</h1>
+                    </div>
+                    <div class="control">
+                        <label for="" class="label">Исполнитель</label>
+                        <input required v-model="authorName" type="text" name="authorName"
+                               placeholder="Например: PHARAOH"
+                               class="input">
+                    </div>
+                    <div class="control">
+                        <label for="" class="label">Название релиза</label>
+                        <input v-model="releaseName" type="text"
+                               name="releaseName"
+                               required
+                               placeholder="Например: Да или нет (Prod. by Dark Money)"
+                               class="input">
+                    </div>
+                    <div class="control">
+                        <label for="" class="label">
+                            Обложка релиза
+                            <br> <span
+                                class="subinfo">Обложка должна быть квадратной, до 3 МБ, формат .jpg или .png</span>
+                        </label>
+                        <input ref="imageCover"
+                               type="file"
+                               v-model="cover"
+                               data-max-size="32154"
+                               name="imageCover"
+                               required
+                               @input="getImage"
+                               accept=".jpg, .jpeg, .png"
+                               class="input"
+                        >
+                        <span v-if="uploadError != ''" style="color: red">{{ uploadError }}</span>
+                    </div>
+                    <div class="columns">
+                        <div class="column music__control">
+                            <div class="section__title">
+                                <h1 class="subtitle is-4">Ссылки на площадки</h1>
+                            </div>
+                            <div class="control">
+                                <label for="" class="label">Выберите площадку</label>
+                                <div class="select">
+                                    <select @change="addPoint" style="text-transform: capitalize"
+                                            v-model="currentPoint">
+
+                                        <option :value="social" v-for="social in availableLinks">{{ social.name }}
+                                        </option>
+                                    </select>
+                                    <br>
+
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 5%" v-for="social in selected_ones">
+
+                                <div v-if="!social.name.includes('Собственная ссылка')" class="control">
+                                    <div class="control">
+                                        <input type="hidden" :value="social.position" :name="social.name + 'Position'"
+                                               style="">
+                                        <label for="" class="label">Ссылка на <span
+                                                style="text-transform: capitalize">{{ social.name }}</span></label>
+                                        <div class="columns is-mobile"
+                                             style="align-items: center; margin-top: 0; margin-bottom: 0;">
+                                            <div class="column is-four-fifths-desktop is-four-fifths-mobile">
+
+                                                <input required :name="social.name" required v-model="social.link"
+                                                       type="url"
+                                                       :placeholder="'https://' + [[ social.placeholder ]] + '/***'"
+                                                       class="input">
+                                            </div>
+
+                                            <div class="column is-one-fifth-mobile">
+                                                <div style="display: flex; align-items: center;flex-direction: column;">
+                                                    <img width="15px"
+                                                         style="margin: 10px; cursor: pointer"
+                                                         @click="upPoint(social)"
+                                                         src="/static/media/icons/arrow-up.png"
+                                                         alt="">
+
+
+                                                    <img width="15px"
+                                                         style="margin: 10px; cursor: pointer"
+                                                         @click="downPoint(social)"
+                                                         height="7px"
+                                                         src="/static/media/icons/arrow-down.png"
+                                                         alt="">
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="rmSocial">
+                                        <a @click="rmPoint(social)">Удалить</a>
+                                    </div>
+
+                                </div>
+                                <div v-else class="control">
+                                    <div class="control">
+                                        <div class="control">
+                                            <input type="hidden" :value="social.position"
+                                                   :name="social.name + 'Position'"
+                                                   style="">
+                                            <label for="" class="label">Название ресурса</label>
+                                            <input required class="input" v-model="social.secondname"
+                                                   :name="social.name + 'SecondName'" type="text">
+                                        </div>
+                                        <label for="" class="label">Ссылка на <span
+                                                style="text-transform: capitalize">{{ social.secondname }}</span></label>
+                                        <div class="columns is-mobile"
+                                             style="align-items: center; margin-top: 0; margin-bottom: 0;">
+                                            <div class="column is-four-fifths-desktop is-four-fifths-mobile">
+
+                                                <input required :name="social.name" required v-model="social.link"
+                                                       type="url"
+                                                       :placeholder="'https://' + [[ social.placeholder ]] + '/***'"
+                                                       class="input">
+                                            </div>
+
+                                            <div class="column is-one-fifth-mobile">
+                                                <div style="display: flex; align-items: center;flex-direction: column;">
+                                                    <img width="15px"
+                                                         style="margin: 10px; cursor: pointer"
+                                                         @click="upPoint(social)"
+                                                         src="/static/media/icons/arrow-up.png"
+                                                         alt="">
+
+
+                                                    <img width="15px"
+                                                         style="margin: 10px; cursor: pointer"
+                                                         @click="downPoint(social)"
+                                                         height="7px"
+                                                         src="/static/media/icons/arrow-down.png"
+                                                         alt="">
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="rmSocial">
+                                            <a @click="rmPoint(social)">Удалить</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="column social__control">
+                            <div class="section__title">
+                                <h1 class="subtitle is-4">Ссылки на соц. сети</h1>
+                            </div>
+                            <div class="control">
+                                <label for="" class="label">Выберите соц. сеть</label>
+                                <div class="select">
+                                    <select @change="addNetwork" style="text-transform: capitalize"
+                                            v-model="currentNetwork">
+
+                                        <option v-for="social in availableSocials" :value="social">
+                                            {{ social.name }}
+                                        </option>
+                                    </select>
+                                    <br>
+
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 5%" v-for="social in selected_nets">
+                                <div class="control">
+
+                                    <div class="control">
+                                        <input type="hidden" :value="social.position"
+                                               :name="social.name + 'Position'"
+                                               style="">
+                                        <div v-if="social.name.includes('Собственная')" class="contol" style="margin-bottom: 10px">
+                                            <label for="" class="label">Введите имя ресурса</label>
+                                            <input v-model="social.secondname" :name="social.name + 'SecondName'" class="input" type="text">
+                                        </div>
+                                        <label v-if="social.name.includes('Собственная')" for="" class="label">Ссылка на
+                                            <span
+                                                    style="text-transform: capitalize">{{ social.secondname }}</span></label>
+                                        <label v-else="social.name.includes('Собственная')" for="" class="label">Ссылка на
+                                            <span
+                                                    style="text-transform: capitalize">{{ social.name }}</span></label>
+                                        <div class="columns is-mobile"
+                                             style="align-items: center; margin-top: 0; margin-bottom: 0;">
+
+
+                                            <div class="column is-four-fifths">
+
+                                                <input
+                                                        :name="social.name"
+                                                        required
+                                                        v-model="social.link"
+                                                        type="url"
+                                                        :placeholder="'https://' + [[ social.placeholder ]] + '/***'"
+                                                        class="input">
+                                            </div>
+                                            <div class="column is-one-fifth-mobile">
+                                                <div style="display: flex; align-items: center;flex-direction: column;">
+                                                    <img width="15px"
+                                                         style="margin: 10px; cursor: pointer"
+                                                         @click="upNet(social)"
+                                                         src="/static/media/icons/arrow-up.png"
+                                                         alt="">
+
+
+                                                    <img width="15px"
+                                                         style="margin: 10px; cursor: pointer"
+                                                         @click="downNet(social)"
+                                                         height="7px"
+                                                         src="/static/media/icons/arrow-down.png"
+                                                         alt="">
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="rmSocial">
+                                        <a @click="rmNetwork(social)">Удалить</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="selected_ones.length == 0" class="control">
+                        <button style="background: #bd4c00; color: white;" disabled type="submit" class="button">
+                            Создать
+                        </button>
+                    </div>
+                    <div v-else class="control">
+                        <button style="background: #bd4c00; color: white" type="submit" class="button">Создать</button>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="column is-two-fifths-desktop is-full-mobile">
+                <div class="section__title">
+                    <h1 class="subtitle is-4">Как это будет выглядеть</h1>
+                </div>
+                <div class="card">
+                    <div class="card-image">
+                        <figure v-if="cover_url !== ''" class="image">
+                            <img :src="cover_url" alt="Placeholder image">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4">{{ releaseName }}</p>
+                                <p style="color: grey" class="subtitle is-5">{{ authorName }}</p>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <div class="music">
+                                <div class="media-container">
+                                    <a v-for="social in selected_ones" v-if="social.link.includes(social.placeholder)"
+                                       :href="social.link" target="_blank" class="columns is-mobile">
+
+
+                                        <div class="column is-one-fifth-desktop is-one-fifth-mobile link_logo">
+
+                                            <img :src="social.logo" class="music_logo" alt="">
+
+
+                                        </div>
+                                        <div class="column is-three-fifth-desktop is-two-fifth-mobile ">
+                                            <span v-if="!social.name.includes('Собственная ссылка')">{{ social.name }}</span>
+                                            <span v-else>{{ social.secondname }}</span>
+                                        </div>
+
+                                        <div class="column is-one-fifth open_link">
+                                            <span>Открыть</span>
+                                        </div>
+
+
+                                    </a>
+                                    <a v-for="network in selected_nets"
+                                       v-if="network.link.includes(network.placeholder)"
+                                       :href="network.link" target="_blank" class="columns is-mobile">
+
+
+                                        <div class="column is-one-fifth-desktop is-one-fifth-mobile link_logo">
+
+                                            <img :src="network.logo" class="music_logo">
+
+
+                                        </div>
+
+                                        <div class="column is-mobile is-three-fifth-desktop is-two-fifth-mobile">
+                                            <span v-if="network.name.includes('Собственная')" style="text-transform: capitalize">{{ network.secondname }}</span>
+                                            <span v-else style="text-transform: capitalize">{{ network.name}}</span>
+                                        </div>
+
+                                        <div class="column is-one-fifth-desktop is-two-fifth-mobile open_link">
+                                            <span>Подписаться</span>
+                                        </div>
+
+
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="cardLogo">
+                                <a target="_blank" href="https://vk.com/vauvisionlabel">
+                                    <img src="/static/media/images/vauvision_logo_white_column.png" width="80%"
+                                         style="height: 100%"
+                                         alt="">
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {% endverbatim %}
+
+    </section>
+    <script src="/static/styles/js/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+
+            data: {
+                socials: [
+                    {
+                        name: 'AppleMusic',
+                        link: '',
+                        placeholder: 'music.apple.com',
+                        logo: '/static/media/icons/applemusic.png',
+                        position: null
+                    },
+                    {
+                        name: 'iTunes',
+                        link: '',
+                        placeholder: 'music.apple.com',
+                        logo: '/static/media/icons/itunes.png',
+                        position: null
+                    },
+                    {
+                        name: 'Boom',
+                        link: '',
+                        placeholder: 'boom.ru',
+                        logo: '/static/media/icons/boom.png',
+                        position: null
+                    },
+                    {
+                        name: 'Youtube Music',
+                        link: '',
+                        placeholder: 'music.youtube.com',
+                        logo: '/static/media/icons/youtube.png',
+                        position: null
+                    },
+                    {
+                        name: 'Yandex Music',
+                        link: '',
+                        placeholder: 'music.yandex.ru',
+                        logo: '/static/media/icons/yandex.png',
+                        position: null
+                    },
+                    {
+                        name: 'Spotify',
+                        link: '',
+                        placeholder: 'open.spotify.com',
+                        logo: '/static/media/icons/spotify.png',
+                        position: null
+                    },
+                    {
+                        name: 'SoundCloud',
+                        link: '',
+                        placeholder: 'soundcloud.com',
+                        logo: '/static/media/icons/soundcloud.png',
+                        position: null
+                    },
+                    {
+                        name: 'Deezer',
+                        link: '',
+                        placeholder: 'deezer.com',
+                        logo: '/static/media/icons/deezer.png',
+                        position: null
+                    },
+                    {
+                        name: 'VK',
+                        link: '',
+                        placeholder: 'vk.com',
+                        logo: '/static/media/icons/vk.png',
+                        position: null
+                    },
+                    {
+                        name: 'Собственная ссылка 1',
+                        secondname: '',
+                        link: '',
+                        placeholder: '',
+                        logo: '/static/media/icons/vauvision-circle.png',
+                        position: null
+                    },
+                    {
+                        name: 'Собственная ссылка 2',
+                        secondname: '',
+                        link: '',
+                        placeholder: '',
+                        logo: '/static/media/icons/vauvision-circle.png',
+                        position: null
+                    },
+                    {
+                        name: 'Собственная ссылка 3',
+                        secondname: '',
+                        link: '',
+                        placeholder: '',
+                        logo: '/static/media/icons/vauvision-circle.png',
+                        position: null
+                    },
+
+                ],
+                selected_socials: [],
+
+                networks: [
+                    {
+                        name: 'VKontakte',
+                        link: '',
+                        placeholder: 'vk.com',
+                        logo: '/static/media/icons/vk.png',
+                        position: null
+                    },
+                    {
+                        name: 'instagram',
+                        link: '',
+                        placeholder: 'instagram.com',
+                        logo: '/static/media/icons/instagram.png',
+                        position: null
+                    },
+                    {
+                        name: 'tik tok',
+                        link: '',
+                        placeholder: 'tiktok.com',
+                        logo: '/static/media/icons/tiktok.png',
+                        position: null
+                    },
+                    {
+                        name: 'youtube',
+                        secondname: '',
+                        link: '',
+                        placeholder: 'youtube.com',
+                        logo: '/static/media/icons/video_youtube.png',
+                        position: null
+                    },
+                    {
+                        name: 'Собственная соц. сеть 1',
+                        secondname: '',
+                        link: '',
+                        placeholder: '',
+                        logo: '/static/media/icons/vauvision-circle.png',
+                        position: null
+                    },
+                    {
+                        name: 'Собственная соц. сеть 2',
+                        secondname: '',
+                        link: '',
+                        placeholder: '',
+                        logo: '/static/media/icons/vauvision-circle.png',
+                        position: null
+                    },
+                    {
+                        name: 'Собственная соц. сеть 3',
+                        secondname: '',
+                        link: '',
+                        placeholder: '',
+                        logo: '/static/media/icons/vauvision-circle.png',
+                        position: null
+                    },
+
+                ],
+                selected_networks: [],
+                authorName: '',
+                releaseName: '',
+                currentPoint: null,
+                currentNetwork: null,
+                uploadError: '',
+                cover: '',
+                cover_url: '',
+            },
+            methods: {
+                getImage: function () {
+                    const image = this.$refs.imageCover.files[0];
+                    if (image.size / 1024 / 1024 <= 3) {
+                        this.cover_url = URL.createObjectURL(image)
+                        this.uploadError = ''
+                    } else {
+                        this.cover_url = '';
+                        this.uploadError = 'Файл слишком большой.';
+                        this.cover = '';
+                    }
+
+                },
+                addPoint: function () {
+                    point = this.currentPoint;
+                    if (point) {
+                        point.position = this.selected_ones.length;
+                        this.selected_socials.push(point)
+                    }
+
+                },
+                addNetwork: function () {
+                    point = this.currentNetwork;
+                    if (point) {
+                        point.position = this.selected_nets.length;
+                        this.selected_networks.push(point)
+                    }
+                },
+                rmPoint: function (point) {
+                    point.link = '';
+                    point.position = null;
+                    this.selected_socials = this.selected_socials.filter(item => item !== point);
+                    for (i = 0; i < this.selected_ones.length; i++) {
+                        this.selected_ones[i].position = i;
+                    }
+                },
+                rmNetwork: function (point) {
+                    point.link = '';
+                    this.selected_networks = this.selected_networks.filter(item => item !== point);
+                    for (i = 0; i < this.selected_networks.length; i++) {
+                        this.selected_networks[i].position = i;
+                    }
+                },
+                upPoint: function (social) {
+                    if (social.position > 0) {
+                        this.selected_ones[social.position - 1].position += 1;
+                        social.position = social.position - 1;
+                    }
+                },
+                downPoint: function (social) {
+                    if (social.position < this.selected_ones.length - 1) {
+                        this.selected_ones[social.position + 1].position -= 1;
+                        social.position = social.position + 1;
+                    }
+
+                },
+                upNet: function (social) {
+                    if (social.position > 0) {
+                        this.selected_nets[social.position - 1].position += 1;
+                        social.position = social.position - 1;
+                    }
+                },
+                downNet: function (social) {
+                    if (social.position < this.selected_nets.length - 1) {
+                        this.selected_nets[social.position + 1].position -= 1;
+                        social.position = social.position + 1;
+                    }
+
+                }
+            },
+            computed: {
+                availableLinks: function () {
+                    return this.socials.filter(item => !(this.selected_socials.includes(item)))
+                },
+                availableSocials: function () {
+                    return this.networks.filter(item => !(this.selected_networks.includes(item)))
+                },
+                selected_ones: function () {
+                    return this.selected_socials.filter(item => item != null).sort(function (a, b) {
+                        return a.position - b.position;
+                    })
+                },
+                selected_nets: function () {
+                    return this.selected_networks.filter(item => item != null).sort(function (a, b) {
+                        return a.position - b.position;
+                    })
+                }
+            }
+        })
+    </script>
+{% endblock %}

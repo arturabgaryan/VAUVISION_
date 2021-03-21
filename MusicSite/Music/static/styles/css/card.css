@@ -1,0 +1,90 @@
+
+.media-container .columns {
+    align-items: center;
+}
+
+.media-container .columns .column {
+    display: flex;
+    align-items: center;
+}
+
+.media-container .columns .column.open_link {
+    display: flex;
+    text-align: center;
+    font-size: 1rem;
+}
+
+
+#cardLogo, #cardLogo a {
+    display: flex;
+    justify-content: center;
+}
+
+.card.in_production {
+    width: 40%;
+    margin: auto;
+    border-radius: 10px;
+    background: #1e1e1e;
+    color: white;
+    text-align: center;
+}
+.card{
+    border-radius: 10px;
+    background: #1e1e1e;
+    color: white;
+    text-align: center;
+}
+.card figure img {
+    border-radius: 10px 10px 0 0;
+}
+
+.card .content {
+    padding-top: 3%;
+}
+
+.card .media .media-content {
+    text-align: center;
+}
+
+.card img.music_logo {
+    width: 45px;
+}
+
+.card .content {
+    text-align: center;
+}
+
+.card .title, .subtitle {
+    color: white;
+}
+.column.is-three-fifth-desktop.is-half-mobile{
+    font-size: 1.4rem;
+}
+.link_logo{
+    justify-content: center;
+    text-transform: uppercase;
+}
+.open_link {
+    justify-content: flex-end;
+}
+.card .columns.is-mobile {
+    border-bottom: 1px solid #434343;
+    cursor: pointer;
+    color: white;
+}
+
+.card .columns.is-mobile:first-child {
+    border-top: 1px solid #434343
+}
+.media-container .columns:hover {
+    transition: 0.05s;
+    background-color: #434343;
+    color: #1890ff;
+}
+
+#cardLogo, #cardLogo a {
+    margin-top: 4%;
+}
+.column.is-three-fifth-desktop.is-two-fifth-mobile{
+    padding-left: 0;
+}

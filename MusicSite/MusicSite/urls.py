@@ -47,4 +47,7 @@ urlpatterns = [
     path('send_email',send_email),
     path('index',index),
     path('upload',upload),
+    path('promo', form.index),
+    path('<artistId>/', landing.artist_card)
+
 ]

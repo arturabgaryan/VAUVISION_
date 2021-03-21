@@ -1,0 +1,65 @@
+@font-face {
+    font-family: titles;
+    src: url("/static/media/fonts/bebasneue/bebasneueregular.ttf");
+}
+
+@font-face {
+    font-family: main;
+    src: url("/static/media/fonts/oswald/Oswald-Light.ttf");
+}
+
+body {
+    background: url("/static/media/images/background_type_7.jpeg");
+    background-size: cover;
+    font-family: main;
+    padding-bottom: 10%;
+    color: white;
+    font-size: 1.3em;
+}
+
+header nav.navbar {
+    background-color: black;
+    padding: 2%;
+}
+
+section.section.container {
+    margin-top: 10%;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 5%;
+}
+.screen{
+    margin-bottom: 5%;
+}
+h1.title {
+    color: white;
+    font-family: titles;
+    font-size: 3rem;
+    text-transform: uppercase;
+}
+span.subinfo{
+    color: grey;
+    font-size: 0.9rem;
+}
+.section__title {
+    text-align: center;
+    margin-bottom: 5%;
+    margin-top: 2%;
+}
+.info{
+    text-align: justify;
+}
+h1.subtitle{
+    color: white;
+    font-family: titles;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+label.label{
+    color: white;
+    font-size: 1.2rem;
+}
+div.control{
+    margin-bottom: 3%;
+}
+
