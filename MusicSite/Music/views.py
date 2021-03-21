@@ -79,11 +79,11 @@ def upload(request):
     APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id', None)
-    name = str(name[:-2]) + '(1)'
+    name = name[:-2]
     name2 = str(name + "_name")
 
-    folder_path = f"/КАТАЛОГ VAUVISION/{name}"
-    folder_path2 = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name}"
+    folder_path = f"/КАТАЛОГ VAUVISION/{name + '(1)'}"
+    folder_path2 = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name + '(1)'}"
     _ = request.FILES.get(name+"_name")
     try:
         y.upload(
