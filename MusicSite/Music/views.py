@@ -102,12 +102,12 @@ def upload(request):
     try:
         y.download(
             f"{folder_path}/Signed-{name}.pdf",
-            f"Music/static/documents/Signed-{name}_offer.pdf"
+            f"Music/static/documents/Signed-{name.replace(' ','_')}_offer.pdf"
         )
     except:
         y.download(
             f"{folder_path2}/Signed-{name}.pdf",
-            f"Music/static/documents/Signed-{name}_offer.pdf"
+            f"Music/static/documents/Signed-{name.replace(' ','_')}_offer.pdf"
         )
 
 
@@ -133,7 +133,7 @@ def account(request):
         tracks = Requests.objects.filter(artist=request.user.username)
         signed_tracks = []
         for track in tracks:
-            if os.path.isfile(path.replace(')(',track.artist_name + ' - ' + track.full_name)):
+            if os.path.isfile(path.replace(')(',track.artist_name.replace(' ','_') + '_-_' + track.full_name.replace(' ','_'))):
                 signed_tracks.append(track.full_name)
                 print("Yes:", track.full_name)
             else:
