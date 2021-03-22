@@ -644,7 +644,7 @@ display:none;
                    {% if track.full_name in signed_tracks %}
                    <p style="font-size:16px;display:flex;">"{{ track.name }}" - {{track.artist_name}}, Дата релиза - {{track.release_date}} |  <label for="{{track.artist_name}} - {{track.full_name}}_id" class="upload" style="color=#2f8747;"><span style="color:#2f8747;"><b >Загрузить договор</b></span></label><input onchange="countRabbits({{track.artist_name}} - {{track.full_name}}_id)"  type="file" id="{{track.artist_name}} - {{track.full_name}}_id" name="{{track.artist_name}} - {{track.full_name}}_name"  accept=".pdf" style="display:none;">  | <a onclick="doalert(this)" class="download" href="/static/documents/Signed-{{track.artist_name}} - {{track.full_name}}_offer.pdf" download style="color:#bd2e1e!important;"> <b>Скачать</b></a> |</p>
                    {% else %}
-                   <p style="font-size:16px;display:flex;">"{{ track.name }}" - {{track.artist_name}}, Дата релиза - {{track.release_date}} |  <label for="{{track.artist_name}} - {{track.full_name}}_id" class="upload" style="color:#2f8747;"><span style="color=#2f8747;"><b>Загрузить договор</b></span></label><input onchange="countRabbits({{track.artist_name}} - {{track.full_name}}_id)"  type="file" id="{{track.artist_name}} - {{track.full_name}}_id" name="{{track.artist_name}} - {{track.full_name}}_name"  accept=".pdf" style="display:none;">  | </p>
+                   <p style="font-size:16px;display:flex;">"{{ track.name }}" - {{track.artist_name}}, Дата релиза - {{track.release_date}} |  <label for="{{track.artist_name}} - {{track.full_name}}_id" class="upload" style="color:#2f8747;"><span style="color=#2f8747;"><b>Загрузить договор</b></span></label><input onchange="countRabbits({{track.artist_name}} - {{track.full_name}}_id)" type="file" id="{{track.artist_name}} - {{track.full_name}}_id" name="{{track.artist_name}} - {{track.full_name}}_name"  accept=".pdf" style="display:none;">  | </p>
                    {% endif %}
                </form>
                <p class="pcLine">_____________________________________________________________________________________________________________________________________________________________________________________________</p>
@@ -688,16 +688,11 @@ $("#form2").submit();
 </script>
 <script>
 function countRabbits(id) {
-
     var contentPanelId = id;
     var user_id = $("#form_"+contentPanelId).attr("id");
-
-    $("#"+contentPanelId).change(function(){
   $("#file-name").text(this.files[0].name);
   $("#form_"+contentPanelId).submit();
-  });
-
-    }
+}
 </script>
 <script>if(!window._teletypeWidget){window._teletypeWidget = window._teletypeWidget || {};!function(){var t = document.getElementsByTagName("app-teletype-root");if (t.length > 0 && _teletypeWidget.init)return;var d = new Date().getTime();var n = document.createElement("script"),c = document.getElementsByTagName("script")[0];n.id = "teletype-widget-embed",n.src = "https://widget.teletype.app/init.js?_=" + d,n.async = !0,n.setAttribute("data-embed-version", "0.1");c.parentNode.insertBefore(n, c);}();document.addEventListener("teletype.ready", function(){console.log("Teletype ready")});window.teletypeExternalId = "c2qoqiY8npuPI14ZaSD_3ZLkjqbEliBRbqcwcXAz4g8y5OGTz_PVF0AMj9DN_PKB";}</script>
 </body>
