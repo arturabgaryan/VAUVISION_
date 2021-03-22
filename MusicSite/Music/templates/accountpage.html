@@ -688,8 +688,8 @@ $("#form2").submit();
 </script>
 <script>
 function countRabbits() {
-alert('1');
-<!--    var contentPanelId = id;-->
+alert(event.target.id)
+    var contentPanelId = id;
 <!--  $("#file-name").text($('#' + contentPanelId).files[0].name);-->
 <!--$("#form_"+contentPanelId).submit();-->
 }
