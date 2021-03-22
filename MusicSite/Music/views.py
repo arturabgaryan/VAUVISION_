@@ -101,12 +101,14 @@ def upload(request):
     try:
         y.download(
             f"{folder_path}/Signed-{name}.pdf",
-            f"/static/documents/Signed-{name}_offer.pdf"
+            f"{}/Music/static/documents/Signed-{name}_offer.pdf".format(
+            str(os.path.abspath('')))
         )
     except:
         y.download(
             f"{folder_path2}/Signed-{name}.pdf",
-            f"/static/documents/Signed-{name}_offer.pdf"
+            f"{}/Music/static/documents/Signed-{name}_offer.pdf".format(
+            str(os.path.abspath('')))
         )
 
 
