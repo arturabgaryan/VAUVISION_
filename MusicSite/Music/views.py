@@ -107,7 +107,7 @@ def upload(request):
     except:
         y.download(
             f"{folder_path2}/Signed-{name}.pdf",
-            "/Music/static/documents/Signed-{}_offer.pdf".format(
+            "{}/Music/static/documents/Signed-{}_offer.pdf".format(
             str(os.path.abspath('')),name)
         )
 
