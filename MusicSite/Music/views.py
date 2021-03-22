@@ -93,7 +93,7 @@ def upload(request):
         )
     except:
         y.upload(
-            path_or_file=io.BytesIO(request.FILES.get(name2)),
+            path_or_file=io.BytesIO(request.FILES.get(name2).read()),
             dst_path=f"{folder_path2}/Signed-{name}.pdf",
             overwrite=True
         )
