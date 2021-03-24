@@ -423,11 +423,11 @@ def index(request):
     for track in request.FILES.getlist('files'):
         y.upload(
             path_or_file=io.BytesIO(track.read()),
-            dst_path=f'{folder_path}/{track}')
+            dst_path=f'{folder_path}/{track}',overwrite=True)
 
     y.upload(
         path_or_file=io.BytesIO(request.FILES.get('releaseCover').read()),
-        dst_path=f'{folder_path}/cover.jpeg')
+        dst_path=f'{folder_path}/cover.jpeg',overwrite=True)
 
     # for file in filess:
     #     y.upload(
@@ -438,13 +438,13 @@ def index(request):
     if textsFiles is not None:
         y.upload(
             path_or_file=io.BytesIO(textsFiles.read()),
-            dst_path=f'{folder_path}/texts.docx')
+            dst_path=f'{folder_path}/texts.docx',overwrite=True)
 
     appFiles = request.FILES.get('CaraoceMusicTexts', None)
     if appFiles is not None:
         y.upload(
             path_or_file=io.BytesIO(appFiles.read()),
-            dst_path=f'{folder_path}/texts.ttml')
+            dst_path=f'{folder_path}/texts.ttml',overwrite=True)
 
     info_to_file = render_to_string('breif.txt', {
         'docsrequest_contact': docsrequest.contact,
@@ -474,7 +474,7 @@ def index(request):
     })
     y.upload(path_or_file=io.BytesIO(
         info_to_file.encode('utf-8')),
-        dst_path=f'{folder_path}/brief.txt')
+        dst_path=f'{folder_path}/brief.txt',overwrite=True)
 
     cost = request.POST.get('cost', 0)
     code = request.POST.get('code', None)
