@@ -76,38 +76,39 @@ def back(request):
 
 @ensure_csrf_cookie
 def upload(request):
+
     APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id', None)
     name = name[:-2]
     name2 = name + "_name"
-
-    folder_path = f"/КАТАЛОГ VAUVISION/{name + '(1)'}"
-    folder_path2 = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{name + '(1)'}"
+    folder_path = ''
+    folder_name = name + '(1)'
     _ = request.FILES.get(name+"_name")
-    try:
-        y.upload(
-            path_or_file=io.BytesIO(request.FILES.get(name2).read()),
-            dst_path=f"{folder_path2}/Signed-{name}.pdf",
-            overwrite=True
-        )
-    except:
-        y.upload(
-            path_or_file=io.BytesIO(request.FILES.get(name2).read()),
-            dst_path=f"{folder_path}/Signed-{name}.pdf",
-            overwrite=True
-        )
 
-    try:
-        y.download(
-            f"{folder_path2}/Signed-{name}.pdf",
-            f"Music/static/documents/Signed-{name}_offer.pdf"
-        )
-    except:
-        y.download(
-            f"{folder_path}/Signed-{name}.pdf",
-            f"Music/static/documents/Signed-{name}_offer.pdf"
-        )
+    for i in range(1000):
+        if folder_name in [directory.name for directory in list(
+            y.listdir('/КАТАЛОГ VAUVISION/')
+        )]:
+            folder_name = folder_name[:-2] + str(i) + ')'
+            folder_path = f"/КАТАЛОГ VAUVISION/{folder_name}"
+            break
+        elif folder_name in [directory.name for directory in list(
+            y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
+        )]:
+            folder_name = folder_name[:-2] + str(i) + ')'
+            folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder_name}"
+            break
+
+    y.upload(
+        path_or_file=io.BytesIO(request.FILES.get(name2).read()),
+        dst_path=f"{folder_path}/Signed-{name}.pdf",
+        overwrite=True
+    )
+    y.download(
+        f"{folder_path}/Signed-{name}.pdf",
+        f"Music/static/documents/Signed-{name}_offer.pdf"
+    )
 
 
     return redirect('/account')
