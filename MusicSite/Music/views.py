@@ -81,11 +81,9 @@ def upload(request):
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id', None)
     name = name[:-2]
-    name2 = name + "_name"
     folder_path = ''
     folder_name = name + '(1)'
     _ = request.FILES.get(name+"_name")
-
     for i in range(1,1000):
         folder_name = folder_name[:-2] + str(i) + ')'
         if folder_name in [directory.name for directory in list(
@@ -245,7 +243,7 @@ def send_email(request):
     # else:
     #     daytime = 'Доброй ночи, '
     addr_from = "vau@vauvision.com"                         # Отправитель
-    password = "20052005Vauvision!"
+    password = "vau20052005vau"
     addr_to = request.GET.get('email', None)
     name = request.GET.get('name', None)
 
@@ -295,7 +293,7 @@ def index(request):
 
         if send_email_util(
                 addr_from="vau@vauvision.com",
-                password="20052005Vauvision!",
+                password="vau20052005vau",
                 addr_to=email,
                 subject="Аккаунт VAUVISION успешно создан!",
                 body="""Добрый день!
