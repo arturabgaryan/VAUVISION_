@@ -86,17 +86,16 @@ def upload(request):
     folder_name = name + '(1)'
     _ = request.FILES.get(name+"_name")
 
-    for i in range(1000):
+    for i in range(1,1000):
+        folder_name = folder_name[:-2] + str(i) + ')'
         if folder_name in [directory.name for directory in list(
             y.listdir('/КАТАЛОГ VAUVISION/')
         )]:
-            folder_name = folder_name[:-2] + str(i) + ')'
             folder_path = f"/КАТАЛОГ VAUVISION/{folder_name}"
             break
         elif folder_name in [directory.name for directory in list(
             y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
         )]:
-            folder_name = folder_name[:-2] + str(i) + ')'
             folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder_name}"
             break
 
