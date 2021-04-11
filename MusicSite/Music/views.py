@@ -243,7 +243,7 @@ def send_email(request):
     # else:
     #     daytime = 'Доброй ночи, '
     addr_from = "vau@vauvision.com"                         # Отправитель
-    password = "vau20052005vau"
+    password = "vauvau20052005!!!"
     addr_to = request.GET.get('email', None)
     name = request.GET.get('name', None)
 
@@ -293,7 +293,7 @@ def index(request):
 
         if send_email_util(
                 addr_from="vau@vauvision.com",
-                password="vau20052005vau",
+                password="vauvau20052005!!!",
                 addr_to=email,
                 subject="Аккаунт VAUVISION успешно создан!",
                 body="""Добрый день!
