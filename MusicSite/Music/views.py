@@ -77,7 +77,7 @@ def back(request):
 @ensure_csrf_cookie
 def upload(request):
 
-    APP_TOKEN = os.getenv('APP_TOKEN')
+    APP_TOKEN = os.environ['APP_TOKEN']
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id', None)
     name = name[:-2]
