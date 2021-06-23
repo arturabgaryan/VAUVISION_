@@ -77,7 +77,7 @@ def back(request):
 @ensure_csrf_cookie
 def upload(request):
 
-    APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+    APP_TOKEN = os.environ['APP_TOKEN']
     y = yadisk.YaDisk(token=APP_TOKEN)
     name = request.GET.get('id', None)
     name = name[:-2]
@@ -302,7 +302,7 @@ def index(request):
         ) != 0:
             print("EMAIL WAS SENT")
 
-    APP_TOKEN = os.environ['APP_TOKEN']
+    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     name = request.POST.get('releaseName', None)
@@ -315,7 +315,7 @@ def index(request):
         paspinfo = PaspInfo.objects.create(
             full_name=request.POST.get('FULLNAME', None),
             who_given=request.POST.get('GIVEN_BY', None),
-            when_given=request.POST.get('GIVEN_DATE', None), 
+            when_given=request.POST.get('GIVEN_DATE', None),
             data_born=request.POST.get('BIRTH_DATE', None),
             place_born=request.POST.get('REGISTRATION', None),
             grajdanstvo=request.POST.get('COUNTRY', None),
@@ -807,7 +807,7 @@ def deletecode(request):
 
 
 
-'''APP_TOKEN = 'AgAAAAA_8uwPAAarbHv2-khOnkCRmzitHRkTKdU'
+'''APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     artistName = request.POST['artistName']
