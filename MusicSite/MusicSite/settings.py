@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['vauvision.com','www.vauvision.com','127.0.0.1','194.67.112.134']
 
+
 # Application definition
 
 INSTALLED_APPS = [
