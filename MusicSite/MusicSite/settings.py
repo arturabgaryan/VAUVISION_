@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['vauvision.com','www.vauvision.com','127.0.0.1','194.67.112.134']
 
-os.environ['APP_TOKEN'] = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
 # Application definition
 
 INSTALLED_APPS = [
