@@ -276,10 +276,6 @@ def form(request):
 
 @csrf_exempt
 def index(request):
-    print("request files: \n", request.FILES)
-    print("request post\n", request.POST)
-    print("request files list tracks:\n", request.FILES.getlist('files'))
-
     email = request.POST.get('email', None)
     # filess = request.FILES.get('file1',None)
 
@@ -306,7 +302,7 @@ def index(request):
         ) != 0:
             print("EMAIL WAS SENT")
 
-    APP_TOKEN = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
+    APP_TOKEN = os.environ['APP_TOKEN']
     y = yadisk.YaDisk(token=APP_TOKEN)
 
     name = request.POST.get('releaseName', None)
@@ -319,7 +315,7 @@ def index(request):
         paspinfo = PaspInfo.objects.create(
             full_name=request.POST.get('FULLNAME', None),
             who_given=request.POST.get('GIVEN_BY', None),
-            when_given=request.POST.get('GIVEN_DATE', None),
+            when_given=request.POST.get('GIVEN_DATE', None), Mu
             data_born=request.POST.get('BIRTH_DATE', None),
             place_born=request.POST.get('REGISTRATION', None),
             grajdanstvo=request.POST.get('COUNTRY', None),
