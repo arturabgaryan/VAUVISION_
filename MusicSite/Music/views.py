@@ -315,7 +315,7 @@ def index(request):
         paspinfo = PaspInfo.objects.create(
             full_name=request.POST.get('FULLNAME', None),
             who_given=request.POST.get('GIVEN_BY', None),
-            when_given=request.POST.get('GIVEN_DATE', None), Mu
+            when_given=request.POST.get('GIVEN_DATE', None), 
             data_born=request.POST.get('BIRTH_DATE', None),
             place_born=request.POST.get('REGISTRATION', None),
             grajdanstvo=request.POST.get('COUNTRY', None),
