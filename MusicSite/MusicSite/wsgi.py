@@ -12,5 +12,6 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MusicSite.settings')
+os.environ['APP_TOKEN'] = 'AgAAAAAVXvrzAAZUx8r6G2rp3EZGpwXtTZI4KNg'
 
 application = get_wsgi_application()
