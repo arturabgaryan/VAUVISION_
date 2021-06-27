@@ -478,7 +478,7 @@ def index(request):
         code_val = PromoCode.value
     except:
         pass
-    print(code_val)
+
     if code_val != 0:
         cost = int(cost) - int(code_val)
     else:
@@ -496,6 +496,26 @@ def index(request):
             "return_url": "https://vk.com/vauvisionlabel/"
         },
         "capture": True,
+        "receipt": {
+            "customer": {
+                "full_name": "{}".format( request.POST.get('artistName', None)),
+                "email": "{}".format(email)
+            },
+            "items": [
+                {
+                    "description": "Заказ {} - {}".format(request.POST.get('releaseName', None).replace(
+            " ", "__"), request.POST.get('artistName', None)),
+                    "quantity": "1.00",
+                    "amount": {
+                        "value":  str(cost),
+                        "currency": "RUB"
+                    },
+                    "vat_code": "2",
+                    "payment_mode": "full_prepayment",
+                    "payment_subject": "commodity"
+                }
+            ]
+        },
         "description": "Заказ {} - {}".format(request.POST.get('releaseName', None).replace(
             " ", "__"), request.POST.get('artistName', None))
     }, uuid.uuid4())
