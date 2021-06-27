@@ -83,23 +83,23 @@ def upload(request):
     folder_path = ''
     folder_name = name + '(1)'
     _ = request.FILES.get(name+"_name")
-    for i in range(1,1000):
-        folder_name = folder_name[:-2] + str(i) + ')'
-        if folder_name in [directory.name for directory in list(
+    if folder_name in [directory.name for directory in list(
             y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
-        )]:
-            folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder_name}"
-            break
+    )]:
+        folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder_name}"
 
-    y.upload(
-        path_or_file=io.BytesIO(request.FILES.get(name).read()),
-        dst_path=f"{folder_path}/Signed-{name}.pdf",
-        overwrite=True
-    )
-    y.download(
-        f"{folder_path}/Signed-{name}.pdf",
-        f"Music/static/documents/Signed-{name}_offer.pdf"
-    )
+        try:
+               y.upload(
+                   path_or_file=io.BytesIO(request.FILES.get(name).read()),
+                   dst_path=f"{folder_path}/Signed-{name}.pdf",
+                   overwrite=True
+               )
+               y.download(
+                   f"{folder_path}/Signed-{name}.pdf",
+                   f"Music/static/documents/Signed-{name}_offer.pdf"
+               )
+        except:
+            pass
 
 
     return redirect('/account')
