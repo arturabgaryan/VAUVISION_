@@ -86,18 +86,13 @@ def upload(request):
     for i in range(1,1000):
         folder_name = folder_name[:-2] + str(i) + ')'
         if folder_name in [directory.name for directory in list(
-            y.listdir('/КАТАЛОГ VAUVISION/')
-        )]:
-            folder_path = f"/КАТАЛОГ VAUVISION/{folder_name}"
-            break
-        elif folder_name in [directory.name for directory in list(
             y.listdir('/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/')
         )]:
             folder_path = f"/ДИСТРИБУЦИЯ VAUVISION/Заявки на загрузку/{folder_name}"
             break
 
     y.upload(
-        path_or_file=io.BytesIO(request.FILES.get(name2).read()),
+        path_or_file=io.BytesIO(request.FILES.get(name).read()),
         dst_path=f"{folder_path}/Signed-{name}.pdf",
         overwrite=True
     )
