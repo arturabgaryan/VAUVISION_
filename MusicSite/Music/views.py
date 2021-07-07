@@ -237,7 +237,7 @@ def send_email(request):
     # else:
     #     daytime = 'Доброй ночи, '
     addr_from = "vau@vauvision.com"                         # Отправитель
-    password = "vauvau20052005!!!"
+    password = "20052005Vauvision!!!"
     addr_to = request.GET.get('email', None)
     name = request.GET.get('name', None)
 
@@ -283,7 +283,7 @@ def index(request):
 
         if send_email_util(
                 addr_from="vau@vauvision.com",
-                password="vauvau20052005!!!",
+                password="20052005Vauvision!!!",
                 addr_to=email,
                 subject="Аккаунт VAUVISION успешно создан!",
                 body="""Добрый день!
@@ -734,7 +734,7 @@ def submit_request(request):
                          dst_path=f'{folder_path}/{offer_name}.pdf/')
 
                 addr_from = "vau@vauvision.com"  # Отправитель
-                password = "vauvau20052005!!!"
+                password = "20052005Vauvision!!!"
                 addr_to = request.POST['EMAIL']
 
                 msg = MIMEMultipart()  # Создаем сообщение
@@ -866,7 +866,7 @@ def deletecode(request):
         user.save()
 
         addr_from = "vau@vauvision.com"  # Отправитель
-        password = "20052005Vauvision!"
+        password = "20052005Vauvision!!!"
         addr_to = email
 
         msg = MIMEMultipart()  # Создаем сообщение
