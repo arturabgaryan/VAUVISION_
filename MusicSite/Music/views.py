@@ -479,7 +479,7 @@ def index(request):
     else:
         pass
     Configuration.account_id = 777380
-    Configuration.secret_key = 'live_LVF05e4VifbQannin4i6BakLHjkECd1YpIlkR2SsOTI'
+    Configuration.secret_key = 'live_PIi4pbjvihMoYOAliHI8iJxlUw0_bd_zOUqqRrSACBI'
 
     payment = Payment.create({
         "amount": {
